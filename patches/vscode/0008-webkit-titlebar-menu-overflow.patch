@@ -1,0 +1,13 @@
+diff --git a/src/vs/workbench/browser/parts/titlebar/media/titlebarpart.css b/src/vs/workbench/browser/parts/titlebar/media/titlebarpart.css
+--- a/src/vs/workbench/browser/parts/titlebar/media/titlebarpart.css
++++ b/src/vs/workbench/browser/parts/titlebar/media/titlebarpart.css
+@@ -49,6 +49,7 @@
+-.monaco-workbench.web.safari .part.titlebar,
+-.monaco-workbench.web.safari .part.titlebar > .titlebar-container {
++.monaco-workbench.safari .part.titlebar,
++.monaco-workbench.safari .part.titlebar > .titlebar-container {
+ 	/* Must be scoped to safari due to #148851 */
+ 	/* Is required in safari due to #149476 */
++	/* VSC-Light uses WebKit with the native workbench, without the web class. */
+ 	overflow: visible;
+ }
