@@ -256,6 +256,18 @@ const ipcRenderer: IpcRendererShim = {
     if (channel === "vscode:fetchShellEnv") {
       return Promise.resolve({});
     }
+    if (channel === "vscLight:host") {
+      const request = args[0] as { id: number; method: string; args: unknown };
+      const bridge = nativeWindow.webkit?.messageHandlers.vscLightInvoke;
+      if (!bridge) return Promise.reject(new Error("Native host RPC bridge is unavailable"));
+      return Promise.resolve(bridge.postMessage({ id: request.id, method: request.method, args: encodeIpcValue(request.args) }))
+        .then((raw) => {
+          const response = decodeIpcValue(raw) as { id?: number; ok?: boolean; value?: unknown; error?: { message?: string; code?: string; osCode?: number } };
+          if (response?.id !== request.id) throw new Error(`Host RPC reply ID mismatch for ${request.method}`);
+          if (!response.ok) throw Object.assign(new Error(response.error?.message ?? "Host RPC failed"), response.error);
+          return response.value;
+        });
+    }
     const bridge = nativeWindow.webkit?.messageHandlers.vscLightInvoke;
     if (!bridge) {
       return Promise.reject(new Error(`Native invoke bridge is unavailable for ${channel}`));

@@ -1,0 +1,43 @@
+diff --git a/src/vs/workbench/browser/workbench.ts b/src/vs/workbench/browser/workbench.ts
+index 190ce6f55af..b429d62602c 100644
+--- a/src/vs/workbench/browser/workbench.ts
++++ b/src/vs/workbench/browser/workbench.ts
+@@ -287,7 +287,9 @@ export class Workbench extends Layout {
+ 			}
+ 		}
+ 
+-		FontMeasurements.readFontInfo(mainWindow, createBareFontInfoFromRawSettings(configurationService.getValue('editor'), PixelRatio.getInstance(mainWindow).value));
++		const rawSettings = configurationService.getValue<Parameters<typeof createBareFontInfoFromRawSettings>[0]>('editor');
++		console.info('[vsc-light:render] restoring font info', JSON.stringify({ type: typeof rawSettings, count: rawSettings ? Object.keys(rawSettings).length : 0, fontFamily: rawSettings?.fontFamily, fontSize: rawSettings?.fontSize }));
++		FontMeasurements.readFontInfo(mainWindow, createBareFontInfoFromRawSettings(rawSettings, PixelRatio.getInstance(mainWindow).value));
+ 	}
+ 
+ 	private storeFontInfo(storageService: IStorageService): void {
+@@ -321,6 +323,7 @@ export class Workbench extends Layout {
+ 
+ 		// Warm up font cache information before building up too many dom elements
+ 		this.restoreFontInfo(storageService, configurationService);
++		console.info('[vsc-light:render] font info restored');
+ 
+ 		// Create Parts
+ 		for (const { id, role, classes, options } of [
+@@ -345,6 +348,7 @@ export class Workbench extends Layout {
+ 
+ 		// Add Workbench to DOM
+ 		this.parent.appendChild(this.mainContainer);
++		console.info('[vsc-light:render] workbench DOM attached');
+ 	}
+ 
+ 	private createPart(id: string, role: string, classes: string[]): HTMLElement {
+diff --git a/src/vs/workbench/electron-browser/desktop.main.ts b/src/vs/workbench/electron-browser/desktop.main.ts
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -406,6 +406,7 @@ export class DesktopMain extends Disposable {
+ 
+ 			return workspaceService;
+ 		} catch (error) {
++			console.error('[vsc-light:desktop] workspace configuration initialization failed', error, error instanceof Error ? error.stack : '');
+ 			onUnexpectedError(error);
+ 
+ 			return workspaceService;
+ 		}

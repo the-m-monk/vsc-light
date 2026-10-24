@@ -15,3 +15,7 @@ for patch_file in "$patch_dir"/*.patch; do
         exit 1
     fi
 done
+
+# VSC-Light adapters live outside the upstream checkout so they can be rebased
+# independently of the small integration patches above.
+cp -R "$patch_dir/../../vscode/src/." "$vscode_dir/src/"

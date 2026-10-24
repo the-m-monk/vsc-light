@@ -1,0 +1,15 @@
+{
+  "extends": "./build/vscode/src/tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["trusted-types"],
+    "typeRoots": ["./build/vscode/node_modules/@types"],
+    "rootDir": "./build/vscode/src"
+  },
+  "include": [
+    "build/vscode/src/typings/*.d.ts",
+    "build/vscode/src/vs/platform/files/vsc-light/*.ts",
+    "build/vscode/src/vs/code/electron-browser/workbench/vsc-light/*.ts"
+  ],
+  "exclude": []
+}

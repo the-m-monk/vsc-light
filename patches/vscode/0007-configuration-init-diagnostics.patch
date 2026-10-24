@@ -1,0 +1,39 @@
+--- a/src/vs/workbench/services/configuration/browser/configurationService.ts
++++ b/src/vs/workbench/services/configuration/browser/configurationService.ts
+@@ -446,6 +446,10 @@
+ 	 */
+ 	async initialize(arg: IAnyWorkspaceIdentifier): Promise<void> {
+ 		mark('code/willInitWorkspaceService');
++		const properties = this.configurationRegistry.getConfigurationProperties();
++		const editorDefaults = Object.keys(properties).filter(key => key.startsWith('editor.') && properties[key].default !== undefined);
++		console.info('[vsc-light:config] configuration registry ready', JSON.stringify({ editorDefaultsCount: editorDefaults.length, fontFamily: properties['editor.fontFamily']?.default }));
++		console.info('[vsc-light:config] workspace initialization start');
+ 
+ 		const trigger = this.initialized;
+ 		this.initialized = false;
+@@ -453,6 +457,7 @@
+ 		await this.updateWorkspaceAndInitializeConfiguration(workspace, trigger);
+ 		this.checkAndMarkWorkspaceComplete(false);
+ 
++		console.info('[vsc-light:config] workspace initialization complete');
+ 		mark('code/didInitWorkspaceService');
+ 	}
+ 
+@@ -613,6 +618,8 @@
+ 
+ 	private async initializeConfiguration(trigger: boolean): Promise<void> {
+ 		await this.defaultConfiguration.initialize();
++		const editorDefaults = this.defaultConfiguration.configurationModel.getValue<Record<string, unknown> | undefined>('editor');
++		console.info('[vsc-light:config] editor defaults ready', JSON.stringify({ count: editorDefaults ? Object.keys(editorDefaults).length : 0, fontFamily: editorDefaults?.fontFamily }));
+ 
+ 		const initPolicyConfigurationPromise = this.policyConfiguration.initialize();
+ 		const initApplicationConfigurationPromise = this.applicationConfiguration ? this.applicationConfiguration.initialize() : Promise.resolve(ConfigurationModel.createEmptyModel(this.logService));
+@@ -635,6 +642,8 @@
+ 
+ 		mark('code/willInitWorkspaceConfiguration');
+ 		await this.loadConfiguration(application, local, remote, trigger);
++		const editor = this.getValue<Record<string, unknown> | undefined>('editor');
++		console.info('[vsc-light:config] getValue(editor)=' + JSON.stringify({ type: typeof editor, count: editor ? Object.keys(editor).length : 0, fontFamily: editor?.fontFamily, fontSize: editor?.fontSize }));
+ 		mark('code/didInitWorkspaceConfiguration');
+ 	}
+ 

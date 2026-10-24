@@ -1,0 +1,19 @@
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -288,6 +288,16 @@
+ 		const diskFileSystemProvider = this._register(new DiskFileSystemProvider(mainProcessService, utilityProcessWorkerWorkbenchService, logService, loggerService));
+ 		fileService.registerProvider(Schemas.file, diskFileSystemProvider);
+ 
++		// Opt-in native boundary verification through the existing renderer FileService.
++		if (window.location.search.includes('vsc-light-verify-filesystem')) {
++			(async () => {
++				const stat = await diskFileSystemProvider.stat(URI.file('/tmp'));
++				console.info(`[vsc-light:verify] renderer stat succeeded type=${stat.type}`);
++				const bytes = await diskFileSystemProvider.readFile(URI.file('/proc/self/cmdline'), { atomic: true });
++				console.info(`[vsc-light:verify] renderer readFile succeeded bytes=${bytes.byteLength} containsNul=${bytes.includes(0)}`);
++			})().catch(error => console.error('[vsc-light:verify] renderer filesystem failed', error));
++		}
++
+ 		// URI Identity
+ 		const uriIdentityService = new UriIdentityService(fileService);
+ 		serviceCollection.set(IUriIdentityService, uriIdentityService);

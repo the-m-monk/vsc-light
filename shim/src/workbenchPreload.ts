@@ -1,4 +1,7 @@
 import "./require.js";
+import { host } from "./host.js";
+
+(globalThis as typeof globalThis & { __vscLightHost: typeof host }).__vscLightHost = host;
 
 interface IdleDeadlineShim {
   readonly didTimeout: boolean;
