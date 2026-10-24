@@ -62,11 +62,11 @@ fn binary_round_trip_and_write_options() {
     assert!(!missing.exists());
     options["create"] = Value::Bool(true);
     options["atomic"] = json!({ "postfix": ".tmp" });
-    assert_eq!(
-        dispatch("fs.writeFile", &options).unwrap_err().code,
-        "ENOSYS"
-    );
-    assert!(!missing.exists());
+    dispatch("fs.writeFile", &options).unwrap();
+    assert!(missing.exists());
+    assert!(!directory.0.join("missing.tmp").exists());
+    let read = dispatch("fs.readFile", &json!({ "path": missing })).unwrap();
+    assert_eq!(read["__vscLightBinary"]["bytes"], json!(bytes));
 }
 
 #[test]

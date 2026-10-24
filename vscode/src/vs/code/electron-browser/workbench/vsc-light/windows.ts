@@ -25,7 +25,26 @@ export function registerWindowServices(server: IChannelServer<unknown>, host: Ho
 		const [, options] = args as [number, { defaultPath?: string; remoteAuthority?: string } | undefined];
 		switch (command) {
 			case 'getWindowCount': return 1;
+			case 'getActiveWindowId': return 1;
 			case 'getWindows': return [{ id: 1, title: globalThis.document.title }];
+			case 'getOSColorScheme': return { dark: false, highContrast: false };
+			case 'isGPUCompositingEnabled': return false;
+			case 'isWindowAlwaysOnTop': return false;
+			case 'isAdmin': return false;
+			case 'getAgentHostEditorState': return {
+				revision: 0,
+				editorSessionCount: 0,
+				sessions: [],
+				lastShown: undefined,
+				lastCopilotHarnessIntroductionSessionCount: undefined,
+				invitation: undefined,
+			};
+			case 'syncSystemWideKeybindings': return { failed: [] };
+			case 'updateWindowControls':
+			case 'setMinimumSize':
+			case 'notifyReady':
+			case 'saveWindowSplash':
+			case 'setBackgroundThrottling': return;
 			case 'pickFolderAndOpen': {
 				if (options?.remoteAuthority) { throw new Error('Remote folders are not supported'); }
 				const path = await host.call<string | null>('dialog.pickFolder', { defaultPath: options?.defaultPath });
