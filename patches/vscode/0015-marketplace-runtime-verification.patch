@@ -1,0 +1,15 @@
+diff --git a/src/vs/workbench/electron-browser/desktop.main.ts b/src/vs/workbench/electron-browser/desktop.main.ts
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -163,6 +163,11 @@
+ 		// Window
+ 		this._register(instantiationService.createInstance(NativeWindow));
+ 		if ('__vscLightHost' in globalThis) { registerGalleryBridge(instantiationService); }
++		if (window.location.search.includes('vsc-light-verify-marketplace')) {
++			import('../services/extensionManagement/vsc-light/verifyMarketplace.js')
++				.then(module => module.verifyMarketplace(instantiationService))
++				.catch(error => console.error('[vsc-light:verify] marketplace failed', error, error instanceof Error ? error.stack : ''));
++		}
+ 
+ 		if (window.location.search.includes('vsc-light-verify-terminal')) {
+ 			import('../contrib/terminal/vsc-light/verifyTerminal.js')

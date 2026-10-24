@@ -1,0 +1,57 @@
+diff --git a/src/vs/workbench/services/request/electron-browser/requestService.ts b/src/vs/workbench/services/request/electron-browser/requestService.ts
+--- a/src/vs/workbench/services/request/electron-browser/requestService.ts
++++ b/src/vs/workbench/services/request/electron-browser/requestService.ts
+@@ -35,6 +35,10 @@
+ 		if (!options.proxyAuthorization) {
+ 			options.proxyAuthorization = this.configurationService.inspect<string>('http.proxyAuthorization').userLocalValue;
+ 		}
++		if ('__vscLightHost' in globalThis) {
++			const native = await import('../vsc-light/request.js');
++			return this.logAndRequest(options, () => native.request(options, token));
++		}
+ 		return this.logAndRequest(options, () => request(options, token, () => navigator.onLine));
+ 	}
+ 
+diff --git a/src/vs/workbench/services/sharedProcess/electron-browser/sharedProcessService.ts b/src/vs/workbench/services/sharedProcess/electron-browser/sharedProcessService.ts
+--- a/src/vs/workbench/services/sharedProcess/electron-browser/sharedProcessService.ts
++++ b/src/vs/workbench/services/sharedProcess/electron-browser/sharedProcessService.ts
+@@ -12,6 +12,7 @@
+ import { mark } from '../../../../base/common/performance.js';
+ import { Barrier, timeout } from '../../../../base/common/async.js';
+ import { acquirePort } from '../../../../base/parts/ipc/electron-browser/ipc.mp.js';
++import { IMainProcessService } from '../../../../platform/ipc/common/mainProcessService.js';
+ 
+ export class SharedProcessService extends Disposable implements ISharedProcessService {
+ 
+@@ -23,7 +24,8 @@
+ 
+ 	constructor(
+ 		readonly windowId: number,
+-		@ILogService private readonly logService: ILogService
++		@ILogService private readonly logService: ILogService,
++		private readonly mainProcessService?: IMainProcessService,
+ 	) {
+ 		super();
+ 
+@@ -59,6 +61,9 @@
+ 	}
+ 
+ 	getChannel(channelName: string): IChannel {
++		if ('__vscLightHost' in globalThis && this.mainProcessService && ['extensions', 'extensionGalleryManifest', 'request', 'download'].includes(channelName)) {
++			return this.mainProcessService.getChannel(channelName);
++		}
+ 		return getDelayedChannel(this.withSharedProcessConnection.then(connection => connection.getChannel(channelName)));
+ 	}
+ 
+diff --git a/src/vs/workbench/electron-browser/desktop.main.ts b/src/vs/workbench/electron-browser/desktop.main.ts
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -261,7 +261,7 @@
+ 		serviceCollection.set(IAccountPolicyGateService, accountPolicy);
+ 
+ 		// Shared Process
+-		const sharedProcessService = new SharedProcessService(this.configuration.windowId, logService);
++		const sharedProcessService = new SharedProcessService(this.configuration.windowId, logService, mainProcessService);
+ 		serviceCollection.set(ISharedProcessService, sharedProcessService);
+ 
+ 		// Utility Process Worker

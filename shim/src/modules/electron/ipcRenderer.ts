@@ -36,7 +36,10 @@ let nextLifecycleId = 1;
 /** Use the desktop lifecycle's veto and shutdown participants before a folder load. */
 export function workbenchUnload(phase: "before" | "will"): Promise<boolean> {
   const channel = phase === "before" ? "vscode:onBeforeUnload" : "vscode:onWillUnload";
-  if (!listeners.get(channel)?.size) {
+  const listenerCount = listeners.get(channel)?.size ?? 0;
+  console.info(`[vsc-light:lifecycle] ${phase} requested; ${listenerCount} listener(s) on ${channel}`);
+  if (!listenerCount) {
+    console.warn(`[vsc-light:lifecycle] refusing ${phase}; no listener registered on ${channel}`);
     return Promise.reject(new Error("Workbench lifecycle is not ready for folder opening"));
   }
   return new Promise(resolve => {
@@ -46,10 +49,12 @@ export function workbenchUnload(phase: "before" | "will"): Promise<boolean> {
     const finish = (allowed: boolean) => {
       lifecycleReplies.delete(okChannel);
       lifecycleReplies.delete(cancelChannel);
+      console.info(`[vsc-light:lifecycle] ${phase} reply received: ${allowed ? "allowed" : "cancelled"}`);
       resolve(allowed);
     };
     lifecycleReplies.set(okChannel, () => finish(true));
     lifecycleReplies.set(cancelChannel, () => finish(false));
+    console.info(`[vsc-light:lifecycle] dispatching ${phase}; reply channels ${okChannel}, ${cancelChannel}`);
     dispatch(channel, { okChannel, cancelChannel, replyChannel: okChannel, reason: 4 });
   });
 }
@@ -223,7 +228,7 @@ const ipcRenderer: IpcRendererShim = {
           }
           return response.json() as Promise<Record<string, unknown>>;
         }),
-        ipcRenderer.invoke("vscLight:host", { id: 0, method: "window.getState", args: {} }) as Promise<{ folder: string | null; folderId: string | null; homeDir: string }>,
+        ipcRenderer.invoke("vscLight:host", { id: 0, method: "window.getState", args: {} }) as Promise<{ folder: string | null; folderId: string | null; homeDir: string; extensionPaths?: { root: string; builtin: string; profile: string; cache: string } }>,
       ]).then(([messages, product, state]) => ({
           profiles: (() => {
             const uri = (path: string) => ({
@@ -245,7 +250,7 @@ const ipcRenderer: IpcRendererShim = {
               tasksResource: uri(`${location}/tasks.json`),
               snippetsHome: uri(`${location}/snippets`),
               promptsHome: uri(`${location}/prompts`),
-              extensionsResource: uri(`${location}/extensions.json`),
+              extensionsResource: uri(state.extensionPaths?.profile ?? `${location}/extensions.json`),
               mcpResource: uri(`${location}/mcp.json`),
               languageModelsResource: uri(`${location}/chatLanguageModels.json`),
               agentPluginsHome: uri(`${location}/agent-plugins`),
@@ -271,6 +276,9 @@ const ipcRenderer: IpcRendererShim = {
           backupPath: "/tmp/vsc-light-user-data/Backups",
           logsPath: "/tmp/vsc-light-user-data/logs",
           execPath: "vsc-light",
+          "extensions-dir": state.extensionPaths?.root,
+          "builtin-extensions-dir": state.extensionPaths?.builtin,
+          "extensions-download-dir": state.extensionPaths?.cache,
           mainPid: 0,
           machineId: "vsc-light",
           sqmId: "vsc-light",
@@ -287,26 +295,42 @@ const ipcRenderer: IpcRendererShim = {
         }));
     }
     if (channel === "vscode:fetchShellEnv") {
-      return Promise.resolve({});
+      return ipcRenderer.invoke("vscLight:host", { id: 0, method: "terminal.getEnvironment", args: {} });
     }
     if (channel === "vscLight:host") {
       const request = args[0] as { id: number; method: string; args: unknown };
       const bridge = nativeWindow.webkit?.messageHandlers.vscLightInvoke;
       if (!bridge) return Promise.reject(new Error("Native host RPC bridge is unavailable"));
-      return Promise.resolve(bridge.postMessage({ id: request.id, method: request.method, args: encodeIpcValue(request.args) }))
-        .then((raw) => {
-          const response = decodeIpcValue(raw) as { id?: number; ok?: boolean; value?: unknown; error?: { message?: string; code?: string; osCode?: number } };
+      const trace = request.method.startsWith("dialog.") || request.method.startsWith("window.");
+      const started = Date.now();
+      const prefix = `[vsc-light:bridge] ${request.method} id=${request.id}`;
+      return (async () => {
+        try {
+          if (trace) console.info(`${prefix} sending at=${started}`);
+          // Await inside try so both synchronous throws and native Promise rejections are logged.
+          const raw = await bridge.postMessage({ id: request.id, method: request.method, args: encodeIpcValue(request.args) });
+          // Native replies use JSON text to avoid WebKit losing properties on async object replies.
+          const response = decodeIpcValue(typeof raw === "string" ? JSON.parse(raw) : raw) as { id?: number; ok?: boolean; value?: unknown; error?: { message?: string; code?: string; osCode?: number } };
+          if (trace) console.info(`${prefix} response wireType=${typeof raw} after=${Date.now() - started}ms ${JSON.stringify(response)}`);
           if (response?.id !== request.id) throw new Error(`Host RPC reply ID mismatch for ${request.method}: expected ${request.id}, received ${response?.id}`);
           if (!response.ok) throw Object.assign(new Error(response.error?.message ?? "Host RPC failed"), response.error);
           return response.value;
-        });
+        } catch (error) {
+          if (trace) {
+            const detail = error instanceof Error ? `${error.name}: ${error.message}\n${error.stack ?? ""}` : String(error);
+            console.error(`${prefix} FAILED after=${Date.now() - started}ms ${detail}`);
+          }
+          throw error;
+        }
+      })();
     }
     const bridge = nativeWindow.webkit?.messageHandlers.vscLightInvoke;
     if (!bridge) {
       return Promise.reject(new Error(`Native invoke bridge is unavailable for ${channel}`));
     }
     try {
-      return Promise.resolve(bridge.postMessage({ channel, args: encodeIpcValue(args) })).then(decodeIpcValue);
+      return Promise.resolve(bridge.postMessage({ channel, args: encodeIpcValue(args) }))
+        .then(raw => decodeIpcValue(typeof raw === "string" ? JSON.parse(raw) : raw));
     } catch (error) {
       return Promise.reject(error);
     }
@@ -316,6 +340,9 @@ const ipcRenderer: IpcRendererShim = {
     const channelListeners = listeners.get(channel) ?? new Set<Listener>();
     channelListeners.add(listener);
     listeners.set(channel, channelListeners);
+    if (channel === "vscode:onBeforeUnload" || channel === "vscode:onWillUnload") {
+      console.info(`[vsc-light:lifecycle] listener registered on ${channel}; count=${channelListeners.size}`);
+    }
     return this;
   },
 
@@ -335,6 +362,9 @@ const ipcRenderer: IpcRendererShim = {
     listeners.get(channel)?.delete(wrapped ?? listener);
     if (wrapped) {
       onceListeners.get(listener)?.delete(channel);
+    }
+    if (channel === "vscode:onBeforeUnload" || channel === "vscode:onWillUnload") {
+      console.info(`[vsc-light:lifecycle] listener removed from ${channel}; count=${listeners.get(channel)?.size ?? 0}`);
     }
     return this;
   },

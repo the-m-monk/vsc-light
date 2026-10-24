@@ -17,6 +17,9 @@ import { Host, HostFileSystemProvider } from '../../../../platform/files/vsc-lig
 import { NullLogService } from '../../../../platform/log/common/log.js';
 import { registerManagedSettings } from './managedSettings.js';
 import { registerWindowServices } from './windows.js';
+import { registerStorageServices } from './storage.js';
+import { registerTerminalServices } from './terminal.js';
+import { registerExtensionServices } from './extensions.js';
 
 /** Supplies local URIs and watcher policy to the unchanged upstream disk channel. */
 class HostDiskFileSystemProviderChannel extends AbstractDiskFileSystemProviderChannel<unknown> {
@@ -45,5 +48,8 @@ export function registerVscLightServices(server: IChannelServer<unknown>): IDisp
 	console.info('[vsc-light:ipc] registered channel localFilesystem');
 	disposables.add(registerManagedSettings(server, fileService, logService));
 	disposables.add(registerWindowServices(server, host));
+	disposables.add(registerStorageServices(server, host));
+	disposables.add(registerTerminalServices(server, host));
+	disposables.add(registerExtensionServices(server, host));
 	return disposables;
 }

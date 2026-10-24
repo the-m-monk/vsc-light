@@ -12,8 +12,19 @@ import { Host } from '../../../../platform/files/vsc-light/hostFileSystemProvide
 /** Minimal single-window support; native selection stays on the GTK main thread. */
 export function registerWindowServices(server: IChannelServer<unknown>, host: Host): IDisposable {
 	const disposables = new DisposableStore();
+	// Record the Explorer click without instantiating any workbench services ourselves.
+	const logActivityBarClick = (event: MouseEvent) => {
+		const target = event.target;
+		if (!(target instanceof Element) || !target.closest('.activitybar')) { return; }
+		const action = target.closest('.action-item');
+		const label = action?.querySelector('[aria-label]')?.getAttribute('aria-label');
+		console.info(`[vsc-light:window] activity bar click at=${Date.now()} label=${label ?? action?.textContent ?? '(unknown)'}`);
+	};
+	globalThis.document.addEventListener('click', logActivityBarClick, true);
+	disposables.add({ dispose: () => globalThis.document.removeEventListener('click', logActivityBarClick, true) });
 	async function openFolder(resource: UriComponents): Promise<void> {
 		const uri = URI.revive(resource);
+		console.info(`[vsc-light:window] openFolder called: scheme=${uri.scheme} authority=${uri.authority || '(none)'} path=${uri.fsPath}`);
 		if (uri.scheme !== 'file' || uri.authority) {
 			throw new Error('VSC-Light currently supports local folders only');
 		}
@@ -21,6 +32,9 @@ export function registerWindowServices(server: IChannelServer<unknown>, host: Ho
 	}
 
 	async function nativeCall(command: string, args: unknown[] = []): Promise<unknown> {
+		if (command === 'pickFolderAndOpen' || command === 'openWindow') {
+			console.info(`[vsc-light:window] nativeHost ${command} called; args=${JSON.stringify(args)}`);
+		}
 		// NativeHostService prepends its windowId to all method arguments.
 		const [, options] = args as [number, { defaultPath?: string; remoteAuthority?: string } | undefined];
 		switch (command) {
@@ -47,7 +61,9 @@ export function registerWindowServices(server: IChannelServer<unknown>, host: Ho
 			case 'setBackgroundThrottling': return;
 			case 'pickFolderAndOpen': {
 				if (options?.remoteAuthority) { throw new Error('Remote folders are not supported'); }
+				console.info('[vsc-light:window] opening native folder picker');
 				const path = await host.call<string | null>('dialog.pickFolder', { defaultPath: options?.defaultPath });
+				console.info(`[vsc-light:window] folder picker returned: ${path ?? '(cancelled)'}`);
 				if (path !== null) { await openFolder(URI.file(path)); }
 				return;
 			}
@@ -63,7 +79,15 @@ export function registerWindowServices(server: IChannelServer<unknown>, host: Ho
 	}
 	server.registerChannel('nativeHost', {
 		listen: () => Event.None,
-		call: async <T>(_context: unknown, command: string, args?: unknown[]) => await nativeCall(command, args) as T,
+		call: async <T>(_context: unknown, command: string, args?: unknown[]) => {
+			try {
+				return await nativeCall(command, args) as T;
+			} catch (error) {
+				const detail = error instanceof Error ? `${error.name}: ${error.message}\n${error.stack ?? ''}` : String(error);
+				console.error(`[vsc-light:window] nativeHost ${command} FAILED at=${Date.now()} ${detail}`);
+				throw error;
+			}
+		},
 	});
 
 	// Expose the current folder to the default-path and recent-folder consumers.

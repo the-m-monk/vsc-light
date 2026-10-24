@@ -1,0 +1,16 @@
+diff --git a/src/vs/workbench/electron-browser/desktop.main.ts b/src/vs/workbench/electron-browser/desktop.main.ts
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -161,6 +161,12 @@
+ 
+ 		// Window
+ 		this._register(instantiationService.createInstance(NativeWindow));
++
++		if (window.location.search.includes('vsc-light-verify-terminal')) {
++			import('../contrib/terminal/vsc-light/verifyTerminal.js')
++				.then(module => module.verifyTerminal(instantiationService))
++				.catch(error => console.error('[vsc-light:verify] terminal failed', error, error instanceof Error ? error.stack : ''));
++		}
+ 	}
+ 
+ 	private applyWindowZoomLevel(configurationService: IConfigurationService) {

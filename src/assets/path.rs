@@ -4,6 +4,23 @@ use super::scheme::Scheme;
 
 /// Resolves URI paths against the bundle and shim asset roots.
 pub(super) fn resolve(project_dir: &Path, request_path: &str, scheme: Scheme) -> PathBuf {
+    // Browser-loaded extension images/scripts may use their real file paths.
+    // Resolve links first, and serve only files within the two extension stores.
+    if matches!(scheme, Scheme::File) {
+        if let Ok(requested) = Path::new(request_path).canonicalize() {
+            for root in [
+                project_dir.join("build/vscode/extensions"),
+                gtk4::glib::home_dir().join(".vsc-light/extensions"),
+            ] {
+                if root
+                    .canonicalize()
+                    .is_ok_and(|root| requested.starts_with(root))
+                {
+                    return requested;
+                }
+            }
+        }
+    }
     let path = Path::new(request_path)
         .components()
         .filter(|part| matches!(part, Component::Normal(_)))
@@ -11,6 +28,17 @@ pub(super) fn resolve(project_dir: &Path, request_path: &str, scheme: Scheme) ->
     let bundle_root = project_dir.join("build/vscode/out-vscode");
 
     match scheme {
+        // Keep each hashed webview origin isolated and expose only its bootstrap files.
+        Scheme::Webview => match request_path {
+            "/index.html" | "/fake.html" | "/service-worker.js" => bundle_root
+                .join("vs/workbench/contrib/webview/browser/pre")
+                .join(path),
+            _ => bundle_root.join("__not_found__"),
+        },
+        // xterm and its addons are loaded as browser scripts outside the compiled out/ tree.
+        Scheme::File | Scheme::App if path.starts_with("node_modules") => {
+            project_dir.join("build/vscode").join(path)
+        }
         Scheme::File => bundle_root.join(
             path.strip_prefix("out")
                 .unwrap_or(Path::new("__not_found__")),

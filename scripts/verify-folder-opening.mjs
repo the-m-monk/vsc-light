@@ -8,8 +8,8 @@ globalThis.window = {
   location: { reload() { reloads++; } },
   webkit: { messageHandlers: { vscLightInvoke: { postMessage(request) {
     calls.push(request.method);
-    if (badPath && request.method === 'window.validateFolder') return { id: request.id, ok: false, error: { code: 'ENOENT', message: 'missing' } };
-    return { id: request.id, ok: true, value: request.method === 'window.getState' ? { folder: '/tmp/folder with spaces', folderId: 'abc', homeDir: '/home/test' } : null };
+    if (badPath && request.method === 'window.validateFolder') return JSON.stringify({ id: request.id, ok: false, error: { code: 'ENOENT', message: 'missing' } });
+    return JSON.stringify({ id: request.id, ok: true, value: request.method === 'window.getState' ? { folder: '/tmp/folder with spaces', folderId: 'abc', homeDir: '/home/test' } : null });
   } } } },
 };
 globalThis.fetch = async () => ({ ok: true, json: async () => ({}) });

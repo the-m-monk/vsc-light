@@ -1,0 +1,14 @@
+diff --git a/src/vs/workbench/electron-browser/window.ts b/src/vs/workbench/electron-browser/window.ts
+--- a/src/vs/workbench/electron-browser/window.ts
++++ b/src/vs/workbench/electron-browser/window.ts
+@@ -734,7 +734,9 @@
+ 		})();
+ 
+ 		// Installation Dir Warning
+-		if (this.environmentService.isBuilt && !this.environmentService.extensionDevelopmentLocationURI?.length) {
++		// VSC-Light serves bundled assets from a virtual "/" app root.
++		// Only a real installation directory can trigger this warning.
++		if (this.environmentService.isBuilt && !this.environmentService.extensionDevelopmentLocationURI?.length && this.nativeEnvironmentService.appRoot !== '/') {
+ 			let installLocationUri: URI;
+ 			if (isMacintosh) {
+ 				// appRoot = /Applications/Visual Studio Code - Insiders.app/Contents/Resources/app

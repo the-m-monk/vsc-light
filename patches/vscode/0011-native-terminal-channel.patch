@@ -1,0 +1,31 @@
+diff --git a/src/vs/workbench/contrib/terminal/electron-browser/localTerminalBackend.ts b/src/vs/workbench/contrib/terminal/electron-browser/localTerminalBackend.ts
+--- a/src/vs/workbench/contrib/terminal/electron-browser/localTerminalBackend.ts
++++ b/src/vs/workbench/contrib/terminal/electron-browser/localTerminalBackend.ts
+@@ -111,6 +111,27 @@
+ 	 * Request a direct connection to the pty host, this will launch the pty host process if necessary.
+ 	 */
+ 	private async _connectToDirectProxy(): Promise<void> {
++		// VSC-Light's native PTYs use the existing IPC channel, without Electron MessagePorts.
++		if ('__vscLightHost' in globalThis) {
++			if (!this._directProxy) {
++				const proxy = this._directProxy = this._localPtyService;
++				const store = new DisposableStore();
++				this._directProxyDisposables.value = store;
++				store.add(proxy.onProcessData(e => this._ptys.get(e.id)?.handleData(e.event)));
++				store.add(proxy.onDidChangeProperty(e => this._ptys.get(e.id)?.handleDidChangeProperty(e.property)));
++				store.add(proxy.onProcessReady(e => this._ptys.get(e.id)?.handleReady(e.event)));
++				store.add(proxy.onProcessExit(e => {
++					const pty = this._ptys.get(e.id);
++					if (pty) { pty.handleExit(e.event); pty.dispose(); this._ptys.delete(e.id); }
++				}));
++				store.add(proxy.onProcessReplay(e => this._ptys.get(e.id)?.handleReplay(e.event)));
++				store.add(proxy.onProcessOrphanQuestion(e => this._ptys.get(e.id)?.handleOrphanQuestion()));
++				store.add(proxy.onDidRequestDetach(e => this._onDidRequestDetach.fire(e)));
++				this._onPtyHostConnected.fire();
++			}
++			return;
++		}
++
+ 		// Check if connecting is in progress
+ 		if (this._directProxyClientEventually) {
+ 			await this._directProxyClientEventually.p;

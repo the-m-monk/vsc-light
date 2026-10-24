@@ -2,6 +2,8 @@
 
 mod bridge;
 mod diagnostics;
+mod extensions;
+mod network;
 mod window;
 
 use std::path::PathBuf;
@@ -14,6 +16,8 @@ use crate::assets;
 const APPLICATION_ID: &str = "dev.vsc_light.WebView";
 const STARTUP_URI: &str = "vsc-light://app/shim/index.html";
 const VERIFICATION_URI: &str = "vsc-light://app/shim/index.html?vsc-light-verify-filesystem";
+const TERMINAL_VERIFICATION_URI: &str = "vsc-light://app/shim/index.html?vsc-light-verify-terminal";
+const MARKETPLACE_VERIFICATION_URI: &str = "vsc-light://app/shim/index.html?vsc-light-verify-marketplace";
 
 pub fn run() {
     let app = Application::builder()
@@ -52,7 +56,11 @@ fn create_webview() -> WebView {
 }
 
 fn startup_uri() -> &'static str {
-    if std::env::var_os("VSC_LIGHT_VERIFY_FILESYSTEM").is_some() {
+    if std::env::var_os("VSC_LIGHT_VERIFY_MARKETPLACE").is_some() {
+        MARKETPLACE_VERIFICATION_URI
+    } else if std::env::var_os("VSC_LIGHT_VERIFY_TERMINAL").is_some() {
+        TERMINAL_VERIFICATION_URI
+    } else if std::env::var_os("VSC_LIGHT_VERIFY_FILESYSTEM").is_some() {
         VERIFICATION_URI
     } else {
         STARTUP_URI

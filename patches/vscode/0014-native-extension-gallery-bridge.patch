@@ -1,0 +1,19 @@
+diff --git a/src/vs/workbench/electron-browser/desktop.main.ts b/src/vs/workbench/electron-browser/desktop.main.ts
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -68,6 +68,7 @@
+ import { DefaultAccountService } from '../services/accounts/browser/defaultAccount.js';
+ import { AccountPolicyService, IAccountPolicyGateService } from '../services/policies/common/accountPolicyService.js';
+ import { MultiplexPolicyService } from '../../platform/policy/common/multiplexPolicyService.js';
++import { registerGalleryBridge } from '../services/extensionManagement/vsc-light/galleryBridge.js';
+ 
+ /** Logs startup operations and reports waits without changing their outcome. */
+ async function traceStartup<T>(stage: string, operation: () => Promise<T>): Promise<T> {
+@@ -161,6 +162,7 @@
+ 
+ 		// Window
+ 		this._register(instantiationService.createInstance(NativeWindow));
++		if ('__vscLightHost' in globalThis) { registerGalleryBridge(instantiationService); }
+ 
+ 		if (window.location.search.includes('vsc-light-verify-terminal')) {
+ 			import('../contrib/terminal/vsc-light/verifyTerminal.js')

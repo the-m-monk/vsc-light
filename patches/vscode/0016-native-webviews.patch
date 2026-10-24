@@ -1,0 +1,45 @@
+diff --git a/src/vs/workbench/contrib/webview/browser/pre/index.html b/src/vs/workbench/contrib/webview/browser/pre/index.html
+index e7deb1390db..bc0fd9044ad 100644
+--- a/src/vs/workbench/contrib/webview/browser/pre/index.html
++++ b/src/vs/workbench/contrib/webview/browser/pre/index.html
+@@ -5,7 +5,7 @@
+ 	<meta charset="UTF-8">
+ 
+ 	<meta http-equiv="Content-Security-Policy"
+-		content="default-src 'none'; script-src 'sha256-7cKy9iQfWRXcgRS74x6I4q5cRDkv8nQz51jecqMmQ5w=' 'self'; frame-src 'self'; style-src 'unsafe-inline';">
++		content="default-src 'none'; script-src 'sha256-RFtBlzbnr5oA/dYgYzU2Pln0hRG9Foeh6QScpo8gzaI=' 'self'; frame-src 'self'; style-src 'unsafe-inline';">
+ 
+ 	<!-- Disable pinch zooming -->
+ 	<meta name="viewport"
+@@ -338,7 +338,10 @@
+ 			async signalReady() {
+ 				const start = (/** @type {string} */ parentOrigin) => {
+ 					perfMark('signalingReady');
+-					invoke(sendToParent, window.parent, { target: ID, channel: 'webview-ready', data: { keyEventToken, mountId: searchParams.get('mountId') } }, parentOrigin, [this.channel.port2]);
++					// WebKit rejects explicit target origins across custom schemes. Only the
++					// initial port handshake uses '*'; the receiver checks origin, source and mountId.
++					const targetOrigin = location.protocol === 'vscode-webview:' && parentOrigin === 'vsc-light://app' ? '*' : parentOrigin;
++					invoke(sendToParent, window.parent, { target: ID, channel: 'webview-ready', data: { keyEventToken, mountId: searchParams.get('mountId') } }, targetOrigin, [this.channel.port2]);
+ 				};
+ 
+ 				const parentOrigin = searchParams.get('parentOrigin');
+diff --git a/src/vs/workbench/contrib/webview/electron-browser/webviewService.ts b/src/vs/workbench/contrib/webview/electron-browser/webviewService.ts
+index c4666246f87..a1b25484172 100644
+--- a/src/vs/workbench/contrib/webview/electron-browser/webviewService.ts
++++ b/src/vs/workbench/contrib/webview/electron-browser/webviewService.ts
+@@ -6,11 +6,14 @@
+ import { IWebviewElement, WebviewInitInfo } from '../browser/webview.js';
+ import { WebviewService } from '../browser/webviewService.js';
+ import { ElectronWebviewElement } from './webviewElement.js';
++import { HostWebviewElement } from '../vsc-light/webviewElement.js';
+ 
+ export class ElectronWebviewService extends WebviewService {
+ 
+ 	override createWebviewElement(initInfo: WebviewInitInfo): IWebviewElement {
+-		const webview = this._instantiationService.createInstance(ElectronWebviewElement, initInfo, this._webviewThemeDataProvider);
++		const webview = '__vscLightHost' in globalThis
++			? this._instantiationService.createInstance(HostWebviewElement, { ...initInfo, options: { ...initInfo.options, disableServiceWorker: true } }, this._webviewThemeDataProvider)
++			: this._instantiationService.createInstance(ElectronWebviewElement, initInfo, this._webviewThemeDataProvider);
+ 		this.registerNewWebview(webview);
+ 		return webview;
+ 	}

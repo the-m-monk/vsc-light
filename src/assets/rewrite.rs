@@ -11,6 +11,14 @@ pub(super) fn rewrite(path: &Path, contents: Vec<u8>) -> Vec<u8> {
                 "script-src\n\t\t\t\t\t'self'",
                 "script-src\n\t\t\t\t\t'self'\n\t\t\t\t\tvscode-file:\n\t\t\t\t\tvsc-light:",
             )
+            .replace(
+                "font-src\n\t\t\t\t\t'self'",
+                "font-src\n\t\t\t\t\t'self'\n\t\t\t\t\tvscode-file:\n\t\t\t\t\tvsc-light:",
+            )
+            .replace(
+                "img-src\n\t\t\t\t\t'self'",
+                "img-src\n\t\t\t\t\t'self'\n\t\t\t\t\tvscode-file:\n\t\t\t\t\tvsc-light:",
+            )
             .into_bytes()
     } else if path.ends_with("vs/code/electron-browser/workbench/workbench.js") {
         format!(
