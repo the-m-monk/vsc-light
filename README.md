@@ -4,6 +4,11 @@ vscode with webkit + rs backend instead of electron with vscodium patches
 
 Currently x86_64 linux is the only target, although aarch64, riscv64, *BSD, and haiku support is planned
 
+vsc-light is currently based on:
+
+- VS Code **1.143.1**, commit `e646868227c3e3a9e3f24277c8c7220be42c0be7`.
+- VSCodium **1.140.06880**, commit `f33df00b6dd822a163133a48b3c7dab78a520007`.
+
 Run these commands from the project root to set up and build:
 
 ```sh

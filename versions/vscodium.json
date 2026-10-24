@@ -1,0 +1,10 @@
+{
+  "repository": "https://github.com/VSCodium/vscodium.git",
+  "version": "1.140.06880",
+  "commit": "f33df00b6dd822a163133a48b3c7dab78a520007",
+  "releaseUrl": "https://github.com/VSCodium/vscodium/releases/tag/1.140.06880",
+  "vscode": {
+    "version": "1.140.0",
+    "commit": "07f806f999227108933c2e30515b26eecc1fda74"
+  }
+}

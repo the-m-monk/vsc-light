@@ -1,5 +1,8 @@
 import "./require.js";
 import { host } from "./host.js";
+import { verifyDistribution } from "./verifyDistribution.js";
+
+verifyDistribution();
 
 (globalThis as typeof globalThis & { __vscLightHost: typeof host }).__vscLightHost = host;
 

@@ -1,0 +1,2872 @@
+{
+  "vscodium_revision": "f33df00b6dd822a163133a48b3c7dab78a520007",
+  "vscode_revision": "e646868227c3e3a9e3f24277c8c7220be42c0be7",
+  "method": "Isolated git apply --cached --check against temporary index from pinned HEAD; VSC-Light branding tokens substituted. No whitespace relaxation. JSON removal targets checked with cat-file. This is not a sequential whole-VSCodium build.",
+  "patches": [
+    {
+      "source": "patches/00-binary-fix-name.patch",
+      "sha256": "eb4dda2faa88f699f8ae23398f56514c6f0ea0ae8147dd14c440f69e590ef71f",
+      "affected_files": [
+        "build/gulpfile.vscode.ts",
+        "src/vs/platform/native/electron-main/nativeHostMainService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "A",
+        "H"
+      ],
+      "purpose": "Use product executable name in package and native host CLI paths; Rust launcher already has its own name.",
+      "electron_dependency": "Yes: native host/package",
+      "recommended_action": "ALREADY COVERED BY VSC-LIGHT",
+      "implementation_status": "Intent covered by Rust launcher; upstream diff unused"
+    },
+    {
+      "source": "patches/00-brand-remove-branding.patch",
+      "sha256": "c4dfc36ce38e31a0ef9ac43ae863d2a0ed81af3eee6a82ff2b6c0f1fe78b1caa",
+      "affected_files": [
+        "build/win32/i18n/messages.en.isl",
+        "build/win32/i18n/messages.es.isl",
+        "build/win32/i18n/messages.it.isl",
+        "build/win32/i18n/messages.pt-br.isl",
+        "extensions/configuration-editing/src/configurationEditingMain.ts",
+        "extensions/configuration-editing/src/settingsDocumentHelper.ts",
+        "extensions/css-language-features/package.nls.json",
+        "extensions/emmet/package.nls.json",
+        "extensions/extension-editing/src/constants.ts",
+        "extensions/extension-editing/src/extensionLinter.ts",
+        "extensions/git/package.nls.json",
+        "extensions/github/package.nls.json",
+        "extensions/grunt/package.nls.json",
+        "extensions/html-language-features/client/src/htmlClient.ts",
+        "extensions/html-language-features/package.nls.json",
+        "extensions/html-language-features/schemas/package.schema.json",
+        "extensions/jake/package.nls.json",
+        "extensions/json-language-features/package.nls.json",
+        "extensions/markdown-language-features/package.nls.json",
+        "extensions/media-preview/package.nls.json",
+        "extensions/media-preview/src/audioPreview.ts",
+        "extensions/media-preview/src/imagePreview/index.ts",
+        "extensions/media-preview/src/videoPreview.ts",
+        "extensions/notebook-renderers/package.json",
+        "extensions/npm/package.nls.json",
+        "extensions/swift/syntaxes/swift.tmLanguage.json",
+        "extensions/typescript-language-features/package.nls.json",
+        "extensions/typescript-language-features/src/tsServer/versionManager.ts",
+        "extensions/typescript-language-features/src/tsServer/versionProvider.electron.ts",
+        "extensions/typescript-language-features/src/tsconfig.ts",
+        "extensions/typescript-language-features/src/typescriptServiceClient.ts",
+        "extensions/vscode-api-tests/package.json",
+        "extensions/vscode-colorize-tests/package.json",
+        "extensions/vscode-colorize-tests/test/colorize-fixtures/14119.less",
+        "extensions/vscode-colorize-tests/test/colorize-results/14119_less.json",
+        "extensions/vscode-test-resolver/package.json",
+        "extensions/vscode-test-resolver/src/download.ts",
+        "extensions/vscode-test-resolver/src/extension.ts",
+        "src/mainImpl.ts",
+        "src/vs/code/electron-main/app.ts",
+        "src/vs/editor/contrib/toggleTabFocusMode/browser/toggleTabFocusMode.ts",
+        "src/vs/platform/contextkey/common/contextkeys.ts",
+        "src/vs/platform/extensionManagement/node/extensionManagementService.ts",
+        "src/vs/platform/externalTerminal/node/externalTerminalService.ts",
+        "src/vs/platform/terminal/common/terminalPlatformConfiguration.ts",
+        "src/vs/platform/update/common/update.config.contribution.ts",
+        "src/vs/platform/update/electron-main/abstractUpdateService.ts",
+        "src/vs/server/node/server.cli.ts",
+        "src/vs/workbench/api/browser/mainThreadAuthentication.ts",
+        "src/vs/workbench/api/browser/viewsExtensionPoint.ts",
+        "src/vs/workbench/api/common/extHostApiCommands.ts",
+        "src/vs/workbench/api/common/extHostCommands.ts",
+        "src/vs/workbench/api/node/loopbackServer.ts",
+        "src/vs/workbench/api/test/browser/extHostNotebook.test.ts",
+        "src/vs/workbench/browser/actions/developerActions.ts",
+        "src/vs/workbench/browser/actions/helpActions.ts",
+        "src/vs/workbench/browser/web.factory.ts",
+        "src/vs/workbench/browser/workbench.contribution.ts",
+        "src/vs/workbench/common/contextkeys.ts",
+        "src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts",
+        "src/vs/workbench/contrib/chat/browser/chatSetup/chatSetupProviders.ts",
+        "src/vs/workbench/contrib/chat/common/promptSyntax/languageProviders/promptValidator.ts",
+        "src/vs/workbench/contrib/debug/browser/debugAdapterManager.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionsActions.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionsWorkbenchService.ts",
+        "src/vs/workbench/contrib/extensions/common/extensionsFileTemplate.ts",
+        "src/vs/workbench/contrib/extensions/common/installExtensionsTool.ts",
+        "src/vs/workbench/contrib/extensions/common/searchExtensionsTool.ts",
+        "src/vs/workbench/contrib/externalUriOpener/common/configuration.ts",
+        "src/vs/workbench/contrib/localization/common/localization.contribution.ts",
+        "src/vs/workbench/contrib/localization/common/localizationsActions.ts",
+        "src/vs/workbench/contrib/mcp/browser/mcpServersView.ts",
+        "src/vs/workbench/contrib/preferences/browser/keyboardLayoutPicker.ts",
+        "src/vs/workbench/contrib/tasks/browser/abstractTaskService.ts",
+        "src/vs/workbench/contrib/tasks/common/jsonSchemaCommon.ts",
+        "src/vs/workbench/contrib/tasks/common/jsonSchema_v2.ts",
+        "src/vs/workbench/contrib/terminal/browser/terminalView.ts",
+        "src/vs/workbench/contrib/terminal/common/scripts/shellIntegration-bash.sh",
+        "src/vs/workbench/contrib/terminal/common/scripts/shellIntegration-rc.zsh",
+        "src/vs/workbench/contrib/terminal/common/scripts/shellIntegration.fish",
+        "src/vs/workbench/contrib/terminal/common/scripts/shellIntegration.ps1",
+        "src/vs/workbench/contrib/terminal/common/terminalConfiguration.ts",
+        "src/vs/workbench/contrib/terminalContrib/autoReplies/common/terminalAutoRepliesConfiguration.ts",
+        "src/vs/workbench/contrib/terminalContrib/chatAgentTools/browser/tools/task/createAndRunTaskTool.ts",
+        "src/vs/workbench/contrib/terminalContrib/chatAgentTools/browser/tools/task/runTaskTool.ts",
+        "src/vs/workbench/contrib/terminalContrib/voice/browser/terminalVoiceActions.ts",
+        "src/vs/workbench/contrib/update/browser/update.ts",
+        "src/vs/workbench/contrib/url/browser/trustedDomainsFileSystemProvider.ts",
+        "src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.contribution.ts",
+        "src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStartedExtensionPoint.ts",
+        "src/vs/workbench/contrib/welcomeGettingStarted/common/gettingStartedContent.ts",
+        "src/vs/workbench/contrib/welcomeWalkthrough/browser/editor/vs_code_editor_walkthrough.ts",
+        "src/vs/workbench/contrib/workspace/browser/workspace.contribution.ts",
+        "src/vs/workbench/electron-browser/desktop.contribution.ts",
+        "src/vs/workbench/services/extensionManagement/common/extensionManagementService.ts",
+        "src/vs/workbench/services/extensions/common/extensionsRegistry.ts",
+        "src/vs/workbench/services/extensions/electron-browser/nativeExtensionService.ts",
+        "src/vs/workbench/services/userDataProfile/browser/userDataProfileManagement.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/win32/i18n/messages.en.isl:16\nerror: build/win32/i18n/messages.en.isl: patch does not apply\nerror: patch failed: src/vs/workbench/browser/actions/developerActions.ts:1141\nerror: src/vs/workbench/browser/actions/developerActions.ts: patch does not apply\nerror: patch failed: src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts:1576\nerror: src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts: patch does not apply\nerror: patch failed: src/vs/workbench/contrib/mcp/browser/mcpServersView.ts:276\nerror: src/vs/workbench/contrib/mcp/browser/mcpServersView.ts: patch does not apply\nerror: patch failed: src/vs/workbench/services/extensions/electron-browser/nativeExtensionService.ts:167\nerror: src/vs/workbench/services/extensions/electron-browser/nativeExtensionService.ts: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "A",
+        "D",
+        "E"
+      ],
+      "purpose": "Replace VS Code strings across localization, settings, onboarding, extensions and installers; extract product-aware labels incrementally.",
+      "electron_dependency": "Mixed: many renderer strings, also installers/native services",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Product identity implemented; broad literal replacements deferred (conflicts)"
+    },
+    {
+      "source": "patches/00-build-disable-esbuild.patch.no",
+      "sha256": "a9d65cfbbf90fd748d22dd8cfff7d20293d107e928203a095d13e59d8ea5e78c",
+      "affected_files": [
+        "build/buildConfig.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: build/buildConfig.ts: does not exist in index",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Disable esbuild transpilation; contradicts the custom bundle workflow.",
+      "electron_dependency": "Build only",
+      "recommended_action": "SKIP",
+      "implementation_status": "Inactive .no file"
+    },
+    {
+      "source": "patches/00-build-disable-mangle.patch.no",
+      "sha256": "9fe6e2b3e7a0fdc9e10b026951f23f8dd34b4a62f1b8a5573b93257f3314918e",
+      "affected_files": [
+        "build/lib/compilation.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/lib/compilation.ts:139\nerror: build/lib/compilation.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Remove TypeScript mangler; current bundle is unminified.",
+      "electron_dependency": "Build only",
+      "recommended_action": "SKIP",
+      "implementation_status": "Inactive .no file"
+    },
+    {
+      "source": "patches/00-build-download-extensions-from-gh.patch",
+      "sha256": "1dfff397f9194adb906892511d57fe1f454c0c226ed0e32c803bde781b35ed30",
+      "affected_files": [
+        "build/lib/builtInExtensions.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "B",
+        "E",
+        "I"
+      ],
+      "purpose": "Fetch built-in extensions from GitHub rather than gallery; revisit when shipping extensions.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Not imported"
+    },
+    {
+      "source": "patches/00-build-package-missing-dependencies.patch",
+      "sha256": "e3fba1e29bf41d0c900cc16fafaefde5cc9e15a30c74b98e6689d298129aac89",
+      "affected_files": [
+        "build/gulpfile.vscode.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "H",
+        "I"
+      ],
+      "purpose": "Include semver in Electron application package.",
+      "electron_dependency": "Electron packaging",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not imported"
+    },
+    {
+      "source": "patches/00-build-update-electron.patch.no",
+      "sha256": "92f3749395b249143fdb11b7bfe38af0da3462160acaeda44c16df9d976a7623",
+      "affected_files": [
+        ".npmrc",
+        "build/checksums/electron.txt",
+        "cgmanifest.json",
+        "package-lock.json",
+        "package.json"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: .npmrc:1\nerror: .npmrc: patch does not apply\nerror: patch failed: build/checksums/electron.txt:1\nerror: build/checksums/electron.txt: patch does not apply\nerror: patch failed: cgmanifest.json:531\nerror: cgmanifest.json: patch does not apply\nerror: patch failed: package-lock.json:104\nerror: package-lock.json: patch does not apply\nerror: patch failed: package.json:174\nerror: package.json: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "H",
+        "I"
+      ],
+      "purpose": "Pin alternative Electron release and checksums.",
+      "electron_dependency": "Yes",
+      "recommended_action": "SKIP",
+      "implementation_status": "Inactive .no file"
+    },
+    {
+      "source": "patches/00-build-update-sourcemap-url.patch",
+      "sha256": "792bb4a60bc07a78c8972d46792430aee9ffc657116e1c0f14c543cc0ffe7d89",
+      "affected_files": [
+        "build/gulpfile.extensions.ts",
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.vscode.ts",
+        "build/gulpfile.vscode.web.ts",
+        "build/lib/extensions.ts",
+        "build/lib/util.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "I"
+      ],
+      "purpose": "Publish/source sourcemaps from VSCodium GitHub releases; these releases do not contain VSC-Light maps.",
+      "electron_dependency": "No; packaging references",
+      "recommended_action": "SKIP",
+      "implementation_status": "Custom bundle uses no remote sourcemap base"
+    },
+    {
+      "source": "patches/00-cloud-remove.patch",
+      "sha256": "e1217f9be94dd7eb5ad3c8856a43fc2b32d812363f33bd093476ddb44414c2cb",
+      "affected_files": [
+        "src/vs/workbench/contrib/editSessions/browser/editSessionsStorageService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "D"
+      ],
+      "purpose": "Remove Cloud Changes sign-in actions; they already require absent editSessions product URL.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Product endpoint absent; source removal unnecessary for now"
+    },
+    {
+      "source": "patches/00-community-add-announcements.patch",
+      "sha256": "dbe00a16f805967c3c445b5096b69081a01d43958d425070a136314027bcce5b",
+      "affected_files": [
+        "src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.contribution.ts",
+        "src/vs/workbench/contrib/welcomeGettingStarted/browser/gettingStarted.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "D"
+      ],
+      "purpose": "Add welcome announcements and fetch extra repository announcements; not essential identity.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "No announcement feed added"
+    },
+    {
+      "source": "patches/00-copilot-disable-terminal-suggest.patch",
+      "sha256": "9181186263872f9915c5fe896794d544def01b5e77f86551f1fbe7790b80a270",
+      "affected_files": [
+        "extensions/terminal-suggest/src/completions/codium-insiders.ts",
+        "extensions/terminal-suggest/src/completions/codium.ts",
+        "extensions/terminal-suggest/src/terminalSuggestMain.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "A",
+        "E"
+      ],
+      "purpose": "Despite filename, adds Codium/Insiders terminal completion specs; needs VSC Light CLI support.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Terminal out of scope"
+    },
+    {
+      "source": "patches/00-copilot-fix-action-condition.patch",
+      "sha256": "3a51b3f5ed6f7a8c43aafc50ba9410529b43db0564a2e586a516b228bf2836a7",
+      "affected_files": [
+        "src/vs/workbench/contrib/chat/browser/actions/chatActions.ts",
+        "src/vs/workbench/contrib/chat/browser/actions/chatContextActions.ts",
+        "src/vs/workbench/contrib/chat/browser/chat.shared.contribution.ts",
+        "src/vs/workbench/contrib/chat/browser/chatParticipant.contribution.ts",
+        "src/vs/workbench/contrib/chat/browser/chatSetup/chatSetupContributions.ts",
+        "src/vs/workbench/contrib/inlineChat/browser/inlineChatActions.ts",
+        "src/vs/workbench/contrib/mcp/browser/mcpServersView.ts",
+        "src/vs/workbench/contrib/scm/browser/scm.contribution.ts",
+        "src/vs/workbench/contrib/scm/browser/scmInput.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: src/vs/workbench/contrib/chat/browser/chatSetup/chatSetupContributions.ts:370\nerror: src/vs/workbench/contrib/chat/browser/chatSetup/chatSetupContributions.ts: patch does not apply\nerror: patch failed: src/vs/workbench/contrib/mcp/browser/mcpServersView.ts:554\nerror: src/vs/workbench/contrib/mcp/browser/mcpServersView.ts: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "D"
+      ],
+      "purpose": "Hide AI actions when chat.disableAIFeatures is set; defaults that setting to true.",
+      "electron_dependency": "No",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Default-off AI setting ported; agent URLs removed; remaining conflicting UI hunks deferred"
+    },
+    {
+      "source": "patches/00-copilot-remove-terminal-hint.patch",
+      "sha256": "80ae6993df67c24328e50eb3f46f70fa18d0e92680de3e7ee674a694df62d752",
+      "affected_files": [
+        "src/vs/workbench/contrib/terminalContrib/inlineHint/browser/terminal.initialHint.contribution.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "D"
+      ],
+      "purpose": "Remove Copilot CLI terminal promotion.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Terminal out of scope"
+    },
+    {
+      "source": "patches/00-ext-git-ai-coauthor-off.patch",
+      "sha256": "f9f473bce11b1597de718dc4701bd51579d4f3c441f7b1c3d0eedefef99689e9",
+      "affected_files": [
+        "extensions/git/src/repository.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "E"
+      ],
+      "purpose": "Only adds a comment before the already-off addAICoAuthor fallback; no behavioural change.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "Upstream already defaults off"
+    },
+    {
+      "source": "patches/00-ext-github-authentication-use-pat.patch",
+      "sha256": "a164346b2b0e47e5796bcd36a33a0e6895ef2ffd3ff27fe0bf26a9ed522493c6",
+      "affected_files": [
+        "extensions/github-authentication/src/common/env.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "E"
+      ],
+      "purpose": "Force personal access token flows instead of supported Microsoft callback/client flows.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Authentication/extension host not ready"
+    },
+    {
+      "source": "patches/00-ext-github-remove-vscodedev.patch",
+      "sha256": "5fd81aec78958d582c7655a88c4ba94d6be080c09287e3ec92c091a511d2e50e",
+      "affected_files": [
+        "extensions/github/package.json",
+        "extensions/github/src/commands.ts",
+        "extensions/github/src/extension.ts",
+        "extensions/github/src/remoteSourceProvider.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "E"
+      ],
+      "purpose": "Remove vscode.dev sharing commands/providers from GitHub extension.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Extension host not ready"
+    },
+    {
+      "source": "patches/00-extension-disable-signature-verification.patch",
+      "sha256": "02ae9bff811559a95d4db8467f6db3899c032bedbdf18c99b97e4490a3cec432",
+      "affected_files": [
+        "src/vs/platform/extensionManagement/node/extensionManagementService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "B",
+        "E"
+      ],
+      "purpose": "Default Node extension installation signature verification off for non-MS registry.",
+      "electron_dependency": "Node extension service",
+      "recommended_action": "DEFER",
+      "implementation_status": "No installer changes; review signature policy when host exists"
+    },
+    {
+      "source": "patches/00-remote-add-missing-dependencies.patch",
+      "sha256": "ec479d17f62c7887751056a9f2b4aa965ee31bf0dafd1247304a888a643efc6c",
+      "affected_files": [
+        "remote/package-lock.json",
+        "remote/package.json"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "E",
+        "I"
+      ],
+      "purpose": "Add yauzl to remote server dependencies.",
+      "electron_dependency": "No: Node server",
+      "recommended_action": "SKIP",
+      "implementation_status": "No remote server distribution"
+    },
+    {
+      "source": "patches/00-remote-add-url.patch",
+      "sha256": "cfa8de5fce5b7c3c0defe00136c33459a27db52ea4e164ba5ce96d6f1dfbcfc7",
+      "affected_files": [
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.vscode.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "E",
+        "I"
+      ],
+      "purpose": "Generate VSCodium REH archive URL in packaged product.",
+      "electron_dependency": "No: remote server packaging",
+      "recommended_action": "DEFER",
+      "implementation_status": "No matching VSC-Light REH artifacts"
+    },
+    {
+      "source": "patches/00-remote-disable-client-validation.patch",
+      "sha256": "43941aa950dfd543bae8a08b10649704576c04e3fbea18786cdd27aa5ba18e0d",
+      "affected_files": [
+        "src/vs/server/node/remoteExtensionHostAgentServer.ts",
+        "src/vs/server/node/serverEnvironmentService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "E"
+      ],
+      "purpose": "Disable remote client version/commit checks and add without-connection-token default.",
+      "electron_dependency": "No: Node server",
+      "recommended_action": "SKIP",
+      "implementation_status": "No remote server; do not relax validation speculatively"
+    },
+    {
+      "source": "patches/00-remote-remove-missing-vsda.patch",
+      "sha256": "9424d915e15bbeeb3f7ce599f7cc1c82c77e37df099c9502efe38d30be6f3eef",
+      "affected_files": [
+        "src/vs/platform/sign/browser/signService.ts",
+        "src/vs/server/node/remoteExtensionHostAgentServer.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "E"
+      ],
+      "purpose": "Remove proprietary signing/validation challenge from remote server and browser signing service.",
+      "electron_dependency": "No: server/browser",
+      "recommended_action": "DEFER",
+      "implementation_status": "Remote host design required"
+    },
+    {
+      "source": "patches/00-security-add-command-filter.patch",
+      "sha256": "04560b23d89fb063d755c4553ca2a9bfeb30d713de7604658174d4156b5fe468",
+      "affected_files": [
+        "src/vs/workbench/contrib/commands/common/commands.contribution.ts",
+        "src/vs/workbench/services/commands/common/commandService.ts",
+        "src/vs/workbench/services/commands/test/common/commandService.test.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "J"
+      ],
+      "purpose": "Introduce ask/off/on command authorization filters, default blocking newLocal terminal.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Separate behaviour change; command/native capabilities need design"
+    },
+    {
+      "source": "patches/00-settings-gallery.patch",
+      "sha256": "9303f42cc04d011ef198b98df978b19ac41de5527cd07d824c272aad4f0eaf0f",
+      "affected_files": [
+        "src/vs/base/common/product.ts",
+        "src/vs/platform/extensionManagement/common/extensionGalleryManifestService.ts",
+        "src/vs/platform/product/common/product.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "B",
+        "E"
+      ],
+      "purpose": "Support Open VSX latest URL and gallery environment overrides.",
+      "electron_dependency": "No; omitted override branch is Node bootstrap",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Types/latest manifest URL ported; host product supplies sandbox configuration"
+    },
+    {
+      "source": "patches/00-settings-user-product.patch",
+      "sha256": "13ac831dc73b2616c1c2de45ba8f623ebe27d2d2a20ddfc4865e05db4a528b91",
+      "affected_files": [
+        "src/cli.ts",
+        "src/mainImpl.ts",
+        "src/typings/vscode-globals-product.d.ts",
+        "src/vs/platform/product/common/product.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "J"
+      ],
+      "purpose": "Load user product.json overrides in Node main/CLI/global bootstrap.",
+      "electron_dependency": "Yes: main/CLI integration; common merge too",
+      "recommended_action": "SKIP",
+      "implementation_status": "Use tracked build layers; no arbitrary user service override"
+    },
+    {
+      "source": "patches/00-telemetry-disable.patch",
+      "sha256": "be7de72ef8ed64bd18d059dbaadd97071a7949a9da9d6b3d39a63203c852eb1d",
+      "affected_files": [
+        "src/vs/platform/telemetry/common/telemetryService.ts",
+        "src/vs/workbench/browser/workbench.contribution.ts",
+        "src/vs/workbench/contrib/editTelemetry/browser/editTelemetry.contribution.ts",
+        "src/vs/workbench/contrib/preferences/common/preferencesContribution.ts",
+        "src/vs/workbench/electron-browser/desktop.contribution.ts",
+        "src/vs/workbench/services/assignment/common/assignmentService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C"
+      ],
+      "purpose": "Default telemetry, edit telemetry, crash reporting, natural-language searches and experiments off.",
+      "electron_dependency": "Renderer-only defaults; one electron-browser setting, no Electron API",
+      "recommended_action": "PORT AS-IS",
+      "implementation_status": "Imported unchanged diff"
+    },
+    {
+      "source": "patches/00-tunnel-disable-recommendation.patch",
+      "sha256": "0e4bcf1233b54b989c4bd42a2f40acc0be7cb85f1dd7ab93d083f387bfdabfb3",
+      "affected_files": [
+        "src/vs/workbench/contrib/remoteTunnel/electron-browser/remoteTunnel.contribution.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "E"
+      ],
+      "purpose": "Guard remote tunnel recommendation when no extension is configured.",
+      "electron_dependency": "electron-browser contribution, not native API",
+      "recommended_action": "PORT AS-IS",
+      "implementation_status": "Imported renderer guard; no tunnel service configured"
+    },
+    {
+      "source": "patches/00-ui-custom-font.patch",
+      "sha256": "d85f2aa1ba99fc5c5159ebf2d605672fe1bba8a63f192fd0ea91abfa83d2d0c2",
+      "affected_files": [
+        "src/vs/base/browser/ui/actionbar/actionbar.css",
+        "src/vs/base/browser/ui/button/button.css",
+        "src/vs/base/browser/ui/codicons/codicon/codicon.css",
+        "src/vs/base/browser/ui/iconLabel/iconlabel.css",
+        "src/vs/base/browser/ui/inputbox/inputBox.css",
+        "src/vs/base/browser/ui/selectBox/selectBox.css",
+        "src/vs/base/browser/ui/selectBox/selectBoxCustom.ts",
+        "src/vs/base/browser/ui/splitview/paneview.css",
+        "src/vs/base/browser/ui/splitview/paneview.ts",
+        "src/vs/base/browser/ui/toggle/toggle.css",
+        "src/vs/base/browser/ui/toggle/toggle.ts",
+        "src/vs/base/common/font.ts",
+        "src/vs/base/test/browser/ui/splitview/paneview.test.ts",
+        "src/vs/base/test/common/font.test.ts",
+        "src/vs/editor/contrib/find/browser/findWidget.css",
+        "src/vs/editor/contrib/find/browser/findWidget.ts",
+        "src/vs/platform/quickinput/browser/tree/quickInputDelegate.ts",
+        "src/vs/sessions/browser/workbench.ts",
+        "src/vs/sessions/test/browser/workbench.test.ts",
+        "src/vs/workbench/browser/media/style.css",
+        "src/vs/workbench/browser/parts/activitybar/activitybarPart.ts",
+        "src/vs/workbench/browser/parts/activitybar/media/activityaction.css",
+        "src/vs/workbench/browser/parts/activitybar/media/activitybarpart.css",
+        "src/vs/workbench/browser/parts/auxiliarybar/auxiliaryBarPart.ts",
+        "src/vs/workbench/browser/parts/auxiliarybar/media/auxiliaryBarPart.css",
+        "src/vs/workbench/browser/parts/editor/editorTabsControl.ts",
+        "src/vs/workbench/browser/parts/editor/media/editortabscontrol.css",
+        "src/vs/workbench/browser/parts/editor/media/editortitlecontrol.css",
+        "src/vs/workbench/browser/parts/editor/media/multieditortabscontrol.css",
+        "src/vs/workbench/browser/parts/editor/multiEditorTabsControl.ts",
+        "src/vs/workbench/browser/parts/media/paneCompositePart.css",
+        "src/vs/workbench/browser/parts/notifications/notificationsViewer.ts",
+        "src/vs/workbench/browser/parts/panel/media/panelpart.css",
+        "src/vs/workbench/browser/parts/panel/panelPart.ts",
+        "src/vs/workbench/browser/parts/sidebar/media/sidebarpart.css",
+        "src/vs/workbench/browser/parts/sidebar/sidebarPart.ts",
+        "src/vs/workbench/browser/parts/statusbar/media/statusbarpart.css",
+        "src/vs/workbench/browser/parts/statusbar/statusbarPart.ts",
+        "src/vs/workbench/browser/parts/views/media/paneviewlet.css",
+        "src/vs/workbench/browser/parts/views/treeView.ts",
+        "src/vs/workbench/browser/workbench.contribution.ts",
+        "src/vs/workbench/browser/workbench.ts",
+        "src/vs/workbench/contrib/callHierarchy/browser/callHierarchyTree.ts",
+        "src/vs/workbench/contrib/chat/browser/agentSessions/agentSessionsViewer.ts",
+        "src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatChangesSummaryPart.ts",
+        "src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatMultiDiffContentPart.ts",
+        "src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatReferencesContentPart.ts",
+        "src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatTodoListWidget.ts",
+        "src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatTreeContentPart.ts",
+        "src/vs/workbench/contrib/chat/browser/widgetHosts/viewPane/media/chatViewPane.css",
+        "src/vs/workbench/contrib/codeEditor/browser/outline/documentSymbolsTree.ts",
+        "src/vs/workbench/contrib/codeEditor/browser/suggestEnabledInput/suggestEnabledInput.ts",
+        "src/vs/workbench/contrib/comments/browser/commentsTreeViewer.ts",
+        "src/vs/workbench/contrib/debug/browser/breakpointsView.ts",
+        "src/vs/workbench/contrib/debug/browser/callStackView.ts",
+        "src/vs/workbench/contrib/debug/browser/callStackWidget.ts",
+        "src/vs/workbench/contrib/debug/browser/debugHover.ts",
+        "src/vs/workbench/contrib/debug/browser/loadedScriptsView.ts",
+        "src/vs/workbench/contrib/debug/browser/media/debugToolBar.css",
+        "src/vs/workbench/contrib/debug/browser/media/debugViewlet.css",
+        "src/vs/workbench/contrib/debug/browser/variablesView.ts",
+        "src/vs/workbench/contrib/debug/browser/watchExpressionsView.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionFeaturesTab.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionsList.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionsViewer.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionsViewlet.ts",
+        "src/vs/workbench/contrib/extensions/browser/media/extension.css",
+        "src/vs/workbench/contrib/extensions/browser/media/extensionActions.css",
+        "src/vs/workbench/contrib/files/browser/media/explorerviewlet.css",
+        "src/vs/workbench/contrib/files/browser/views/explorerView.ts",
+        "src/vs/workbench/contrib/files/browser/views/explorerViewer.ts",
+        "src/vs/workbench/contrib/files/browser/views/media/openeditors.css",
+        "src/vs/workbench/contrib/files/browser/views/openEditorsView.ts",
+        "src/vs/workbench/contrib/files/test/browser/explorerFindProvider.test.ts",
+        "src/vs/workbench/contrib/markers/browser/markersTreeViewer.ts",
+        "src/vs/workbench/contrib/modernUI/browser/modernUI.contribution.ts",
+        "src/vs/workbench/contrib/notebook/browser/contrib/notebookVariables/notebookVariablesTree.ts",
+        "src/vs/workbench/contrib/notebook/browser/contrib/outline/notebookOutline.ts",
+        "src/vs/workbench/contrib/preferences/browser/tocTree.ts",
+        "src/vs/workbench/contrib/processExplorer/browser/processExplorerControl.ts",
+        "src/vs/workbench/contrib/remote/browser/remote.ts",
+        "src/vs/workbench/contrib/scm/browser/media/scm.css",
+        "src/vs/workbench/contrib/scm/browser/scmHistoryViewPane.ts",
+        "src/vs/workbench/contrib/scm/browser/scmRepositoriesViewPane.ts",
+        "src/vs/workbench/contrib/scm/browser/scmViewPane.ts",
+        "src/vs/workbench/contrib/search/browser/media/searchview.css",
+        "src/vs/workbench/contrib/search/browser/searchResultsView.ts",
+        "src/vs/workbench/contrib/search/browser/searchView.ts",
+        "src/vs/workbench/contrib/search/browser/searchWidget.ts",
+        "src/vs/workbench/contrib/terminal/browser/terminalTabsList.ts",
+        "src/vs/workbench/contrib/testing/browser/testCoverageView.ts",
+        "src/vs/workbench/contrib/testing/browser/testResultsView/testResultsOutput.ts",
+        "src/vs/workbench/contrib/testing/browser/testingExplorerView.ts",
+        "src/vs/workbench/contrib/timeline/browser/timelinePane.ts",
+        "src/vs/workbench/contrib/typeHierarchy/browser/typeHierarchyTree.ts",
+        "src/vs/workbench/contrib/welcomeAgentSessions/browser/agentSessionsWelcome.ts",
+        "src/vs/workbench/test/browser/notificationsList.test.ts",
+        "src/vs/workbench/test/browser/notificationsToasts.test.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "<stdin>:1776: space before tab in indent.\n \tline-height: 1.4em;\nerror: patch failed: src/vs/sessions/browser/workbench.ts:84\nerror: src/vs/sessions/browser/workbench.ts: patch does not apply\nerror: patch failed: src/vs/sessions/test/browser/workbench.test.ts:27\nerror: src/vs/sessions/test/browser/workbench.test.ts: patch does not apply\nerror: patch failed: src/vs/workbench/browser/parts/editor/editorTabsControl.ts:105\nerror: src/vs/workbench/browser/parts/editor/editorTabsControl.ts: patch does not apply\nerror: patch failed: src/vs/workbench/browser/parts/editor/multiEditorTabsControl.ts:62\nerror: src/vs/workbench/browser/parts/editor/multiEditorTabsControl.ts: patch does not apply\nerror: patch failed: src/vs/workbench/browser/parts/notifications/notificationsViewer.ts:35\nerror: src/vs/workbench/browser/parts/notifications/notificationsViewer.ts: patch does not apply\nerror: patch failed: src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatChangesSummaryPart.ts:126\nerror: src/vs/workbench/contrib/chat/browser/widget/chatContentParts/chatChangesSummaryPart.ts: patch does not apply\nerror: patch failed: src/vs/workbench/contrib/terminal/browser/terminalTabsList.ts:460\nerror: src/vs/workbench/contrib/terminal/browser/terminalTabsList.ts: patch does not apply\nerror: patch failed: src/vs/workbench/test/browser/notificationsList.test.ts:19\nerror: src/vs/workbench/test/browser/notificationsList.test.ts: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "D"
+      ],
+      "purpose": "Experimental global/per-part font families and sizes; CSS plus TS layout scaling for tabs/sidebar/activity/status/panel and lists.",
+      "electron_dependency": "No native dependency; touches desktop, sessions, terminal and tests",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Global font-family mechanism ported; full size/per-part subsystem deferred"
+    },
+    {
+      "source": "patches/00-ui-improve-eol-banner.patch",
+      "sha256": "2c6329b86b8cd9377c376baeec715bcff9da9fae82112462b7718fc3d31fe049",
+      "affected_files": [
+        "src/vs/workbench/browser/parts/banner/bannerPart.ts",
+        "src/vs/workbench/services/banner/browser/bannerService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "D"
+      ],
+      "purpose": "Add never-show-again storage checks to banners; not a theme.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Useful independent enhancement; no VSC-Light EOL policy yet"
+    },
+    {
+      "source": "patches/00-ui-report-issue.patch",
+      "sha256": "4de02e27966c12fd7a6ec0f7162c1088d2359317daa10f2cb6a4481096126d3c",
+      "affected_files": [
+        "src/vs/workbench/contrib/extensions/electron-browser/extensionsSlowActions.ts",
+        "src/vs/workbench/contrib/issue/browser/baseIssueReporterService.ts",
+        "src/vs/workbench/contrib/issue/browser/issueReporterModel.ts",
+        "src/vs/workbench/contrib/issue/browser/issueReporterPage.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: src/vs/workbench/contrib/issue/browser/baseIssueReporterService.ts:591\nerror: src/vs/workbench/contrib/issue/browser/baseIssueReporterService.ts: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "A",
+        "D"
+      ],
+      "purpose": "Adapt issue reporter UI/links for distribution.",
+      "electron_dependency": "Mixed: electron-browser issue/extension flows",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Product reportIssueUrl points to VSC-Light; conflicting reporter patch deferred"
+    },
+    {
+      "source": "patches/00-update-disable.patch.yet",
+      "sha256": "97bdcf434f5b6157dc48ebffbb6ad1e7fc57c8a8e2d66593951d021127f3a85d",
+      "affected_files": [
+        "src/vs/platform/update/common/update.config.contribution.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "F"
+      ],
+      "purpose": "Default update.mode to none when DISABLE_UPDATE=yes.",
+      "electron_dependency": "Setting only; updater intent native",
+      "recommended_action": "DEFER",
+      "implementation_status": "Conditional .yet file; no update URL configured"
+    },
+    {
+      "source": "patches/00-update-rename-cache-path.patch",
+      "sha256": "bee02db192415b84480fc22c10ae8ac601d3efbe81e0c78404dcef53750ab2a8",
+      "affected_files": [
+        "src/vs/platform/update/electron-main/updateService.win32.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "F",
+        "H"
+      ],
+      "purpose": "Use distribution Windows update cache name.",
+      "electron_dependency": "Yes: Electron Windows updater",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not imported"
+    },
+    {
+      "source": "patches/00-vsce-use-custom-lib.patch",
+      "sha256": "45bccf91a0c4347d5b6c689845bcc165602bff55f19fbfb50bd3a2f31df0cc29",
+      "affected_files": [
+        "build/.moduleignore",
+        "build/gulpfile.vscode.ts",
+        "build/lib/extensions.ts",
+        "build/package-lock.json",
+        "build/package.json",
+        "src/vs/platform/extensionManagement/node/extensionSignatureVerificationService.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/package-lock.json:2137\nerror: build/package-lock.json: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "E",
+        "I"
+      ],
+      "purpose": "Replace vsce/sign packages with VSCodium forks and packaging rules.",
+      "electron_dependency": "Node extension signing/build, Electron packaging portions",
+      "recommended_action": "DEFER",
+      "implementation_status": "Extension build/install lifecycle out of scope"
+    },
+    {
+      "source": "patches/10-version-add-release.patch",
+      "sha256": "a445b748e2a8c6cc587425367f8fe14763ff657828ff513f1102a1b12217b1a4",
+      "affected_files": [
+        "build/gulpfile.vscode.linux.ts",
+        "src/vs/workbench/api/common/extHost.api.impl.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "E",
+        "G",
+        "I"
+      ],
+      "purpose": "Use VSCodium release version for packages and normalize extension API version.",
+      "electron_dependency": "No; package build",
+      "recommended_action": "SKIP",
+      "implementation_status": "Keep VS Code API version from pin, VSC-Light version in Cargo"
+    },
+    {
+      "source": "patches/11-update-use-github-release.patch",
+      "sha256": "f6112fb62dc5514887494b9c78ea63a9a29b3c21e006dc72afcd4952824016b5",
+      "affected_files": [
+        "src/vs/platform/update/common/update.ts",
+        "src/vs/platform/update/electron-main/abstractUpdateService.ts",
+        "src/vs/platform/update/electron-main/updateService.darwin.ts",
+        "src/vs/platform/update/electron-main/updateService.linux.ts",
+        "src/vs/platform/update/electron-main/updateService.win32.ts",
+        "src/vs/platform/update/electron-main/win32UpdateType.ts",
+        "src/vs/platform/update/test/electron-main/abstractUpdateService.test.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "<stdin>:432: space before tab in indent.\n \t\t}\n<stdin>:437: space before tab in indent.\n \t}\n<stdin>:469: space before tab in indent.\n \t\t\t\tconst updateType = this.getUpdateType();\nwarning: 3 lines add whitespace errors.",
+      "upstream_enabled": true,
+      "categories": [
+        "F",
+        "H"
+      ],
+      "purpose": "Implement VSCodium GitHub release updater, download and install flows.",
+      "electron_dependency": "Yes: Electron updater across platforms",
+      "recommended_action": "SKIP",
+      "implementation_status": "Requires future Rust update design; never install VSCodium Electron binaries"
+    },
+    {
+      "source": "patches/12-update-add-cooldown.patch",
+      "sha256": "51ac23aa93894ce46f1aa7deabfd23b7c795c935993ed266e78aaf18aae973f2",
+      "affected_files": [
+        "src/vs/platform/update/common/update.config.contribution.ts",
+        "src/vs/platform/update/electron-main/abstractUpdateService.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensionsWorkbenchService.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: src/vs/platform/update/electron-main/abstractUpdateService.ts:459\nerror: src/vs/platform/update/electron-main/abstractUpdateService.ts: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "F",
+        "E"
+      ],
+      "purpose": "Throttle application/extension updates with cooldown settings.",
+      "electron_dependency": "Mixed: Electron updater and extension workbench",
+      "recommended_action": "DEFER",
+      "implementation_status": "No working updater/extension host"
+    },
+    {
+      "source": "patches/20-keymap-use-custom-lib.patch",
+      "sha256": "77eb73ad85bd983df76472dab41295ad2518406f573eed03b286b8024fe6e3eb",
+      "affected_files": [
+        ".npmrc",
+        "build/.moduleignore",
+        "eslint.config.js",
+        "package-lock.json",
+        "package.json",
+        "src/vs/platform/environment/test/node/nativeModules.integrationTest.ts",
+        "src/vs/platform/keyboardLayout/electron-main/keyboardLayoutMainService.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: package-lock.json:45\nerror: package-lock.json: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "H"
+      ],
+      "purpose": "Swap native-keymap for VSCodium fork.",
+      "electron_dependency": "Yes: Electron main Node addon",
+      "recommended_action": "SKIP",
+      "implementation_status": "Keyboard integration belongs to GTK/Rust"
+    },
+    {
+      "source": "patches/21-policy-use-custom-lib.patch",
+      "sha256": "fb16511363ee1333ff0852195bf565681ba76c691956e37ce32c4bc8ab53d97e",
+      "affected_files": [
+        "build/.moduleignore",
+        "build/lib/policies/basePolicy.ts",
+        "build/lib/policies/render.ts",
+        "eslint.config.js",
+        "package-lock.json",
+        "package.json",
+        "src/vs/base/test/node/uri.perf.data.txt",
+        "src/vs/platform/environment/test/node/nativeModules.integrationTest.ts",
+        "src/vs/platform/policy/node/nativeManagedSettingsService.ts",
+        "src/vs/platform/policy/node/nativePolicyService.ts",
+        "src/vs/platform/policy/test/node/nativeManagedSettingsService.test.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: package-lock.json:33\nerror: package-lock.json: patch does not apply\nerror: patch failed: package.json:120\nerror: package.json: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "G",
+        "H"
+      ],
+      "purpose": "Swap policy watcher, enterprise namespaces and managed preferences to VSCodium.",
+      "electron_dependency": "Mixed: Node native watcher/platform policies",
+      "recommended_action": "DEFER",
+      "implementation_status": "Adapt policy intent to Rust later; no npm native library import"
+    },
+    {
+      "source": "patches/22-osproxy-use-custom-lib.patch",
+      "sha256": "1032868c9980657d51abb178b9814c5e460b8e0536c05a1dfedd7b73159f2ff1",
+      "affected_files": [
+        "build/.moduleignore",
+        "build/darwin/create-universal-app.ts",
+        "build/darwin/verify-macho.ts",
+        "build/lib/osProxyResolver.ts",
+        "build/lib/test/osProxyResolver.test.ts",
+        "package-lock.json",
+        "package.json",
+        "src/vs/platform/environment/test/node/nativeModules.integrationTest.ts",
+        "src/vs/platform/native/electron-main/nativeHostMainService.ts",
+        "src/vs/workbench/contrib/chat/electron-browser/actions/networkDiagnosticsAction.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/darwin/create-universal-app.ts:148\nerror: build/darwin/create-universal-app.ts: patch does not apply\nerror: patch failed: build/darwin/verify-macho.ts:47\nerror: build/darwin/verify-macho.ts: patch does not apply\nerror: patch failed: package-lock.json:32\nerror: package-lock.json: patch does not apply\nerror: patch failed: package.json:119\nerror: package.json: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "H",
+        "I"
+      ],
+      "purpose": "Replace OS proxy resolver binaries with VSCodium fork and package more architectures.",
+      "electron_dependency": "Yes: Electron native host/Node binaries",
+      "recommended_action": "SKIP",
+      "implementation_status": "Rust/WebKit proxy integration needs its own implementation"
+    },
+    {
+      "source": "patches/30-build-add-missing-dependencies.patch",
+      "sha256": "d72260710872ac417589a5dd47a3829a598d3e2954f6bcd38931ed47bab7ccac",
+      "affected_files": [
+        "build/package-lock.json",
+        "build/package.json"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Add extract-zip to build dependencies.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "Custom bundle does not need it"
+    },
+    {
+      "source": "patches/40-cli-use-reh-archive.patch",
+      "sha256": "9b1ed81416f84222e569304decf7a55d7f215215757df193e87a229c45838675",
+      "affected_files": [
+        "cli/src/commands/serve_web.rs",
+        "cli/src/constants.rs",
+        "cli/src/options.rs",
+        "cli/src/tunnels/agent_host.rs",
+        "cli/src/tunnels/code_server.rs",
+        "cli/src/tunnels/paths.rs",
+        "cli/src/update_service.rs",
+        "extensions/tunnel-forwarding/src/extension.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "A",
+        "E",
+        "F"
+      ],
+      "purpose": "Rebrand CLI constants, URL formats and server downloads for VSCodium REH archives.",
+      "electron_dependency": "No: upstream Rust CLI, distinct from our Rust host",
+      "recommended_action": "DEFER",
+      "implementation_status": "No VSC-Light CLI/REH artifacts"
+    },
+    {
+      "source": "patches/50-build-improve-gulp-tasks.patch",
+      "sha256": "d5910a798a915a24719bff8feae022ec1a1e77aeb383704b9829259fee07832f",
+      "affected_files": [
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.vscode.ts",
+        "build/lib/esbuild.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Split prepack/packing tasks and disable esbuild private mangling.",
+      "electron_dependency": "Electron packaging portions",
+      "recommended_action": "ALREADY COVERED BY VSC-LIGHT",
+      "implementation_status": "Own gulp bundle task; no packaging pipeline imported"
+    },
+    {
+      "source": "patches/51-build-disable-non-ascii.patch.no",
+      "sha256": "d73924e37c85c27493c09b5b225e8f84285d94e2832784e604d7a0d69edf483a",
+      "affected_files": [
+        "build/lib/optimize.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: build/lib/optimize.ts: does not exist in index",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Disable non-ASCII minifier output.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "Inactive .no; no minification"
+    },
+    {
+      "source": "patches/52-ext-copilot-remove-it.json",
+      "sha256": "d9dd6cab4b43632a16d1231bbf38bc1b1951e89be7c79d4b0dc5e73ddd948671",
+      "affected_files": [
+        "extensions/copilot",
+        "src/vs/platform/agentHost/node/codex",
+        "src/vs/platform/agentHost/node/otel",
+        "src/vs/platform/agentHost/test/node/clientTools",
+        "src/vs/platform/agentHost/test/node/codex",
+        "src/vs/platform/agentHost/test/node/customizations",
+        "src/vs/platform/agentHost/test/node/otel",
+        "src/vs/platform/agentHost/node/copilot/copilotAgent.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotAgentSession.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotGitProject.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotPluginConverters.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSessionWrapper.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotShellTools.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotToolDisplay.ts",
+        "src/vs/platform/agentHost/node/copilot/mapSessionEvents.ts",
+        "src/vs/platform/agentHost/test/node/agentService.test.ts",
+        "src/vs/platform/agentHost/test/node/agentSideEffects.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeAgent.integrationTest.ts",
+        "src/vs/platform/agentHost/test/node/claudeAgent.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeMapSessionEvents.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeMapSessionEventsTestUtils.ts",
+        "src/vs/platform/agentHost/test/node/claudeProxyService.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotAgent.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotAgentSession.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotGitProject.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotPluginConverters.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotShellTools.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotToolDisplay.test.ts",
+        "src/vs/platform/agentHost/test/node/historyRecordFixtures.test.ts",
+        "src/vs/platform/agentHost/test/node/historyRecordFixtures.ts",
+        "src/vs/platform/agentHost/test/node/shared/copilotApiService.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeFileEditObserver.test.ts",
+        "src/vs/platform/agentHost/test/node/claudePromptQueue.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeReplayMapper.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSdkMessageRouter.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSdkPipeline.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSessionMetadataStore.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSubagentResolver.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSubagentSignals.test.ts",
+        "src/vs/platform/agentHost/test/node/anthropicBetas.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeInteractiveTools.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeModelId.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeProxyAuth.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSubagentRegistry.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeToolDisplay.test.ts",
+        "src/vs/platform/agentHost/test/node/shared/copilotApiService.integrationTest.ts",
+        "src/vs/platform/agentHost/test/node/mapSessionEvents.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotTestEvents.ts",
+        "src/vs/platform/agentHost/test/node/claudeToolCallRegistry.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeServerToolMcpServer.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeSdkOptions.test.ts",
+        "src/vs/platform/agentHost/test/node/agentSdkDownloader.test.ts",
+        "src/vs/platform/agentHost/test/node/agentHostSessionTitleController.test.ts",
+        "src/vs/platform/agentHost/test/node/agentHostCommitOperationHandler.test.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/systemMessage.ts",
+        "src/vs/platform/agentHost/test/node/agentHostPromptRegistry.test.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/anthropicPrompt.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/allPrompts.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSystemNotification.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSessionLauncher.ts",
+        "src/vs/platform/agentHost/node/agentHostCommitOperationHandler.ts",
+        "src/vs/platform/agentHost/node/agentHostCommitOperationProvider.ts",
+        "src/vs/platform/agentHost/test/node/agentHostCommitOperationProvider.test.ts",
+        "src/vs/platform/agentHost/test/node/mapSessionEvents.perf.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotSessionLauncher.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeElicitation.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeModelSelection.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeToolDenial.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeTransportMode.test.ts",
+        "src/vs/platform/agentHost/test/node/buildSessionEvents.test.ts",
+        "src/vs/platform/agentHost/test/node/claude/claudePromptResolver.test.ts",
+        "src/vs/platform/agentHost/node/claude/clientTools",
+        "src/vs/platform/agentHost/node/claude/customizations",
+        "src/vs/platform/agentHost/node/claude/anthropicBetas.ts",
+        "src/vs/platform/agentHost/node/claude/anthropicErrors.ts",
+        "src/vs/platform/agentHost/node/claude/claudeAgent.ts",
+        "src/vs/platform/agentHost/node/claude/claudeAgentSdkService.ts",
+        "src/vs/platform/agentHost/node/claude/claudeAgentSession.ts",
+        "src/vs/platform/agentHost/node/claude/claudeCanUseTool.ts",
+        "src/vs/platform/agentHost/node/claude/claudeElicitation.ts",
+        "src/vs/platform/agentHost/node/claude/claudeElicitationBridge.ts",
+        "src/vs/platform/agentHost/node/claude/claudeFileEditObserver.ts",
+        "src/vs/platform/agentHost/node/claude/claudeFolderPickerCriteria.ts",
+        "src/vs/platform/agentHost/node/claude/claudeInteractiveTools.ts",
+        "src/vs/platform/agentHost/node/claude/claudeMapSessionEvents.ts",
+        "src/vs/platform/agentHost/node/claude/claudeMcpServerNames.ts",
+        "src/vs/platform/agentHost/node/claude/claudeModelId.ts",
+        "src/vs/platform/agentHost/node/claude/claudeModelSelection.ts",
+        "src/vs/platform/agentHost/node/claude/claudePromptQueue.ts",
+        "src/vs/platform/agentHost/node/claude/claudePromptResolver.ts",
+        "src/vs/platform/agentHost/node/claude/claudeProxyService.ts",
+        "src/vs/platform/agentHost/node/claude/claudeReplayMapper.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSdkMessageRouter.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSdkOptions.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSdkPipeline.ts",
+        "src/vs/platform/agentHost/node/claude/claudeServerToolMcpServer.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSessionMetadataStore.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSessionPermissionMode.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSubagentRegistry.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSubagentResolver.ts",
+        "src/vs/platform/agentHost/node/claude/claudeSubagentSignals.ts",
+        "src/vs/platform/agentHost/node/claude/claudeToolCallRegistry.ts",
+        "src/vs/platform/agentHost/node/claude/claudeToolDenial.ts",
+        "src/vs/platform/agentHost/node/claude/claudeToolDisplay.ts",
+        "src/vs/platform/agentHost/node/claude/claudeTransportMode.ts",
+        "src/vs/platform/agentHost/node/claude/CONTEXT.md",
+        "src/vs/platform/agentHost/node/claude/phase-plan.1.5.md",
+        "src/vs/platform/agentHost/node/claude/phase-plan.2.md",
+        "src/vs/platform/agentHost/node/claude/phase4-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase5-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase6-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase6.1-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase6.5-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase6.7-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase7-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase8-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase8.5-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase9-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase10-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase10.5-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase10.6-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase11-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase12-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase13-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase15-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase16-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase17-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase18-plan.md",
+        "src/vs/platform/agentHost/node/claude/phase19-plan.md",
+        "src/vs/platform/agentHost/node/claude/roadmap.md",
+        "src/vs/platform/agentHost/node/claude/smoke.md",
+        "src/vs/platform/agentHost/test/node/sessionCustomizationDiscovery.test.ts",
+        "src/vs/platform/agentHost/node/agentHostGitHubTelemetryRouter.ts",
+        "src/vs/platform/agentHost/test/node/providerIntegration/copilotByokResponses.integrationTest.ts",
+        "src/vs/platform/agentHost/test/node/copilotGitHubTelemetryForwarder.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotFailureTelemetry.test.ts",
+        "src/vs/platform/agentHost/test/node/agentHostGitHubTelemetryRouter.test.ts",
+        "src/vs/platform/agentHost/test/node/toolInstructions.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotSdkImportSession.integrationTest.ts",
+        "src/vs/platform/agentHost/node/copilot/buildSessionEvents.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotFailureTelemetry.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotGitHubTelemetryForwarder.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSlashCommandCompletionProvider.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSlashCommandProvider.ts",
+        "src/vs/platform/agentHost/test/node/copilotSlashCommandCompletionProvider.test.ts",
+        "src/vs/platform/agentHost/test/node/agentHostPullRequestOperationHandler.test.ts",
+        "src/vs/platform/agentHost/test/node/proxyChatError.test.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/openaiPrompt.ts",
+        "src/vs/platform/agentHost/test/node/agentHostTelemetryReporter.test.ts",
+        "src/vs/platform/agentHost/test/node/agentHostTurnHangTelemetry.test.ts",
+        "src/vs/platform/agentHost/test/node/agentHostTurnTelemetry.test.ts",
+        "src/vs/platform/agentHost/test/node/claudeAgentSdkService.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotSlashCommand.test.ts",
+        "src/vs/platform/agentHost/test/node/fixtures/claudeSessionMetadataMemory.ts",
+        "src/vs/platform/agentHost/test/node/providerIntegration/copilotAutoTier.integrationTest.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotCustomizationCommandDisplay.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotFusionEventIdentity.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotFusionMessageChunks.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotFusionProgress.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotFusionReplay.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotGitHubCredentials.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSandboxDiagnostics.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSandboxPolicy.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSandboxPolicyDisplay.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSdkMeta.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSecondaryAssignmentContext.ts",
+        "src/vs/platform/agentHost/node/copilot/copilotSlashCommand.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/promptOverride.ts",
+        "src/vs/platform/agentHost/test/node/agentHostPromptOverride.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotFusionProgress.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotFusionTestEvents.ts",
+        "src/vs/platform/agentHost/test/node/copilotGitHubCredentials.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotSandboxDiagnostics.test.ts",
+        "src/vs/platform/agentHost/test/node/copilotSecondaryAssignmentContext.test.ts",
+        "src/vs/platform/agentHost/test/node/providerIntegration/copilotCustomizations.integrationTest.ts",
+        "src/vs/platform/agentHost/test/node/sessionSandbox.test.ts",
+        "src/vs/platform/agentHost/common/otel/agentHostOTelService.ts"
+      ],
+      "isolated_pinned_check": "all removal targets exist",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "E"
+      ],
+      "purpose": "JSON deletes built-in Copilot, agent host SDK integrations, tests and obsolete integration modules.",
+      "electron_dependency": "Mixed Node services/extensions/renderer",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Product agent URLs/trusted auth/voice removed; destructive source deletions deferred"
+    },
+    {
+      "source": "patches/53-ext-copilot-remove-it.patch",
+      "sha256": "fdb4202a0e3d0a19b02f8c430ac9f793f054da435624209fb362f51ebaed8b81",
+      "affected_files": [
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.vscode.ts",
+        "build/npm/dirs.ts",
+        "build/npm/postinstall.ts",
+        "package-lock.json",
+        "package.json",
+        "remote/package-lock.json",
+        "remote/package.json",
+        "src/vs/platform/agentHost/node/agentHostBootstrap.ts",
+        "src/vs/platform/agentHost/node/agentHostContributions.ts",
+        "src/vs/platform/agentHost/node/agentHostMain.ts",
+        "src/vs/platform/agentHost/node/agentHostServerMain.ts",
+        "src/vs/platform/agentHost/node/agentHostServices.ts",
+        "src/vs/platform/agentHost/node/agentHostSessionTitleController.ts",
+        "src/vs/platform/agentHost/node/agentHostTelemetryReporter.ts",
+        "src/vs/platform/agentHost/node/agentHostTurnTelemetryContext.ts",
+        "src/vs/platform/agentHost/node/agentService.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/promptRegistry.ts",
+        "src/vs/platform/agentHost/node/copilot/prompts/toolInstructions.ts",
+        "src/vs/platform/agentHost/node/copilot/sessionCustomizationDiscovery.ts",
+        "src/vs/platform/agentHost/node/protocolServerHandler.ts",
+        "src/vs/platform/agentHost/node/shared/copilotApiService.ts",
+        "src/vs/platform/agentHost/test/node/agentHostServices.test.ts",
+        "src/vs/platform/agentHost/test/node/agentServiceTestUtils.ts",
+        "src/vs/platform/agentHost/test/node/mockAgent.ts",
+        "src/vs/platform/agentHost/test/node/protocolServerHandler.test.ts",
+        "src/vs/platform/product/common/product.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/gulpfile.reh.ts:32\nerror: build/gulpfile.reh.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.ts:26\nerror: build/gulpfile.vscode.ts: patch does not apply\nerror: patch failed: build/npm/postinstall.ts:324\nerror: build/npm/postinstall.ts: patch does not apply\nerror: patch failed: package-lock.json:12\nerror: package-lock.json: patch does not apply\nerror: patch failed: package.json:24\nerror: package.json: patch does not apply\nerror: patch failed: remote/package-lock.json:11\nerror: remote/package-lock.json: patch does not apply\nerror: patch failed: remote/package.json:6\nerror: remote/package.json: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostBootstrap.ts:41\nerror: src/vs/platform/agentHost/node/agentHostBootstrap.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostMain.ts:24\nerror: src/vs/platform/agentHost/node/agentHostMain.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostServerMain.ts:39\nerror: src/vs/platform/agentHost/node/agentHostServerMain.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostServices.ts:33\nerror: src/vs/platform/agentHost/node/agentHostServices.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostSessionTitleController.ts:5\nerror: src/vs/platform/agentHost/node/agentHostSessionTitleController.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostTelemetryReporter.ts:8\nerror: src/vs/platform/agentHost/node/agentHostTelemetryReporter.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/agentHostTurnTelemetryContext.ts:13\nerror: src/vs/platform/agentHost/node/agentHostTurnTelemetryContext.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/copilot/sessionCustomizationDiscovery.ts:12\nerror: src/vs/platform/agentHost/node/copilot/sessionCustomizationDiscovery.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/node/protocolServerHandler.ts:25\nerror: src/vs/platform/agentHost/node/protocolServerHandler.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/test/node/agentServiceTestUtils.ts:20\nerror: src/vs/platform/agentHost/test/node/agentServiceTestUtils.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/test/node/mockAgent.ts:14\nerror: src/vs/platform/agentHost/test/node/mockAgent.ts: patch does not apply\nerror: patch failed: src/vs/platform/agentHost/test/node/protocolServerHandler.test.ts:6\nerror: src/vs/platform/agentHost/test/node/protocolServerHandler.test.ts: patch does not apply",
+      "upstream_enabled": true,
+      "categories": [
+        "C",
+        "E",
+        "I"
+      ],
+      "purpose": "Remove Copilot imports, SDK dependencies, registrations, AI onboarding and agent host integration after JSON deletions.",
+      "electron_dependency": "Mixed Node host/renderer/build",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Product service configuration removed; conflicting source/lockfile surgery deferred"
+    },
+    {
+      "source": "patches/60-security-add-option-for-malicious-ext.patch",
+      "sha256": "21d01fd845ba8598f1e6c9b6b182036aa10e5eebaba1d4422cc2f0004886ff46",
+      "affected_files": [
+        "src/vs/platform/extensionManagement/common/extensionGalleryService.ts",
+        "src/vs/workbench/contrib/extensions/browser/extensions.contribution.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "B",
+        "E"
+      ],
+      "purpose": "Allow opting out of malicious/deprecated extension control-list downloads; defaults on.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "Keep Open VSX controlUrl; no bypass setting introduced"
+    },
+    {
+      "source": "patches/61-extension-close-connection.patch",
+      "sha256": "2b704345dec03b2d3338409aafba2a736fe0fe564b863c5a9c6b478a8726a6f4",
+      "affected_files": [
+        "src/vs/platform/extensionManagement/common/extensionGalleryService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "B",
+        "E"
+      ],
+      "purpose": "Use Connection: close for native extension control-list requests.",
+      "electron_dependency": "No Electron API, assumes native request transport",
+      "recommended_action": "DEFER",
+      "implementation_status": "Adapt to WebKit/Rust request service when functional"
+    },
+    {
+      "source": "patches/80-ui-disable-onboarding.json",
+      "sha256": "f5c7977ad743cae8a840a3649caa15c5256a9b16f665f068cbbb5a4e89e9cf0f",
+      "affected_files": [
+        "src/vs/workbench/contrib/welcomeOnboarding"
+      ],
+      "isolated_pinned_check": "all removal targets exist",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "D"
+      ],
+      "purpose": "JSON deletes welcomeOnboarding sources.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "Sources retained unreferenced; no need to delete them"
+    },
+    {
+      "source": "patches/81-ui-disable-onboarding.patch",
+      "sha256": "371085a05c357d927f8aa435617e651ec3d43be653b43c7603ec64ad992be570",
+      "affected_files": [
+        "src/vs/workbench/contrib/welcomeGettingStarted/browser/startupPage.ts",
+        "src/vs/workbench/workbench.common.main.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": true,
+      "categories": [
+        "D"
+      ],
+      "purpose": "Remove onboarding contribution/imports and startup dependency to avoid AI-focused onboarding.",
+      "electron_dependency": "No",
+      "recommended_action": "PORT AS-IS",
+      "implementation_status": "Imported unchanged diff; companion deletion unnecessary"
+    },
+    {
+      "source": "patches/alpine/reh/00-build-docker.patch",
+      "sha256": "d7bdefc9ea0922794901740141435258e06cb72b83ef8280a6f23d0b34960c72",
+      "affected_files": [
+        "build/gulpfile.reh.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Alpine REH builds bypass native module rebuild and select Node handling.",
+      "electron_dependency": "No: server build",
+      "recommended_action": "SKIP",
+      "implementation_status": "No Alpine REH build"
+    },
+    {
+      "source": "patches/helper/settings.patch",
+      "sha256": "ae6b5115b569efe9fa5bcbfd9ab421f72b30e96e3f5583dc5f57c1f286113dac",
+      "affected_files": [
+        ".vscode/settings.json"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Developer settings: disable import organization, enable staged smart commits, squash branch default.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "Helper not part of distribution"
+    },
+    {
+      "source": "patches/insider/19-system-extensions.patch",
+      "sha256": "aed931485e8ecd663b3bc75bedd369b1f24747b1b6cf9b5642b0e27fe7c846ae",
+      "affected_files": [
+        "src/vs/workbench/contrib/extensions/browser/extensionsWorkbenchService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "E"
+      ],
+      "purpose": "Insider allows scanning system extensions on non-built runs.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "No Insider channel/extension host yet"
+    },
+    {
+      "source": "patches/linux/00-asset-fix-rpm-version.patch",
+      "sha256": "60752bfdde0f1070fefe906fd48af3a67ee62581cb2d48eeb6a4426373b3fa8d",
+      "affected_files": [
+        "resources/linux/rpm/code.spec.template"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "G"
+      ],
+      "purpose": "Use VSCodium release string in RPM metadata.",
+      "electron_dependency": "No: packaging",
+      "recommended_action": "SKIP",
+      "implementation_status": "No RPM packaging"
+    },
+    {
+      "source": "patches/linux/00-build-improve-qemu.patch",
+      "sha256": "f8a96dacfa063a601d580938492f571900812e44ec846a8a9037f0b605b3480e",
+      "affected_files": [
+        "build/npm/postinstall.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "<stdin>:13: space before tab in indent.\n \t\t}\nwarning: 1 line adds whitespace errors.",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I"
+      ],
+      "purpose": "Skip native module postinstall under selected QEMU architectures.",
+      "electron_dependency": "Build/native modules",
+      "recommended_action": "SKIP",
+      "implementation_status": "No cross-build pipeline in scope"
+    },
+    {
+      "source": "patches/linux/00-cli-fix-unused.patch",
+      "sha256": "9be9a2d843b9558b676f1d97c3218740e389a3e9444e00e21e18a111a7c50580",
+      "affected_files": [
+        "cli/src/tunnels/code_server.rs",
+        "cli/src/tunnels/dev_tunnels.rs",
+        "cli/src/update_service.rs"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Suppress unused Rust CLI warnings for target-specific tunnel/update fields.",
+      "electron_dependency": "No: upstream CLI",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not our Rust host"
+    },
+    {
+      "source": "patches/linux/00-env-improve-xdg-path.patch",
+      "sha256": "19eaf84fa95ec6f7d7f88aaa651385bb1ec5fb55542abeaee50536fee2e2a60a",
+      "affected_files": [
+        "extensions/git/src/ipc/ipcServer.ts",
+        "src/vs/base/parts/ipc/node/ipc.net.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "G"
+      ],
+      "purpose": "Use XDG runtime directory for IPC sockets instead of tmp fallback.",
+      "electron_dependency": "Node IPC, not Electron-specific API",
+      "recommended_action": "DEFER",
+      "implementation_status": "Apply intent to future Rust sockets; current host uses WebKit messages"
+    },
+    {
+      "source": "patches/linux/00-log-use-state-home.patch",
+      "sha256": "78850134d5189b7bb0495a3d20715075fb0f164e31f70332f5d47be923b3edb3",
+      "affected_files": [
+        "src/vs/platform/environment/common/environment.ts",
+        "src/vs/platform/environment/common/environmentService.ts",
+        "src/vs/platform/environment/node/environmentService.ts",
+        "src/vs/platform/environment/node/userStatePath.ts",
+        "src/vs/platform/userDataProfile/test/common/userDataProfileService.test.ts",
+        "src/vs/platform/userDataProfile/test/electron-main/userDataProfileMainService.test.ts",
+        "src/vs/platform/window/common/window.ts",
+        "src/vs/platform/windows/electron-main/windowsMainService.ts",
+        "src/vs/workbench/services/environment/electron-browser/environmentService.ts",
+        "src/vs/workbench/services/workingCopy/test/electron-browser/workingCopyBackupService.test.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "G"
+      ],
+      "purpose": "Move logs to XDG_STATE_HOME with user/profile paths and tests.",
+      "electron_dependency": "Node environment/desktop integration",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Deferred: shim currently uses /tmp user data; implement coherent Rust path policy first"
+    },
+    {
+      "source": "patches/linux/00-policy-use-custom-path.patch",
+      "sha256": "f7cf427cc48e1d494dd6402a65e45e09fec3b07715e5cf5c9d866a4ef2ed8f32",
+      "affected_files": [
+        "src/vs/base/common/policy.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "G"
+      ],
+      "purpose": "Use /etc/VSCodium distribution policy path.",
+      "electron_dependency": "No",
+      "recommended_action": "DEFER",
+      "implementation_status": "No native policy provider yet; must use VSC-Light path"
+    },
+    {
+      "source": "patches/linux/00-terminal-cmd-in-shell.patch",
+      "sha256": "7fa5d0b32dabaa706b4e7156a5f62744566ec3fa6c7f4ec40e1b2e98fac6be5c",
+      "affected_files": [
+        "src/vs/platform/externalTerminal/node/externalTerminalService.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "G"
+      ],
+      "purpose": "Launch external terminal with shell:true.",
+      "electron_dependency": "Node process",
+      "recommended_action": "DEFER",
+      "implementation_status": "Terminal functionality out of scope"
+    },
+    {
+      "source": "patches/linux/31-build-fix-dependencies.patch",
+      "sha256": "83cd7f23677476219e16d53aa085d51cae1c98d920638050232916ec5636f524",
+      "affected_files": [
+        "build/linux/dependencies-generator.ts",
+        "build/package-lock.json",
+        "build/package.json"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/package-lock.json:3273\nerror: build/package-lock.json: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I"
+      ],
+      "purpose": "Disable strict packaged-dependency failure and tunnel scan; remove osx-sign dependency.",
+      "electron_dependency": "Electron package tooling",
+      "recommended_action": "SKIP",
+      "implementation_status": "GTK/WebKit dependencies must come from Rust packaging"
+    },
+    {
+      "source": "patches/linux/41-arch-add-support.patch",
+      "sha256": "d56f88618e7e0736807b4bc3fcf857b8c7fbbfb45acd803243111cad9dec7dc7",
+      "affected_files": [
+        "build/azure-pipelines/linux/setup-env.sh",
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.vscode.ts",
+        "build/lib/electronVersion.ts",
+        "build/linux/debian/dep-lists.ts",
+        "build/linux/debian/install-sysroot.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/lib/electronVersion.ts:12\nerror: build/lib/electronVersion.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I"
+      ],
+      "purpose": "Override Node/Electron/sysroot download sources and support additional packaging targets.",
+      "electron_dependency": "Electron packaging portions",
+      "recommended_action": "DEFER",
+      "implementation_status": "Review only target-neutral pieces when cross-compiling Rust host"
+    },
+    {
+      "source": "patches/linux/42-arch-add-ppc64le.patch",
+      "sha256": "52173f5f2f8dcbc27c30acc2a85754d12644f3ab85f6856561fc657d7a846e45",
+      "affected_files": [
+        "build/azure-pipelines/linux/setup-env.sh",
+        "build/azure-pipelines/linux/verify-glibc-requirements.sh",
+        "build/checksums/vscode-sysroot.txt",
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.scan.ts",
+        "build/gulpfile.vscode.linux.ts",
+        "build/gulpfile.vscode.ts",
+        "build/lib/copilot.ts",
+        "build/lib/osProxyResolver.ts",
+        "build/linux/debian/calculate-deps.ts",
+        "build/linux/debian/dep-lists.ts",
+        "build/linux/debian/install-sysroot.ts",
+        "build/linux/debian/types.ts",
+        "build/linux/rpm/dep-lists.ts",
+        "build/linux/rpm/types.ts",
+        "cli/src/update_service.rs",
+        "cli/src/util/prereqs.rs",
+        "resources/server/bin/helpers/check-requirements-linux.sh",
+        "src/vs/platform/extensionManagement/common/extensionManagement.ts",
+        "src/vs/platform/extensions/common/extensions.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/linux/debian/dep-lists.ts:144\nerror: build/linux/debian/dep-lists.ts: patch does not apply\nerror: patch failed: cli/src/update_service.rs:197\nerror: cli/src/update_service.rs: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I",
+        "E"
+      ],
+      "purpose": "Add PPC64LE sysroots/packages, CLI and extension target enum.",
+      "electron_dependency": "Mixed Electron packaging/Node/extension targets",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not a planned target"
+    },
+    {
+      "source": "patches/linux/43-arch-add-riscv64.patch",
+      "sha256": "9de735d93c5843bcddbe5d95994725fe92fd9940fe904998a635b54456d3163e",
+      "affected_files": [
+        "build/checksums/nodejs.txt",
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.scan.ts",
+        "build/gulpfile.vscode.linux.ts",
+        "build/gulpfile.vscode.ts",
+        "build/lib/osProxyResolver.ts",
+        "build/linux/debian/calculate-deps.ts",
+        "build/linux/debian/dep-lists.ts",
+        "build/linux/debian/install-sysroot.ts",
+        "build/linux/debian/types.ts",
+        "build/linux/rpm/types.ts",
+        "cli/src/update_service.rs",
+        "cli/src/util/prereqs.rs",
+        "resources/server/bin/helpers/check-requirements-linux.sh",
+        "src/vs/platform/extensionManagement/common/extensionManagement.ts",
+        "src/vs/platform/extensions/common/extensions.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/checksums/nodejs.txt:4\nerror: build/checksums/nodejs.txt: patch does not apply\nerror: patch failed: build/gulpfile.reh.ts:53\nerror: build/gulpfile.reh.ts: patch does not apply\nerror: patch failed: build/gulpfile.scan.ts:24\nerror: build/gulpfile.scan.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.linux.ts:33\nerror: build/gulpfile.vscode.linux.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.ts:593\nerror: build/gulpfile.vscode.ts: patch does not apply\nerror: patch failed: build/lib/osProxyResolver.ts:25\nerror: build/lib/osProxyResolver.ts: patch does not apply\nerror: patch failed: build/linux/debian/dep-lists.ts:187\nerror: build/linux/debian/dep-lists.ts: patch does not apply\nerror: patch failed: build/linux/debian/types.ts:5\nerror: build/linux/debian/types.ts: patch does not apply\nerror: patch failed: build/linux/rpm/types.ts:5\nerror: build/linux/rpm/types.ts: patch does not apply\nerror: patch failed: cli/src/update_service.rs:180\nerror: cli/src/update_service.rs: patch does not apply\nerror: patch failed: cli/src/util/prereqs.rs:85\nerror: cli/src/util/prereqs.rs: patch does not apply\nerror: patch failed: resources/server/bin/helpers/check-requirements-linux.sh:56\nerror: resources/server/bin/helpers/check-requirements-linux.sh: patch does not apply\nerror: patch failed: src/vs/platform/extensionManagement/common/extensionManagement.ts:51\nerror: src/vs/platform/extensionManagement/common/extensionManagement.ts: patch does not apply\nerror: patch failed: src/vs/platform/extensions/common/extensions.ts:390\nerror: src/vs/platform/extensions/common/extensions.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I",
+        "E"
+      ],
+      "purpose": "Add RISC-V packaging, Node checksums, CLI and extension target enum.",
+      "electron_dependency": "Mixed Electron packaging/Node/extension targets",
+      "recommended_action": "PORT WITH ADAPTATION",
+      "implementation_status": "Deferred to RISC-V host/extension milestone; no Electron sysroots imported"
+    },
+    {
+      "source": "patches/linux/44-arch-add-loong64.patch",
+      "sha256": "6c7b522238d596c6185fe90a7525a98e2127c48f53c0118ae97b928e6d67514d",
+      "affected_files": [
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.scan.ts",
+        "build/gulpfile.vscode.linux.ts",
+        "build/gulpfile.vscode.ts",
+        "build/lib/osProxyResolver.ts",
+        "cli/src/update_service.rs",
+        "cli/src/util/prereqs.rs",
+        "resources/server/bin/helpers/check-requirements-linux.sh",
+        "src/vs/platform/extensionManagement/common/extensionManagement.ts",
+        "src/vs/platform/extensions/common/extensions.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/gulpfile.reh.ts:54\nerror: build/gulpfile.reh.ts: patch does not apply\nerror: patch failed: build/gulpfile.scan.ts:25\nerror: build/gulpfile.scan.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.linux.ts:34\nerror: build/gulpfile.vscode.linux.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.ts:594\nerror: build/gulpfile.vscode.ts: patch does not apply\nerror: patch failed: build/lib/osProxyResolver.ts:24\nerror: build/lib/osProxyResolver.ts: patch does not apply\nerror: patch failed: cli/src/update_service.rs:181\nerror: cli/src/update_service.rs: patch does not apply\nerror: patch failed: cli/src/util/prereqs.rs:87\nerror: cli/src/util/prereqs.rs: patch does not apply\nerror: patch failed: resources/server/bin/helpers/check-requirements-linux.sh:57\nerror: resources/server/bin/helpers/check-requirements-linux.sh: patch does not apply\nerror: patch failed: src/vs/platform/extensionManagement/common/extensionManagement.ts:52\nerror: src/vs/platform/extensionManagement/common/extensionManagement.ts: patch does not apply\nerror: patch failed: src/vs/platform/extensions/common/extensions.ts:391\nerror: src/vs/platform/extensions/common/extensions.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I",
+        "E"
+      ],
+      "purpose": "Add LoongArch package/CLI/extension target support.",
+      "electron_dependency": "Mixed Electron packaging/Node/extension targets",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not a planned target"
+    },
+    {
+      "source": "patches/linux/45-arch-add-s390x.patch",
+      "sha256": "ac912a25d76746fe82755f8a69a74fdbbe755d1839e78b2c9315c6ebc1524011",
+      "affected_files": [
+        "build/azure-pipelines/linux/setup-env.sh",
+        "build/checksums/vscode-sysroot.txt",
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.scan.ts",
+        "build/gulpfile.vscode.linux.ts",
+        "build/gulpfile.vscode.ts",
+        "build/linux/debian/calculate-deps.ts",
+        "build/linux/debian/dep-lists.ts",
+        "build/linux/debian/install-sysroot.ts",
+        "build/linux/debian/types.ts",
+        "build/linux/rpm/dep-lists.ts",
+        "build/linux/rpm/types.ts",
+        "resources/server/bin/helpers/check-requirements-linux.sh",
+        "src/vs/platform/extensionManagement/common/extensionManagement.ts",
+        "src/vs/platform/extensions/common/extensions.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/azure-pipelines/linux/setup-env.sh:88\nerror: build/azure-pipelines/linux/setup-env.sh: patch does not apply\nerror: patch failed: build/checksums/vscode-sysroot.txt:8\nerror: build/checksums/vscode-sysroot.txt: patch does not apply\nerror: patch failed: build/gulpfile.reh.ts:59\nerror: build/gulpfile.reh.ts: patch does not apply\nerror: patch failed: build/gulpfile.scan.ts:27\nerror: build/gulpfile.scan.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.linux.ts:35\nerror: build/gulpfile.vscode.linux.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.ts:705\nerror: build/gulpfile.vscode.ts: patch does not apply\nerror: patch failed: build/linux/debian/dep-lists.ts:221\nerror: build/linux/debian/dep-lists.ts: patch does not apply\nerror: patch failed: build/linux/debian/types.ts:5\nerror: build/linux/debian/types.ts: patch does not apply\nerror: patch failed: build/linux/rpm/types.ts:5\nerror: build/linux/rpm/types.ts: patch does not apply\nerror: patch failed: resources/server/bin/helpers/check-requirements-linux.sh:58\nerror: resources/server/bin/helpers/check-requirements-linux.sh: patch does not apply\nerror: patch failed: src/vs/platform/extensionManagement/common/extensionManagement.ts:51\nerror: src/vs/platform/extensionManagement/common/extensionManagement.ts: patch does not apply\nerror: patch failed: src/vs/platform/extensions/common/extensions.ts:346\nerror: src/vs/platform/extensions/common/extensions.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I",
+        "E"
+      ],
+      "purpose": "Add s390x sysroots/packages/CLI/extension target support.",
+      "electron_dependency": "Mixed Electron packaging/Node/extension targets",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not a planned target"
+    },
+    {
+      "source": "patches/linux/46-arch-add-arm32.patch",
+      "sha256": "2d9a066542960c45380923e367d5d34781d931d4ff6a4baf49490b67d817bee6",
+      "affected_files": [
+        "build/gulpfile.reh.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/gulpfile.reh.ts:53\nerror: build/gulpfile.reh.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I"
+      ],
+      "purpose": "Add armhf REH build target.",
+      "electron_dependency": "No: REH packaging",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not a planned target"
+    },
+    {
+      "source": "patches/linux/46-deb-use-libasound2t64-compat.patch",
+      "sha256": "7e48436cb7d8c7710d535061519b0db6027ed29433bb1b5e5e5be38ddaee5f35",
+      "affected_files": [
+        "build/linux/debian/calculate-deps.ts",
+        "build/linux/debian/dep-lists.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/linux/debian/dep-lists.ts:149\nerror: build/linux/debian/dep-lists.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G"
+      ],
+      "purpose": "Use alternative ALSA package dependencies.",
+      "electron_dependency": "Electron package dependencies",
+      "recommended_action": "SKIP",
+      "implementation_status": "Derive GTK/WebKit dependencies independently"
+    },
+    {
+      "source": "patches/linux/client/00-build-disable-remote.patch",
+      "sha256": "43dc9077532de1eae7ba826fd0e47e83583f920b157c6957275185bf6a448e8a",
+      "affected_files": [
+        "build/npm/dirs.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Skip remote npm dependency directories for client-only builds.",
+      "electron_dependency": "Build only",
+      "recommended_action": "DEFER",
+      "implementation_status": "Potential install optimization; unrelated to product identity"
+    },
+    {
+      "source": "patches/linux/client/00-system-support-16k-page-size.patch",
+      "sha256": "c4be2f9ef92351bdef118213d625d727af0c147f2586a80843c6d483c6a04e36",
+      "affected_files": [
+        "src/mainImpl.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "H"
+      ],
+      "purpose": "Set V8 pooled page flag for Electron renderer crash workaround.",
+      "electron_dependency": "Yes: V8/Chromium",
+      "recommended_action": "SKIP",
+      "implementation_status": "WebKit uses JavaScriptCore"
+    },
+    {
+      "source": "patches/linux/reh/s390x/00-build-override-dependency.patch",
+      "sha256": "db25c7ba71d1e938d78149ecbdf1917bbb053ce9d12f8a72ecd654c6b86183de",
+      "affected_files": [
+        "package-lock.json",
+        "package.json"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Override web-tree-sitter for s390x REH.",
+      "electron_dependency": "No: Node build",
+      "recommended_action": "SKIP",
+      "implementation_status": "No s390x REH target"
+    },
+    {
+      "source": "patches/osx/00-ui-update-emulated-urls.patch",
+      "sha256": "5d52e821fd4cde9f32d2592c9210467f537e2e3352c5042f56e23fc4679d733a",
+      "affected_files": [
+        "src/vs/workbench/electron-browser/window.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "F",
+        "H"
+      ],
+      "purpose": "Point emulated macOS update dialogs at VSCodium releases.",
+      "electron_dependency": "Yes: desktop window/update flow",
+      "recommended_action": "SKIP",
+      "implementation_status": "No macOS/Electron runtime"
+    },
+    {
+      "source": "patches/user/readme.txt",
+      "sha256": "3211bc717cdf9103375e2965a5853b0bef060b29254f9d665b70e150aaf8e50d",
+      "affected_files": [],
+      "isolated_pinned_check": "not a patch",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "J"
+      ],
+      "purpose": "User patch drop-in instructions.",
+      "electron_dependency": "No",
+      "recommended_action": "SKIP",
+      "implementation_status": "No untracked user patch layer"
+    },
+    {
+      "source": "patches/windows/00-build-min-version-win7.patch",
+      "sha256": "4ac0265f589649d5422733d5c919af7e52bd29fdf0c023eb74213934c83d1875",
+      "affected_files": [
+        "build/win32/code.iss"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I"
+      ],
+      "purpose": "Lower Windows installer minimum OS version.",
+      "electron_dependency": "Windows installer",
+      "recommended_action": "SKIP",
+      "implementation_status": "No Windows target"
+    },
+    {
+      "source": "patches/windows/00-remote-use-open-ext.patch",
+      "sha256": "8ca0cabe25a6e10495db08680fe24d31bc6aa057d3619426db35bf5920289f2d",
+      "affected_files": [
+        "diff --git i/resources/win32/bin/code.sh w/resources/win32/bin/code.sh",
+        "diff --git i/resources/win32/versioned/bin/code.sh w/resources/win32/versioned/bin/code.sh",
+        "diff --git i/scripts/code.sh w/scripts/code.sh"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "E",
+        "G"
+      ],
+      "purpose": "Use open-remote-wsl and forward version in Windows shell launchers.",
+      "electron_dependency": "Windows/Electron launcher",
+      "recommended_action": "SKIP",
+      "implementation_status": "No Windows/WSL host"
+    },
+    {
+      "source": "patches/windows/41-cli-fix-update-url.patch",
+      "sha256": "f0a5875a1bdbea1c755053537b68817c93c421ecaa8b8310ab7c162b4beb5aab",
+      "affected_files": [
+        "cli/src/update_service.rs"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: cli/src/update_service.rs:94\nerror: cli/src/update_service.rs: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "F"
+      ],
+      "purpose": "Adjust Windows upstream CLI updater URL.",
+      "electron_dependency": "No: upstream Rust CLI",
+      "recommended_action": "SKIP",
+      "implementation_status": "Not our Rust host/updater"
+    },
+    {
+      "source": "patches/windows/59-build-replace-signature.patch",
+      "sha256": "208c7f923d80575c5b32e09aea61c6efe27a3af4af6a186e8025dad155364cad",
+      "affected_files": [
+        "build/gulpfile.reh.ts",
+        "build/gulpfile.vscode.ts",
+        "build/win32/signature.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/gulpfile.reh.ts:34\nerror: build/gulpfile.reh.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "I"
+      ],
+      "purpose": "Replace Windows PE signing/stripping implementation and tool selection.",
+      "electron_dependency": "Electron/Windows packaging",
+      "recommended_action": "SKIP",
+      "implementation_status": "No Windows package pipeline"
+    },
+    {
+      "source": "patches/windows/70-build-contextmenu-appx.patch",
+      "sha256": "289a771ba499318ef6152530daa7791e3dd83dbce76b172e4d450a979ac9fcab",
+      "affected_files": [
+        "build/gulpfile.vscode.ts",
+        "build/gulpfile.vscode.win32.ts",
+        "build/win32/explorer-dll-fetcher.ts"
+      ],
+      "isolated_pinned_check": "clean",
+      "check_diagnostics": "",
+      "upstream_enabled": false,
+      "categories": [
+        "A",
+        "G",
+        "I"
+      ],
+      "purpose": "Use product names/version in Windows Explorer APPX context menu artifacts.",
+      "electron_dependency": "Windows packaging",
+      "recommended_action": "SKIP",
+      "implementation_status": "No Windows target"
+    },
+    {
+      "source": "patches/windows/71-build-disable-appx.patch",
+      "sha256": "1798f949cca83fc50b92b5d6abba43adda65635142b59c8c82bc34b82d5e67a9",
+      "affected_files": [
+        "build/gulpfile.vscode.ts",
+        "build/gulpfile.vscode.win32.ts"
+      ],
+      "isolated_pinned_check": "conflict",
+      "check_diagnostics": "error: patch failed: build/gulpfile.vscode.ts:488\nerror: build/gulpfile.vscode.ts: patch does not apply\nerror: patch failed: build/gulpfile.vscode.win32.ts:113\nerror: build/gulpfile.vscode.win32.ts: patch does not apply",
+      "upstream_enabled": false,
+      "categories": [
+        "G",
+        "I"
+      ],
+      "purpose": "Disable APPX context menu packaging and extraction.",
+      "electron_dependency": "Windows packaging",
+      "recommended_action": "SKIP",
+      "implementation_status": "No Windows target"
+    }
+  ],
+  "channel_assets": [
+    {
+      "source": "src/stable/resources/darwin/bat.icns",
+      "sha256": "298e94a5909d00329411f9ed2cba5a368177bcf89def6207cd51674a17743767"
+    },
+    {
+      "source": "src/stable/resources/darwin/bower.icns",
+      "sha256": "8cedcc63b24e2bc0618fd491dbbb85cad65057a3c1143d0e8b9812bbbc438fd1"
+    },
+    {
+      "source": "src/stable/resources/darwin/c.icns",
+      "sha256": "86ea4546c9da73fc2f68dbe9dadfcad4d6109ac77ef17653c599bd91490a6dd3"
+    },
+    {
+      "source": "src/stable/resources/darwin/code.icns",
+      "sha256": "1d325b4d4dbbadf50a6b244c79e17363d86871787c3e91be7dcee669222ce553"
+    },
+    {
+      "source": "src/stable/resources/darwin/config.icns",
+      "sha256": "30229ddac1d79ddb004d5a93d70de8565d3fc9e0a481d4f9b62554da4811aace"
+    },
+    {
+      "source": "src/stable/resources/darwin/cpp.icns",
+      "sha256": "d6fd936a0c3f44acb9956469b2087993d0ec98b5808a8531415e3b61637639ce"
+    },
+    {
+      "source": "src/stable/resources/darwin/csharp.icns",
+      "sha256": "0ea57eb3936da0ab8629b26dae547577383d6af4f04ed5fb86d5fa9612a42a9f"
+    },
+    {
+      "source": "src/stable/resources/darwin/css.icns",
+      "sha256": "3d4787c15420718a03b348f1a3ad964d33422cdba09a4f1d710eef5f056acddb"
+    },
+    {
+      "source": "src/stable/resources/darwin/default.icns",
+      "sha256": "2cae318835211cad7cb04b61cabc194120ecbdf44327c2f3393c9d4911c9e982"
+    },
+    {
+      "source": "src/stable/resources/darwin/go.icns",
+      "sha256": "302297d6fd2fb7a946045a4d98d575b948aa2e72169c5528f222238d3d212b18"
+    },
+    {
+      "source": "src/stable/resources/darwin/html.icns",
+      "sha256": "2e6f531ad8600a78113f2b8982a9a125b8997ca5154580091e0871009c9ba2b3"
+    },
+    {
+      "source": "src/stable/resources/darwin/jade.icns",
+      "sha256": "34f6b22f462c650a4bc5dbd0151fb3b17576b40c9aef442da5bcfbff82251aa8"
+    },
+    {
+      "source": "src/stable/resources/darwin/java.icns",
+      "sha256": "3fcb8b094f6f2fd05a93d1dc73d82a9b227ddf7395438a7dd7cd1eebfcd35858"
+    },
+    {
+      "source": "src/stable/resources/darwin/javascript.icns",
+      "sha256": "478d90bc20082ebe36300b892430340f75c367bf3ed9e0634f7cc04d333a28c5"
+    },
+    {
+      "source": "src/stable/resources/darwin/json.icns",
+      "sha256": "86e0943f1d354c01ca59fa38fe31aa552ed7862ea1ba6f31abbe6382b7d33956"
+    },
+    {
+      "source": "src/stable/resources/darwin/less.icns",
+      "sha256": "0bff50532050619f97226bbede7d9b978d4a7f5b8cdad08d1c19f08dd482e861"
+    },
+    {
+      "source": "src/stable/resources/darwin/markdown.icns",
+      "sha256": "5b770a64720761a891ece74cb8d3c4c0283d77225113e95a2dcf11be5243cd20"
+    },
+    {
+      "source": "src/stable/resources/darwin/php.icns",
+      "sha256": "7a15378009dbe00293db67cc34c94eecf37780eb15c786b281c45add63746803"
+    },
+    {
+      "source": "src/stable/resources/darwin/powershell.icns",
+      "sha256": "84d34acee95e0c5fbaa04fcde188526c6dc01ea76c7f14d1dc23d11e80303d54"
+    },
+    {
+      "source": "src/stable/resources/darwin/python.icns",
+      "sha256": "f4ad847d637865591723e11a259aa1c2ddb4850c39dfb5c79aa1c0f4e9571acf"
+    },
+    {
+      "source": "src/stable/resources/darwin/react.icns",
+      "sha256": "1ea56b19bfd07e07b4901558dc8c492147e3098628a5ed87716de98308db659a"
+    },
+    {
+      "source": "src/stable/resources/darwin/ruby.icns",
+      "sha256": "06acc02cf634fa82b59f4cf679c671f75338f5535ed5d7c9a1656ee15e35ea80"
+    },
+    {
+      "source": "src/stable/resources/darwin/sass.icns",
+      "sha256": "f1d17f51a1ba8d4ea76cee15073864b27b7c869ad9c133b60eda6ccca223f21f"
+    },
+    {
+      "source": "src/stable/resources/darwin/shell.icns",
+      "sha256": "f696396a204e9d1a2da500f06f7e0f3aca72877a640b211b6549d5c126412bd0"
+    },
+    {
+      "source": "src/stable/resources/darwin/sql.icns",
+      "sha256": "17e6895e007316e3e84c877290bc2d223c84b9e8133aff3e4c279356502025be"
+    },
+    {
+      "source": "src/stable/resources/darwin/typescript.icns",
+      "sha256": "75f67cbe0a437028cd81f522b5c499ef08473b038529acd29fe4f36a0f2eb696"
+    },
+    {
+      "source": "src/stable/resources/darwin/vue.icns",
+      "sha256": "f252de3c11b73405fe75dc391864f9b48e7e2c3c6d95af59162a564252526a35"
+    },
+    {
+      "source": "src/stable/resources/darwin/xml.icns",
+      "sha256": "688d4cd09cbfd245540854bde0708bbf621de51b076967c06559f28b85c479c6"
+    },
+    {
+      "source": "src/stable/resources/darwin/yaml.icns",
+      "sha256": "e6a93441010c64243597ecffc8bcb754b31b983b9953aaf44b10a0dc3049092a"
+    },
+    {
+      "source": "src/stable/resources/linux/code-url-handler.desktop",
+      "sha256": "50cecb7af4e7aaff14fb4d4b1a9caad707367003ee0ebc304ffd31762c4f7e20"
+    },
+    {
+      "source": "src/stable/resources/linux/code.appdata.xml",
+      "sha256": "17056170c175d8ddb40dd2c0fd198e37e9db98e2f2c145a3902db74a05830195"
+    },
+    {
+      "source": "src/stable/resources/linux/code.desktop",
+      "sha256": "8a6102fddc1a472345589c2eb2e32e9734df9539b421055c8039d82fa0ce5423"
+    },
+    {
+      "source": "src/stable/resources/linux/code.png",
+      "sha256": "056d737aec55a8001e073ae8597a43f884732d2427f51880d6ceba0ae91d2465"
+    },
+    {
+      "source": "src/stable/resources/linux/code.svg",
+      "sha256": "e622e6bdb70b0cfec57ad9df8717ea023b87e5e215003119b5a1a4d059fcd347"
+    },
+    {
+      "source": "src/stable/resources/linux/rpm/code.xpm",
+      "sha256": "4a72bace84ed318a708906683036638cd9440544e61222692c0626ab5eb0df17"
+    },
+    {
+      "source": "src/stable/resources/server/code-192.png",
+      "sha256": "899e82f25e24ce83370001d52b688e8de990a2b5b9b31e93f3d601c1ca2aa84b"
+    },
+    {
+      "source": "src/stable/resources/server/code-512.png",
+      "sha256": "4bed21cb0289dcac1e0bb0e982f183f90eedbe646c2cf75c2718d245a727e683"
+    },
+    {
+      "source": "src/stable/resources/server/favicon.ico",
+      "sha256": "1ef526a458ddf66003b0d53b26660d10b81778cea647200abbcfebab48e86a28"
+    },
+    {
+      "source": "src/stable/resources/win32/VisualElementsManifest.xml",
+      "sha256": "be3c7acd2ae57a3e018c06a0d825ff3a3c0782516f7149c8400f54b1b5ef1b16"
+    },
+    {
+      "source": "src/stable/resources/win32/bower.ico",
+      "sha256": "f6d3909c9a01fa6fe66006d9d134700d8e0aa20446c0d20c143418ab4df04307"
+    },
+    {
+      "source": "src/stable/resources/win32/c.ico",
+      "sha256": "71f58fc296e7c48c5576c26357a81c146581bec638b0678fb6f83cba3ec69270"
+    },
+    {
+      "source": "src/stable/resources/win32/code.ico",
+      "sha256": "1ef526a458ddf66003b0d53b26660d10b81778cea647200abbcfebab48e86a28"
+    },
+    {
+      "source": "src/stable/resources/win32/code_150x150.png",
+      "sha256": "4b11bc569093be0e3702666b1e9a12a7e4258210e895c34e303d40383d9b58a4"
+    },
+    {
+      "source": "src/stable/resources/win32/code_70x70.png",
+      "sha256": "17faa31fbd83b546dd7383d286bff47366bb7a3f00fe5d3d38287b9440901499"
+    },
+    {
+      "source": "src/stable/resources/win32/config.ico",
+      "sha256": "e615d3ac6dc2fd2913b28d212b9238f00e19b0e434683935c9b9bd3725338e5c"
+    },
+    {
+      "source": "src/stable/resources/win32/cpp.ico",
+      "sha256": "4de7478ded6d3e69b7761b454110a3d214b1cd4bdd52bbf1d97cda626d2e2d3f"
+    },
+    {
+      "source": "src/stable/resources/win32/csharp.ico",
+      "sha256": "559254a9cd29a22a936a013355fad221cc7aa723d42f8837826d75c0c9c44345"
+    },
+    {
+      "source": "src/stable/resources/win32/css.ico",
+      "sha256": "1756b0093ec9b211749cec697d5403c3a8b403ebe178c32c11184d04b3fdcfcf"
+    },
+    {
+      "source": "src/stable/resources/win32/default.ico",
+      "sha256": "c73c10f131200f41eaba99e1b880130db978218e1cc84152bf64da13195f3a03"
+    },
+    {
+      "source": "src/stable/resources/win32/go.ico",
+      "sha256": "da169d8cd77a20e36fd210338fa346e821ebf8a902d7f3a697ee51a8936915dc"
+    },
+    {
+      "source": "src/stable/resources/win32/html.ico",
+      "sha256": "d08e16a7138e809b82007d667fb5bff1c8bdd83e69fbd84de3e87e88f5641b04"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-100.bmp",
+      "sha256": "e83d4e91fce26d0b1625884cf68784ed70b828777b28b49f03d2c15d6ddf8ec7"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-125.bmp",
+      "sha256": "450e5c17144aa61cd482db697be443cca8eff6011303d80af0a495281c819fb9"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-150.bmp",
+      "sha256": "c4188d35047367de50d4c4e79df06a1ffb3af0313534eff4392f1e957b653ce8"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-175.bmp",
+      "sha256": "2a7ffdca9bc727a96a5a2d916e8863083d05d141a0d3bb77ca76ce8333795df6"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-200.bmp",
+      "sha256": "2b45799382ccab2ab22ed6f308ce24b033284cbb96f1ab17a938e0c875c0df10"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-225.bmp",
+      "sha256": "fb2517f36cfd3ec0b9743404a72f9dddc48900261f3173d3161bfa2b55cdc057"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-big-250.bmp",
+      "sha256": "c0cec6f621e32e9d1dca03a6201e4cedd6869837beef9ac202e071c19a12a2df"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-100.bmp",
+      "sha256": "11f72c01c19fd22ccfeced02c038d9f34257966bfb36dd2a5baa3a1750cedc3f"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-125.bmp",
+      "sha256": "302513ac57ef1f5fc0e17fca1c10c6e986a8e6bc0459374205f169d1cfb31262"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-150.bmp",
+      "sha256": "1aedb4472d1fb4d0ceb487ead95a4b1e8171285958c4d58c98bbd5a81c818201"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-175.bmp",
+      "sha256": "4ec4c2eb0b8c693ffd672bbbd3f0b622ccf92a426b29d6b54d888981cee911d2"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-200.bmp",
+      "sha256": "8aa57be4a0d6034445db67fcb9d1742ee8691f94397ea6fc8fe249f7e2425597"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-225.bmp",
+      "sha256": "97ec96c2cbc6a9dbb3c8b23404ddeea1c16228866b25c924a722e9b0c931de9e"
+    },
+    {
+      "source": "src/stable/resources/win32/inno-small-250.bmp",
+      "sha256": "e0d2f0cf9f28faaac2e11de65047d63c05b2cbeea880004e81f7d456d2654f74"
+    },
+    {
+      "source": "src/stable/resources/win32/jade.ico",
+      "sha256": "8c096b249e82e8fcba51fe5061b44be01fa7be9ecbcf398ed8ea270b8b3149f1"
+    },
+    {
+      "source": "src/stable/resources/win32/java.ico",
+      "sha256": "000d64d5ff8472003b30351e3c6401983195d01323c5a423a26448bbb10c9984"
+    },
+    {
+      "source": "src/stable/resources/win32/javascript.ico",
+      "sha256": "97bbe2f782ec4005177cf83590b86c53ee22bf2fd7e251892f150f68b2664a22"
+    },
+    {
+      "source": "src/stable/resources/win32/json.ico",
+      "sha256": "e0dcd75ad891d854070aaaf13e99e00b88cc9d34837fb98ec0ceb41f42a1ac0b"
+    },
+    {
+      "source": "src/stable/resources/win32/less.ico",
+      "sha256": "860f7160e0e9682bc071e0d03570ffadc95be62a986ded73568972ffe95dc31f"
+    },
+    {
+      "source": "src/stable/resources/win32/markdown.ico",
+      "sha256": "e69b7d0e7f18b8755abf04c66e2e618692e9eeb792e9048c0ff4aebd0da64d4d"
+    },
+    {
+      "source": "src/stable/resources/win32/php.ico",
+      "sha256": "2f7810ffeb36c60685a0cbb935986186f8fb9de17b71d07d7b656264e4f9cee1"
+    },
+    {
+      "source": "src/stable/resources/win32/powershell.ico",
+      "sha256": "6bb1287f9386da2d5ab9445456f19e2aa07165e13a63326992af2b12eeb3d64b"
+    },
+    {
+      "source": "src/stable/resources/win32/python.ico",
+      "sha256": "8f78e0b436419d9a586cad3c49019773fe959cb879cece139afa5238ffe34a90"
+    },
+    {
+      "source": "src/stable/resources/win32/react.ico",
+      "sha256": "decd362013d9a5c4beaa37749b9c926b95dc2154301a64d8c55d8de7b7cadbc6"
+    },
+    {
+      "source": "src/stable/resources/win32/ruby.ico",
+      "sha256": "886454ebb0d9d5cfaa5c95e7b2005b00b23659309e6dacfd2c758f5fdc5f8c1e"
+    },
+    {
+      "source": "src/stable/resources/win32/sass.ico",
+      "sha256": "d798fdcaf376afe21e36ea308f45bd0c13d9bfdf27132a5e4a153c24c9d3ccfd"
+    },
+    {
+      "source": "src/stable/resources/win32/shell.ico",
+      "sha256": "0adc4c5dd378294d8a39113262ade154eaaaf4bac4960d49292449a6e62188f6"
+    },
+    {
+      "source": "src/stable/resources/win32/sql.ico",
+      "sha256": "45e24f13563bd9d2029dc1fac26cc8c097e30c2c0deb488f33df1a1c1011525c"
+    },
+    {
+      "source": "src/stable/resources/win32/typescript.ico",
+      "sha256": "b7cadd965a58066860c8fdcd4b22035d8e29cedebee913bf045bc80869f508d3"
+    },
+    {
+      "source": "src/stable/resources/win32/vue.ico",
+      "sha256": "f02cc260af233190c31455d6e282e1548c2e1424123ae05edca0cdfaf859b2ab"
+    },
+    {
+      "source": "src/stable/resources/win32/xml.ico",
+      "sha256": "ced6b2d000b6e59decfb70233f08662f77c0cb77b119d051bd4141107e67a434"
+    },
+    {
+      "source": "src/stable/resources/win32/yaml.ico",
+      "sha256": "1fe0cef547d5419b6ec1608147400c60ad23f8fbcf9cb337382d5a5f3667911a"
+    },
+    {
+      "source": "src/stable/src/vs/workbench/browser/media/code-icon.svg",
+      "sha256": "240a351ec1128c5fcb43ad519f87e98a133f338c01f24bcbe7e040cb78add5f5"
+    },
+    {
+      "source": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-dark.svg",
+      "sha256": "4160ba7ccff48db4b6d49ca12f5f0e86a09fae39f3feac02ad1f6d3cab2d560e"
+    },
+    {
+      "source": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-hcDark.svg",
+      "sha256": "950042c98042389c5baae9f9c37af30f1e822a95613c095ff139fa628c4b24fc"
+    },
+    {
+      "source": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-hcLight.svg",
+      "sha256": "c3e2b9ee7e2ad9549d0bac2cb0bcceebed4b4686700fbcb0d3afbe3d60f0f515"
+    },
+    {
+      "source": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-light.svg",
+      "sha256": "bd8a1df2ca84028407c1488c47396a65625fec8f206150e2abf6c4e775a225ce"
+    },
+    {
+      "source": "src/insider/resources/darwin/bat.icns",
+      "sha256": "732559dfda11a32b7cd3a98fa2e29fe048f7802275b0b0bd974271c7f32f4559"
+    },
+    {
+      "source": "src/insider/resources/darwin/bower.icns",
+      "sha256": "0637a127b4ce7ffc0bebc9c4b78cc7a7cb3504a263779c86b23848ebf7f3d43e"
+    },
+    {
+      "source": "src/insider/resources/darwin/c.icns",
+      "sha256": "c351e784066678b72068b173912587f9dab5d051107d8bfbffd174d4c2a09027"
+    },
+    {
+      "source": "src/insider/resources/darwin/code.icns",
+      "sha256": "9df3d6d4653f483d3e0f91211e168bc155322edda5c8b680417b3f04f313013e"
+    },
+    {
+      "source": "src/insider/resources/darwin/config.icns",
+      "sha256": "730662b39fe7c5a966193e7f331730d7d3b81ccf82ed5e209e285da664c2d4c7"
+    },
+    {
+      "source": "src/insider/resources/darwin/cpp.icns",
+      "sha256": "ad94c58ad417edda9e0293f5c5edb8ebbec583239672d23a8cd96ea823cc7472"
+    },
+    {
+      "source": "src/insider/resources/darwin/csharp.icns",
+      "sha256": "0cfe99686915893a5f037ad76b6801ef2b006e751f8ad1ee9d5a7a30eb69afde"
+    },
+    {
+      "source": "src/insider/resources/darwin/css.icns",
+      "sha256": "584844b2fd0a736ef2e09736cfdea27df430d9b1cdf2a79dc1615f1cfb5318b4"
+    },
+    {
+      "source": "src/insider/resources/darwin/default.icns",
+      "sha256": "c7dac63a54266252ca69eb2e01dd97d7d34dc1e5d682700235200a05b87de3d1"
+    },
+    {
+      "source": "src/insider/resources/darwin/go.icns",
+      "sha256": "62cb6031f1c901dec95b97e9152feb99d62d8538133cf98d04f247667834722d"
+    },
+    {
+      "source": "src/insider/resources/darwin/html.icns",
+      "sha256": "ff674633c21b94780993c40135e3074b46fb4f216297ec02fbeff40b38ab4be7"
+    },
+    {
+      "source": "src/insider/resources/darwin/jade.icns",
+      "sha256": "18e1f6373e7a8a7292b5cc759e3c09c906127fc91325193a2a10076267891661"
+    },
+    {
+      "source": "src/insider/resources/darwin/java.icns",
+      "sha256": "f8af59fd5afbab18f171c7544e0893e827d0ee81d8ed1829af140853c63c6208"
+    },
+    {
+      "source": "src/insider/resources/darwin/javascript.icns",
+      "sha256": "c77bc732fcf3228157c82570d349437a398fe971233c20537f96490044c3fa84"
+    },
+    {
+      "source": "src/insider/resources/darwin/json.icns",
+      "sha256": "5e6c2054ffaba05b43dd66667cc66d1f811591f6a50a35509ffbbdd19296070d"
+    },
+    {
+      "source": "src/insider/resources/darwin/less.icns",
+      "sha256": "da47d6562e02ff49793d1be7c2d5faff964a2e28729158971d0fce8f3696e135"
+    },
+    {
+      "source": "src/insider/resources/darwin/markdown.icns",
+      "sha256": "7e1170a11f1703b511429e9d5b2e6b982aa588701238c74ff06c50508745aa04"
+    },
+    {
+      "source": "src/insider/resources/darwin/php.icns",
+      "sha256": "267b0fb017e3e95285d1458785b8f4580c7f0df347e52f971a7177bf04c905a8"
+    },
+    {
+      "source": "src/insider/resources/darwin/powershell.icns",
+      "sha256": "b9bfbf798de65683b9fc8e4d305380deb6628a770aab3b3d36b5a9efa79ce8f8"
+    },
+    {
+      "source": "src/insider/resources/darwin/python.icns",
+      "sha256": "6d7c208c2af702902b9e83f3d607681322e03da6fbef6e85fdc1a32409ee0688"
+    },
+    {
+      "source": "src/insider/resources/darwin/react.icns",
+      "sha256": "98ca02fc718d21b33bbe399cc5a0711382ba3605be557d6b7f7696be4ac37711"
+    },
+    {
+      "source": "src/insider/resources/darwin/ruby.icns",
+      "sha256": "db59ef32f8f421f5cb1d949ec4b83741bff311f1f64563628b2bf5be31de6d37"
+    },
+    {
+      "source": "src/insider/resources/darwin/sass.icns",
+      "sha256": "a8c0311d58794ce434909c7d46e02be6deafc49ba3ab384506227270adf28f70"
+    },
+    {
+      "source": "src/insider/resources/darwin/shell.icns",
+      "sha256": "27347697ed476b632a06aaebfec4139381ffd53bda96769d7ef6cbbb0a0aaa11"
+    },
+    {
+      "source": "src/insider/resources/darwin/sql.icns",
+      "sha256": "4dd42fdc3ea16ce9ce25e561f40ffe7c53c75cabaae319c4da5454527e8241bf"
+    },
+    {
+      "source": "src/insider/resources/darwin/typescript.icns",
+      "sha256": "3f5335fa6a265d8eba7c33c84e47b2092ac7d6a9e6c4c2c739276244a2f8e09b"
+    },
+    {
+      "source": "src/insider/resources/darwin/vue.icns",
+      "sha256": "ef6a935fd9e27828deb79ee43bb80f514ffdaf843a668234dc8b3bfc18332552"
+    },
+    {
+      "source": "src/insider/resources/darwin/xml.icns",
+      "sha256": "90b50fd85104b103b06e6c7ba4bbced8934774deb466bbbe09978d67d2de98c3"
+    },
+    {
+      "source": "src/insider/resources/darwin/yaml.icns",
+      "sha256": "2546c588fd91676b3621e9e9727ff8278163410534514e7899aa0570951e2663"
+    },
+    {
+      "source": "src/insider/resources/linux/code-url-handler.desktop",
+      "sha256": "50cecb7af4e7aaff14fb4d4b1a9caad707367003ee0ebc304ffd31762c4f7e20"
+    },
+    {
+      "source": "src/insider/resources/linux/code.appdata.xml",
+      "sha256": "17056170c175d8ddb40dd2c0fd198e37e9db98e2f2c145a3902db74a05830195"
+    },
+    {
+      "source": "src/insider/resources/linux/code.desktop",
+      "sha256": "91a8dc5f1167df8667d9219e0cd83a7e32bb146c4d1dca8baf265463343ccb89"
+    },
+    {
+      "source": "src/insider/resources/linux/code.png",
+      "sha256": "e1c651145acd1d4d996737e4aec7c68129dff90b772767ae4eee3bdf8eb57ba4"
+    },
+    {
+      "source": "src/insider/resources/linux/code.svg",
+      "sha256": "ed7c05df676522c7a1922bcff2185bedb9364801b78072b325014b0a26865c53"
+    },
+    {
+      "source": "src/insider/resources/linux/rpm/code.xpm",
+      "sha256": "ab39caa9367a3b813f06f31949960e41785e8c11e17db21e12c4b866d843cf47"
+    },
+    {
+      "source": "src/insider/resources/server/code-192.png",
+      "sha256": "2f9b214711d5e6f7ddaa8d75a0d1615c0d8d0506c4f67026c6c99f94bf70f767"
+    },
+    {
+      "source": "src/insider/resources/server/code-512.png",
+      "sha256": "2f9b214711d5e6f7ddaa8d75a0d1615c0d8d0506c4f67026c6c99f94bf70f767"
+    },
+    {
+      "source": "src/insider/resources/server/favicon.ico",
+      "sha256": "25f03f86fa2ff3e4ad12def565f7a44c33caa934a41fcf71e2bda534bce644af"
+    },
+    {
+      "source": "src/insider/resources/win32/VisualElementsManifest.xml",
+      "sha256": "f6f1edaed4240358215309f3af1b9bc58243c510fbb84de3e68477f0ce6ab68d"
+    },
+    {
+      "source": "src/insider/resources/win32/bower.ico",
+      "sha256": "8eb582c54188d262d8954c68ed163eac233bc0b395cba9c53603a2952ddf54f2"
+    },
+    {
+      "source": "src/insider/resources/win32/c.ico",
+      "sha256": "cc45a10efd15a9a78255def9fef769480940a492ee693c426332f43d8490ed31"
+    },
+    {
+      "source": "src/insider/resources/win32/code.ico",
+      "sha256": "25f03f86fa2ff3e4ad12def565f7a44c33caa934a41fcf71e2bda534bce644af"
+    },
+    {
+      "source": "src/insider/resources/win32/code_150x150.png",
+      "sha256": "1e2426d8fb39f927a1b02a666c044b5c5f28095edc99969855e6df06e9cc0c94"
+    },
+    {
+      "source": "src/insider/resources/win32/code_70x70.png",
+      "sha256": "c7135ce241c35a6fce8a4aaaa8ecaa3d694abac3d796f942acc5e3688c6753b5"
+    },
+    {
+      "source": "src/insider/resources/win32/config.ico",
+      "sha256": "e6d43ee8cc6192b12b681fbb531f124705a63c0330e394f6204619d23a759139"
+    },
+    {
+      "source": "src/insider/resources/win32/cpp.ico",
+      "sha256": "5aa15bd69b8f54e0d47110b06b6e1c3eb216ea007492320f6bfb1120a6274de6"
+    },
+    {
+      "source": "src/insider/resources/win32/csharp.ico",
+      "sha256": "781fec0f5d27bb597625be63467d859e613238c8f9ef5220a003e9c2504d7bde"
+    },
+    {
+      "source": "src/insider/resources/win32/css.ico",
+      "sha256": "c53687be402412c4b3893223d2a86c188e7cfec23d47babebf4ddf6f800f42fd"
+    },
+    {
+      "source": "src/insider/resources/win32/default.ico",
+      "sha256": "6369e1956282675af891e2d98c30bf3a3cb3ced386a15f2d14c44880452f91c5"
+    },
+    {
+      "source": "src/insider/resources/win32/go.ico",
+      "sha256": "24bb8f63f40926d0e55ad709de726bc81a0c558460b84bfd7241fa6625a7990d"
+    },
+    {
+      "source": "src/insider/resources/win32/html.ico",
+      "sha256": "8983d56f142b31940cfadacbe9d110a13e4c5391b05ac97f737c62fcc022c55c"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-100.bmp",
+      "sha256": "39832a4b06739bafc8cf5500206a12f3e4691c096d06f61fafb5bcc2af7c0276"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-125.bmp",
+      "sha256": "d1e07dd1d4c5adb040c33dcc0f758f0d9deeabded07cd75e9e2201d60610e02b"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-150.bmp",
+      "sha256": "16467c05dc129e405d9ada992ff667ae3921ed5396bbb14f283596f0ccf11254"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-175.bmp",
+      "sha256": "dd959fa26a8faf103ca3b677d35c7389240749c71d17ff8295f56e89d274b506"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-200.bmp",
+      "sha256": "0d7c045a67a0d6f2cfc20e9100a0a684b2aadc51b807231b2f9ce7b19ba8dbd2"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-225.bmp",
+      "sha256": "2fd11e2d455bc93402a2c1a8df03f1581a4d81ee2c36830bb267268c55005afc"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-big-250.bmp",
+      "sha256": "b902fb2e5ff18e9d9d0e1f6e5eaec2a4d3ce47c1053f6aba4f9401d4227e060f"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-100.bmp",
+      "sha256": "59c65e9f39fbff4aef2a833404a4076818d68bf6040d3e175ac1677666b0aa66"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-125.bmp",
+      "sha256": "0b02e83e8c11366760229cf0c9215c0822e0394641ad681726918be3ebb84da5"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-150.bmp",
+      "sha256": "30574f78d6002eb830d0ed2f111496f92797a260fb72086633652ae8941956e9"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-175.bmp",
+      "sha256": "9dcfe0cd6918a8a8c71864ddb8d146cd7438af736b26bd8da480103d7bd83c1a"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-200.bmp",
+      "sha256": "364613b4fb7902af571757bd17171965cf51fb08b37237605e0c455f0078fd1e"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-225.bmp",
+      "sha256": "f4c89b9c8b00fe836a79d4c2bbb3fb251cb47052b1071ea16da9641155a15dac"
+    },
+    {
+      "source": "src/insider/resources/win32/inno-small-250.bmp",
+      "sha256": "8851616c0d2b9621cef78253a74129253c8b156c2055a02ae05b86ba726fd3ed"
+    },
+    {
+      "source": "src/insider/resources/win32/jade.ico",
+      "sha256": "82ed3c249f8ab2e72e6a09ecbc878fa3a4b4e8a4806133729ea4d95f1e17042e"
+    },
+    {
+      "source": "src/insider/resources/win32/java.ico",
+      "sha256": "6175c6291c98b6e55efe1b34b039f0acefee6bb8d8a1adf167d3737e9e52ce37"
+    },
+    {
+      "source": "src/insider/resources/win32/javascript.ico",
+      "sha256": "250342791abf62cd5803f34efa022625707191f242cea34a35076eaf2130e265"
+    },
+    {
+      "source": "src/insider/resources/win32/json.ico",
+      "sha256": "a228a4368fe449f932f94b6fb34a7e582ad2dbed3252f269300edeae21c1e08f"
+    },
+    {
+      "source": "src/insider/resources/win32/less.ico",
+      "sha256": "402a8fc56afc0a5f3e98617ef76a1256407b1de37367b6fe7258cd1ab69079cb"
+    },
+    {
+      "source": "src/insider/resources/win32/markdown.ico",
+      "sha256": "619269a423340774aaa01b432a305e38b2f06032cd0748ca91534c91ff96a042"
+    },
+    {
+      "source": "src/insider/resources/win32/php.ico",
+      "sha256": "f0eed0464220c402bf7fad08a4aff9d4e5fcd877a44ec6b3041f4da02efa7dcb"
+    },
+    {
+      "source": "src/insider/resources/win32/powershell.ico",
+      "sha256": "7fd75fc1097c9848068f3a112bc8e17e509faf621f4e7d20f9a61d0c779d97b3"
+    },
+    {
+      "source": "src/insider/resources/win32/python.ico",
+      "sha256": "864fdf15ddbc1ee4db88fb4a495195d323346fc2e233ec31c84aefb63fb79087"
+    },
+    {
+      "source": "src/insider/resources/win32/react.ico",
+      "sha256": "1dfc42b99d6b9f8d9046062c5e570ece52d311d459135ea34b77816f66f37ac3"
+    },
+    {
+      "source": "src/insider/resources/win32/ruby.ico",
+      "sha256": "3c003d131ae7a30757bed47bc87a7ce6fce606ad47a7f61cf7ac94b639aa71e7"
+    },
+    {
+      "source": "src/insider/resources/win32/sass.ico",
+      "sha256": "4f0d8843ef9f8800290a76910bea6a65367042fcc374438fd695fc0efc0a2bad"
+    },
+    {
+      "source": "src/insider/resources/win32/shell.ico",
+      "sha256": "55994cf9686d84dc36fe1072a95b8a3fe3d0f4db6967254b6530f1d59299114c"
+    },
+    {
+      "source": "src/insider/resources/win32/sql.ico",
+      "sha256": "120e7be18a676852994d12464941b1e7ece280a66e5ebd9f79c9fe1f91ec492b"
+    },
+    {
+      "source": "src/insider/resources/win32/typescript.ico",
+      "sha256": "ea03c8984ba963330f123a0e81eb8d9d2ee35eb5d4f0b404777fe77216dc9a1e"
+    },
+    {
+      "source": "src/insider/resources/win32/vue.ico",
+      "sha256": "27f423c31ad57d9e5febbe7ea877bd8e0e812eaabc397ddfe3ea6f92c2ec1d39"
+    },
+    {
+      "source": "src/insider/resources/win32/xml.ico",
+      "sha256": "75b3c80c2ec4723dd28ac5c1c1894ae4cd2c15c9013cb6376619fbaba0569368"
+    },
+    {
+      "source": "src/insider/resources/win32/yaml.ico",
+      "sha256": "4cbc3917c6d5e520cdb27f2195a1ad28471bba2762a9afc6861f10504a1d9350"
+    },
+    {
+      "source": "src/insider/src/vs/workbench/browser/media/code-icon.svg",
+      "sha256": "842080a940b3c43d52679b21d2fa5944e63d08b5507ad60563ac21d5db6fe625"
+    },
+    {
+      "source": "src/insider/src/vs/workbench/browser/parts/editor/media/letterpress-dark.svg",
+      "sha256": "4160ba7ccff48db4b6d49ca12f5f0e86a09fae39f3feac02ad1f6d3cab2d560e"
+    },
+    {
+      "source": "src/insider/src/vs/workbench/browser/parts/editor/media/letterpress-hcDark.svg",
+      "sha256": "950042c98042389c5baae9f9c37af30f1e822a95613c095ff139fa628c4b24fc"
+    },
+    {
+      "source": "src/insider/src/vs/workbench/browser/parts/editor/media/letterpress-hcLight.svg",
+      "sha256": "c3e2b9ee7e2ad9549d0bac2cb0bcceebed4b4686700fbcb0d3afbe3d60f0f515"
+    },
+    {
+      "source": "src/insider/src/vs/workbench/browser/parts/editor/media/letterpress-light.svg",
+      "sha256": "bd8a1df2ca84028407c1488c47396a65625fec8f206150e2abf6c4e775a225ce"
+    }
+  ],
+  "shell_scripts": [
+    {
+      "source": "build/alpine/check_tags.sh",
+      "sha256": "144940c31899540774c6bbf40978c20d4dd43394498f1fd5035d425b30d95247"
+    },
+    {
+      "source": "build/alpine/package_reh.sh",
+      "sha256": "e15fc38b99132ff993747e427130cc098868e8d2978d8b82dc5487c5e3aa3a08"
+    },
+    {
+      "source": "build/linux/anylinux-appimage/build.sh",
+      "sha256": "86eb338a21a39efbed5e45f0ede90c36d04e4e51763243c3deb8f72a741a08b2"
+    },
+    {
+      "source": "build/linux/anylinux-appimage/prepare_assets.sh",
+      "sha256": "b16c641fb84569a52769172391ffa1ca696ab30f5cd12df732829e873d3e0c0c"
+    },
+    {
+      "source": "build/linux/check_tags.sh",
+      "sha256": "73a526f52c009702cd27145021796dcf68fa7a0708135f07afd70f3c5024d58a"
+    },
+    {
+      "source": "build/linux/deps.sh",
+      "sha256": "1d432d5d4b582cf91c90f5f3cb24cd24a7512c53363b4524737ba5ffafbdbd39"
+    },
+    {
+      "source": "build/linux/install_gh.sh",
+      "sha256": "ef2e0f10bec01f5227a344273b4138aba8f57c6ffa4340dfe1f354ec084d9dd2"
+    },
+    {
+      "source": "build/linux/install_nodejs.sh",
+      "sha256": "52ffd639dcbb5f168025a16724f072bc67a2a853671944fd8bab7befa54c4c74"
+    },
+    {
+      "source": "build/linux/loong64/electron.sh",
+      "sha256": "9e16785437838fc0bb809d410033386cece518f11f82df0abed42ba42136dd0d"
+    },
+    {
+      "source": "build/linux/loong64/ripgrep.sh",
+      "sha256": "0036ca02fc109f6ef39daf1553ca59b705854656214ec0cbea8bef483c6aa8a1"
+    },
+    {
+      "source": "build/linux/package_bin.sh",
+      "sha256": "cedd8fa63dca34365678df77c3d15fcec1f8200abf5efbbcf136d66965e07634"
+    },
+    {
+      "source": "build/linux/package_reh.sh",
+      "sha256": "64c980814d1c34430cf9fdf3131795f406f40664cfe9cbd7645f738ce7e6fb06"
+    },
+    {
+      "source": "build/linux/ppc64le/electron.sh",
+      "sha256": "bae22d6d206b5c3015625efcc6114d32f49275a9e9bb5e6c453ce835d0e65ad4"
+    },
+    {
+      "source": "build/linux/prepare_assets.sh",
+      "sha256": "0d19702ad453c3b2b4f67af8b726c6dd0fc35fdd48f66d134cab2b230b7f627e"
+    },
+    {
+      "source": "build/linux/riscv64/electron.sh",
+      "sha256": "d6d68d653555dc4d208ef51e680d9b78681705ea752dfb6d15a0897256ea2c2a"
+    },
+    {
+      "source": "build/linux/riscv64/ripgrep.sh",
+      "sha256": "1d94d88a52dc196fd25f407c57ce7d8036445da5973bbb280fb8babed3de4b80"
+    },
+    {
+      "source": "build/linux/verify_abi_requirements.sh",
+      "sha256": "a5e8874d513954d123803b7ea92029b66442bca71b5d523390fa745cc9d21e34"
+    },
+    {
+      "source": "build/linux/verify_cxx11_requirements.sh",
+      "sha256": "cd540ef1571e2f53f68bee3e299131168f0c8be9503962f3aacf90c474548eba"
+    },
+    {
+      "source": "build/osx/check_tags.sh",
+      "sha256": "1ed0472e79c431c1a8aed5e636295ec037bde7bb1ebae09b4733b0af6b3f9c1f"
+    },
+    {
+      "source": "build/osx/prepare_assets.sh",
+      "sha256": "8b77e8610924def733e4b81366910fef01b08b1c89a2771ac1bfc186731ece5c"
+    },
+    {
+      "source": "build/windows/appx/build.sh",
+      "sha256": "7faf619b84edf82b1190084522e222552a6ae14cd16b1af6a15b5fee6fdeb656"
+    },
+    {
+      "source": "build/windows/check_tags.sh",
+      "sha256": "595872396a73df936337979fa4918dbca3067c9819e620f38a9ac4384404bf8c"
+    },
+    {
+      "source": "build/windows/msi/build-updates-disabled.sh",
+      "sha256": "74fcb02aab9fb15641605d3fbcf09e1fd848aabe45c1b86aa0e0fbc8daca3815"
+    },
+    {
+      "source": "build/windows/msi/build.sh",
+      "sha256": "21c5ebf6c3109554b7b993b0dab6fd94ade23174ebdd9fc4047480ee71e9ec31"
+    },
+    {
+      "source": "build/windows/package.sh",
+      "sha256": "dcc1f7bbcb8deeafadd7ae57460ae6ac55466dd42ea7a87747c1e80979299190"
+    },
+    {
+      "source": "build/windows/prepare_assets.sh",
+      "sha256": "abdc574d840b8257dfeb73eae901949e7969baeb2b5aec72f61f31b5c01caea1"
+    },
+    {
+      "source": "build/windows/rtf/make.sh",
+      "sha256": "bf86bda6440ce5d650b5102613fc4d4195456ef4379e202f020dbbc698d6e52b"
+    },
+    {
+      "source": "build.sh",
+      "sha256": "3f3fc9190338209e53e1a38b6667d55d67f4fe21ab7d15ac9b9ad15ab4089865"
+    },
+    {
+      "source": "build_cli.sh",
+      "sha256": "f6945d57ea83fb6ae4d19f46e70742c371c935e2fb873dbf3bd009365bc97513"
+    },
+    {
+      "source": "check_cron_or_pr.sh",
+      "sha256": "e3833e96f43ce1c62ac68410b487f3325b5461f13f16f541973bd5aec7a17fe5"
+    },
+    {
+      "source": "check_tags.sh",
+      "sha256": "f68bb89e33cca785ed0fe67568708eb80f1e7aee1f56baa3b8eac7f15fedb578"
+    },
+    {
+      "source": "dev/build.sh",
+      "sha256": "e4a9c9c20e842eb63b631dab2264739a25ef4c0311d73d55f53b623be14bef71"
+    },
+    {
+      "source": "dev/build_docker.sh",
+      "sha256": "7ad8fe96eef451542e735bd5fe5c43aa50ae49758f9addf49a35ce1327abbefe"
+    },
+    {
+      "source": "dev/cli.sh",
+      "sha256": "376a6079bfba83640dddffadfda1dbfdb2abe130cb3a6016bc9de63ca4423a9f"
+    },
+    {
+      "source": "dev/merge-patches.sh",
+      "sha256": "2e7ccdb769e5cd54e24b4298afbe701c99776e41462bf8ef31b33d9a41b9d1f8"
+    },
+    {
+      "source": "dev/patch.sh",
+      "sha256": "68570e2416dc92548e720180cc4aca9c3e48fffa5bdf94d46ee7329187caac5d"
+    },
+    {
+      "source": "dev/update_api.sh",
+      "sha256": "3fa98b3d12208175406f2b0e6fa60cb053daa6b1f882691d673979f204d0c3c1"
+    },
+    {
+      "source": "dev/update_patches.sh",
+      "sha256": "9c6640a74f33f351f2ff9e8bb2375f553347ebe9b437a201b52b6ba046396fe5"
+    },
+    {
+      "source": "get_pr.sh",
+      "sha256": "3b6d2f7b4a331ac75b843b22856c816990f80118c0f1773beedd05806b27aed0"
+    },
+    {
+      "source": "get_repo.sh",
+      "sha256": "9b57f2b0e736c5f3263062fa33eccd406c61bbb104d02d81195bd65b9d62d390"
+    },
+    {
+      "source": "icons/build_icons.sh",
+      "sha256": "ae2852e4dad9ec95443d8618859e9490930ef01d8d13ae717bc2373f45a8c765"
+    },
+    {
+      "source": "prepare_assets.sh",
+      "sha256": "feae8157c2c94256f7b7824a0d9c1cc0779d1fb325671d684d1e5cc54e15bed9"
+    },
+    {
+      "source": "prepare_checksums.sh",
+      "sha256": "80d53c0a01dd6e781e2093ad2ac5861ea0c2deaf5259dff2547cf01c870ad654"
+    },
+    {
+      "source": "prepare_src.sh",
+      "sha256": "dec3fd4e3138064471394cf796f863507179751ab2f87253aa77a3cb7fb55dd0"
+    },
+    {
+      "source": "prepare_vscode.sh",
+      "sha256": "cece455bf326a21b884985caef67ab50b72020f6c765cfb9d8158b4d8eb0a4e7"
+    },
+    {
+      "source": "release.sh",
+      "sha256": "d59a13303fce085c65e3d1ccc946bf3ce0b1cc959e2cca6a3f671b8d2a01e84d"
+    },
+    {
+      "source": "stores/snapcraft/check_version.sh",
+      "sha256": "948ecc51403daf175b2f0a988c47c3a82be623076e3309f15d69bc0064cfe984"
+    },
+    {
+      "source": "stores/winget/check_version.sh",
+      "sha256": "92ba27b34121863c52adfd19cd07d55a8d6a32679d1a1575264eed8435df2942"
+    },
+    {
+      "source": "undo_telemetry.sh",
+      "sha256": "cd9257e894e09fcdcb6699577b89e84a15efcc2b8636477de09c5f322e3489fe"
+    },
+    {
+      "source": "update_upstream.sh",
+      "sha256": "fb13ba874d5b2c157aa6daefde589f1b8a946715f16fe911ca94a28178dbcd85"
+    },
+    {
+      "source": "update_version.sh",
+      "sha256": "544b9ccfb783e37d8ef8c33dfc0d4f3ddf5354654641668b4c8c893ac62f8c06"
+    },
+    {
+      "source": "upload_sourcemaps.sh",
+      "sha256": "6298defab507dd07aee37478259cd5f3f06b4ea16831a8fcbbc77df59ada2dd0"
+    },
+    {
+      "source": "utils.sh",
+      "sha256": "a0141282fddc77de175775592118fde4a04e11f3ffe214aa5826032bcb1181fc"
+    },
+    {
+      "source": "version.sh",
+      "sha256": "2e5edd5c05c26fee4df743c79c1c354914f3634f8e29763597c10f009e297879"
+    }
+  ],
+  "vscodium_release": "1.140.06880",
+  "previous_audit_revision": "be70704abf84fc6c7721f94478dfcccd2dc6163e",
+  "pin_revalidation": "Stable tag differs from previous audit revision only in README.md; inventoried patch/action/helper files, assets and scripts are byte-identical. No audit repeated."
+}

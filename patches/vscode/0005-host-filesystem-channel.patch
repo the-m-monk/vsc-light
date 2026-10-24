@@ -277,7 +277,7 @@
  
 --- /dev/null
 +++ b/src/vs/platform/files/common/diskFileSystemProviderServer.ts
-@@ -0,0 +1,274 @@
+@@ -0,0 +1,273 @@
 +/*---------------------------------------------------------------------------------------------
 + *  Copyright (c) Microsoft Corporation. All rights reserved.
 + *  Licensed under the MIT License. See License.txt in the project root for license information.
@@ -551,7 +551,6 @@
 +		this.sessionToWatcher.clear();
 +	}
 +}
-+
 --- a/src/vs/code/electron-browser/workbench/workbench.ts
 +++ b/src/vs/code/electron-browser/workbench/workbench.ts
 @@ -515,6 +515,11 @@

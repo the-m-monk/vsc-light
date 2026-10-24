@@ -1,0 +1,175 @@
+{
+  "pin": "versions/vscodium.json",
+  "version": "1.140.06880",
+  "commit": "f33df00b6dd822a163133a48b3c7dab78a520007",
+  "previousAuditCommit": "be70704abf84fc6c7721f94478dfcccd2dc6163e",
+  "revalidation": "Only README.md differs between stable pin and previous audit commit; all referenced upstream source bytes are identical. Imported patch diff bodies, asset bytes and configuration behaviour are preserved.",
+  "artifacts": [
+    {
+      "local": "config/vscodium-product.json",
+      "localSha256": "a4969508a332f73f82e4c50ae263a480933227fcc1bb4c0bce2891e56be0ee42",
+      "sources": [
+        {
+          "path": "prepare_vscode.sh",
+          "sha256": "cece455bf326a21b884985caef67ab50b72020f6c765cfb9d8158b4d8eb0a4e7"
+        },
+        {
+          "path": "product.json",
+          "sha256": "c6cd13376233ce42515a9073528fad1c6606fcca92d9c8f5e347b373d01acd2d"
+        },
+        {
+          "path": "patches/00-telemetry-disable.patch",
+          "sha256": "be7de72ef8ed64bd18d059dbaadd97071a7949a9da9d6b3d39a63203c852eb1d"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "config/vsc-light-product.json",
+      "localSha256": "e4c061e60b132531bf2f9e144c5e9b6cc1d20e6cb66972be34cf9ca52d8d1223",
+      "sources": [
+        {
+          "path": "prepare_vscode.sh",
+          "sha256": "cece455bf326a21b884985caef67ab50b72020f6c765cfb9d8158b4d8eb0a4e7"
+        },
+        {
+          "path": "patches/00-copilot-fix-action-condition.patch",
+          "sha256": "3a51b3f5ed6f7a8c43aafc50ba9410529b43db0564a2e586a516b228bf2836a7"
+        }
+      ],
+      "adaptation": "VSC-Light-owned identity/service exclusions; behavioural references only"
+    },
+    {
+      "local": "patches/vscodium/00-chat-disable-ai.patch",
+      "localSha256": "62c2ab05bf3c4c6f64ed969ac8bd689c2882033a89e278fe5d651ef37d61e999",
+      "sources": [
+        {
+          "path": "patches/00-copilot-fix-action-condition.patch",
+          "sha256": "3a51b3f5ed6f7a8c43aafc50ba9410529b43db0564a2e586a516b228bf2836a7"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "patches/vscodium/00-settings-gallery.patch",
+      "localSha256": "9d971ce76d6c93b903d7da44261005e7f5bb4ab76b14b5b15217575e3957f00c",
+      "sources": [
+        {
+          "path": "patches/00-settings-gallery.patch",
+          "sha256": "9303f42cc04d011ef198b98df978b19ac41de5527cd07d824c272aad4f0eaf0f"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "patches/vscodium/00-telemetry-disable.patch",
+      "localSha256": "8819ea0bfd9f89f4a96afbe035bdbd59973509ea0de024be7ad21db6bec00fc6",
+      "sources": [
+        {
+          "path": "patches/00-telemetry-disable.patch",
+          "sha256": "be7de72ef8ed64bd18d059dbaadd97071a7949a9da9d6b3d39a63203c852eb1d"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "patches/vscodium/00-tunnel-disable-recommendation.patch",
+      "localSha256": "23e478197cac8d48c50b77bc187b1ddfa78c5efeedf37c527fac1b0f02dc2495",
+      "sources": [
+        {
+          "path": "patches/00-tunnel-disable-recommendation.patch",
+          "sha256": "0e4bcf1233b54b989c4bd42a2f40acc0be7cb85f1dd7ab93d083f387bfdabfb3"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "patches/vscodium/00-ui-font-family.patch",
+      "localSha256": "bd254e0560c450b606fa2539ed262bf8bd98571dfc796aece48539aab05f1b38",
+      "sources": [
+        {
+          "path": "patches/00-ui-custom-font.patch",
+          "sha256": "d85f2aa1ba99fc5c5159ebf2d605672fe1bba8a63f192fd0ea91abfa83d2d0c2"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "patches/vscodium/81-ui-disable-onboarding.patch",
+      "localSha256": "838ab03e7c03d1237c8dd55bab4cbfc25038bdd2942fec1c9e7066810175eb6e",
+      "sources": [
+        {
+          "path": "patches/81-ui-disable-onboarding.patch",
+          "sha256": "371085a05c357d927f8aa435617e651ec3d43be653b43c7603ec64ad992be570"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "assets/vscodium/LICENSE",
+      "localSha256": "2fa3f8948a0a17ea30b62845caf1ee8aae8b55b5417273920ca2df2642209e0e",
+      "sources": [
+        {
+          "path": "LICENSE",
+          "sha256": "2fa3f8948a0a17ea30b62845caf1ee8aae8b55b5417273920ca2df2642209e0e"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "assets/vscodium/src/vs/workbench/browser/media/code-icon.svg",
+      "localSha256": "240a351ec1128c5fcb43ad519f87e98a133f338c01f24bcbe7e040cb78add5f5",
+      "sources": [
+        {
+          "path": "src/stable/src/vs/workbench/browser/media/code-icon.svg",
+          "sha256": "240a351ec1128c5fcb43ad519f87e98a133f338c01f24bcbe7e040cb78add5f5"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "assets/vscodium/src/vs/workbench/browser/parts/editor/media/letterpress-hcLight.svg",
+      "localSha256": "c3e2b9ee7e2ad9549d0bac2cb0bcceebed4b4686700fbcb0d3afbe3d60f0f515",
+      "sources": [
+        {
+          "path": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-hcLight.svg",
+          "sha256": "c3e2b9ee7e2ad9549d0bac2cb0bcceebed4b4686700fbcb0d3afbe3d60f0f515"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "assets/vscodium/src/vs/workbench/browser/parts/editor/media/letterpress-light.svg",
+      "localSha256": "bd8a1df2ca84028407c1488c47396a65625fec8f206150e2abf6c4e775a225ce",
+      "sources": [
+        {
+          "path": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-light.svg",
+          "sha256": "bd8a1df2ca84028407c1488c47396a65625fec8f206150e2abf6c4e775a225ce"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "assets/vscodium/src/vs/workbench/browser/parts/editor/media/letterpress-hcDark.svg",
+      "localSha256": "950042c98042389c5baae9f9c37af30f1e822a95613c095ff139fa628c4b24fc",
+      "sources": [
+        {
+          "path": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-hcDark.svg",
+          "sha256": "950042c98042389c5baae9f9c37af30f1e822a95613c095ff139fa628c4b24fc"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    },
+    {
+      "local": "assets/vscodium/src/vs/workbench/browser/parts/editor/media/letterpress-dark.svg",
+      "localSha256": "4160ba7ccff48db4b6d49ca12f5f0e86a09fae39f3feac02ad1f6d3cab2d560e",
+      "sources": [
+        {
+          "path": "src/stable/src/vs/workbench/browser/parts/editor/media/letterpress-dark.svg",
+          "sha256": "4160ba7ccff48db4b6d49ca12f5f0e86a09fae39f3feac02ad1f6d3cab2d560e"
+        }
+      ],
+      "adaptation": "See patches/vscodium/README.md and docs/maintenance/vscodium.md; retain working adaptations"
+    }
+  ]
+}

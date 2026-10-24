@@ -1,0 +1,18 @@
+{
+  "extensionsGallery": {
+    "serviceUrl": "https://open-vsx.org/vscode/gallery",
+    "itemUrl": "https://open-vsx.org/vscode/item",
+    "latestUrlTemplate": "https://open-vsx.org/vscode/gallery/{publisher}/{name}/latest",
+    "controlUrl": "https://raw.githubusercontent.com/EclipseFdn/publish-extensions/refs/heads/master/extension-control/extensions.json"
+  },
+  "linkProtectionTrustedDomains": [
+    "https://open-vsx.org"
+  ],
+  "quality": "stable",
+  "enableTelemetry": false,
+  "enabledTelemetryLevels": {
+    "error": false,
+    "usage": false
+  },
+  "tunnelApplicationConfig": {}
+}
