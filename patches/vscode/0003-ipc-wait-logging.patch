@@ -1,0 +1,69 @@
+diff --git a/src/vs/base/parts/ipc/common/ipc.ts b/src/vs/base/parts/ipc/common/ipc.ts
+index be960b7058c..bb970773bab 100644
+--- a/src/vs/base/parts/ipc/common/ipc.ts
++++ b/src/vs/base/parts/ipc/common/ipc.ts
+@@ -581,11 +581,13 @@ export class ChannelClient implements IChannelClient, IDisposable {
+ 		const id = this.lastRequestId++;
+ 		const type = RequestType.Promise;
+ 		const request: IRawRequest = { id, type, channelName, name, arg };
++		console.info('[vsc-light:ipc] request', JSON.stringify({ id, channel: channelName, command: name, initialized: this.state === State.Idle }));
+ 
+ 		if (cancellationToken.isCancellationRequested) {
+ 			return Promise.reject(new CancellationError());
+ 		}
+ 
++		const pending = setTimeout(() => console.warn('[vsc-light:ipc] request still waiting after 5 seconds', JSON.stringify({ id, channel: channelName, command: name, initialized: this.state === State.Idle })), 5000);
+ 		let disposable: IDisposable;
+ 		let disposableWithRequestCancel: IDisposable;
+ 
+@@ -595,6 +597,7 @@ export class ChannelClient implements IChannelClient, IDisposable {
+ 			}
+ 
+ 			const doRequest = () => {
++				console.info('[vsc-light:ipc] sending request', JSON.stringify({ id, channel: channelName, command: name }));
+ 				const handler: IHandler = response => {
+ 					switch (response.type) {
+ 						case ResponseType.PromiseSuccess:
+@@ -666,6 +669,8 @@ export class ChannelClient implements IChannelClient, IDisposable {
+ 		});
+ 
+ 		return result.finally(() => {
++			clearTimeout(pending);
++			console.info('[vsc-light:ipc] request settled', JSON.stringify({ id, channel: channelName, command: name }));
+ 			disposable?.dispose(); // Seen as undefined in tests.
+ 			this.activeRequests.delete(disposableWithRequestCancel);
+ 		});
+diff --git a/src/vs/base/parts/ipc/electron-browser/ipc.mp.ts b/src/vs/base/parts/ipc/electron-browser/ipc.mp.ts
+index 83a1fcca770..be672d16272 100644
+--- a/src/vs/base/parts/ipc/electron-browser/ipc.mp.ts
++++ b/src/vs/base/parts/ipc/electron-browser/ipc.mp.ts
+@@ -43,6 +43,7 @@ export async function acquirePort(
+ 
+ 	// Get ready to acquire the message port from the
+ 	// provided `responseChannel` via preload helper.
++	console.info('[vsc-light:ipc] acquiring MessagePort', JSON.stringify({ requestChannel, responseChannel, nonce }));
+ 	acquire(responseChannel, nonce);
+ 
+ 	// If a `requestChannel` is provided, we are in charge
+@@ -55,6 +56,7 @@ export async function acquirePort(
+ 	// We need to filter by the `nonce` to ensure we listen
+ 	// to the right response.
+ 	const onMessageChannelResult = Event.fromDOMEventEmitter<IMessageChannelResult>(mainWindow, 'message', (e: MessageEvent) => ({ response: e.data, port: e.ports[0], source: e.source }));
++	const pending = setTimeout(() => console.warn('[vsc-light:ipc] MessagePort still waiting after 5 seconds', JSON.stringify({ requestChannel, responseChannel, nonce })), 5000);
+ 	const result = await Event.toPromise(Event.once(Event.filter(onMessageChannelResult, e => {
+ 		const responseNonce = typeof e.response === 'string'
+ 			? e.response
+ 			: isMessageChannelErrorResponse(e.response) ? e.response.nonce : undefined;
+ 		return responseNonce === nonce && e.source === mainWindow;
+-	})));
++	}))).finally(() => clearTimeout(pending));
++	console.info('[vsc-light:ipc] MessagePort response received', JSON.stringify({ responseChannel, nonce, hasPort: !!result.port }));
+diff --git a/src/vs/base/parts/ipc/common/ipc.ts b/src/vs/base/parts/ipc/common/ipc.ts
+index bb970773bab..99b99999999 100644
+--- a/src/vs/base/parts/ipc/common/ipc.ts
++++ b/src/vs/base/parts/ipc/common/ipc.ts
+@@ -777,3 +777,4 @@ export class ChannelClient implements IChannelClient, IDisposable {
+ 	private onResponse(response: IRawResponse): void {
+ 		if (response.type === ResponseType.Initialize) {
++			console.info('[vsc-light:ipc] renderer connection initialized');
+ 			this.state = State.Idle;

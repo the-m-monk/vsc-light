@@ -1,0 +1,105 @@
+diff --git a/src/vs/workbench/electron-browser/desktop.main.ts b/src/vs/workbench/electron-browser/desktop.main.ts
+index a827f145c61..c97a7036a14 100644
+--- a/src/vs/workbench/electron-browser/desktop.main.ts
++++ b/src/vs/workbench/electron-browser/desktop.main.ts
+@@ -69,6 +69,22 @@ import { DefaultAccountService } from '../services/accounts/browser/defaultAccou
+ import { AccountPolicyService, IAccountPolicyGateService } from '../services/policies/common/accountPolicyService.js';
+ import { MultiplexPolicyService } from '../../platform/policy/common/multiplexPolicyService.js';
+ 
++/** Logs startup operations and reports waits without changing their outcome. */
++async function traceStartup<T>(stage: string, operation: () => Promise<T>): Promise<T> {
++	console.info(`[vsc-light:desktop] ${stage}: start`);
++	const pending = setTimeout(() => console.warn(`[vsc-light:desktop] ${stage}: still waiting after 5 seconds`), 5000);
++	try {
++		const result = await operation();
++		console.info(`[vsc-light:desktop] ${stage}: complete`);
++		return result;
++	} catch (error) {
++		console.error(`[vsc-light:desktop] ${stage}: failed`, error, error instanceof Error ? error.stack : '');
++		throw error;
++	} finally {
++		clearTimeout(pending);
++	}
++}
++
+ export class DesktopMain extends Disposable {
+ 
+ 	constructor(
+@@ -117,7 +133,7 @@ export class DesktopMain extends Disposable {
+ 	async open(): Promise<void> {
+ 
+ 		// Init services and wait for DOM to be ready in parallel
+-		const [services] = await Promise.all([this.initServices(), domContentLoaded(mainWindow)]);
++		const [services] = await Promise.all([traceStartup('initServices', () => this.initServices()), traceStartup('DOM ready', () => domContentLoaded(mainWindow))]);
+ 
+ 		// Apply zoom level early once we have a configuration service
+ 		// and before the workbench is created to prevent flickering.
+@@ -129,6 +145,7 @@ export class DesktopMain extends Disposable {
+ 		this.applyWindowZoomLevel(services.configurationService);
+ 
+ 		// Create Workbench
++		console.info('[vsc-light:desktop] creating workbench UI');
+ 		const workbench = new Workbench(mainWindow.document.body, {
+ 			extraClasses: this.getExtraClasses(),
+ 			resetLayout: this.configuration['disable-layout-restore'] === true
+@@ -138,7 +155,9 @@ export class DesktopMain extends Disposable {
+ 		this.registerListeners(workbench, services.storageService);
+ 
+ 		// Startup
++		console.info('[vsc-light:desktop] starting workbench UI');
+ 		const instantiationService = workbench.startup();
++		console.info('[vsc-light:desktop] workbench UI startup returned');
+ 
+ 		// Window
+ 		this._register(instantiationService.createInstance(NativeWindow));
+@@ -196,6 +215,7 @@ export class DesktopMain extends Disposable {
+ 		// Environment
+ 		const environmentService = new NativeWorkbenchEnvironmentService(this.configuration, productService);
+ 		serviceCollection.set(INativeWorkbenchEnvironmentService, environmentService);
++		console.info('[vsc-light:desktop] main process, product and environment services registered');
+ 
+ 		// Logger
+ 		const loggers = this.configuration.loggers.map(loggerResource => ({ ...loggerResource, resource: URI.revive(loggerResource.resource) }));
+@@ -205,6 +225,7 @@ export class DesktopMain extends Disposable {
+ 		// Log
+ 		const logService = this._register(new NativeLogService(loggerService, environmentService));
+ 		serviceCollection.set(ILogService, logService);
++		console.info('[vsc-light:desktop] logging services registered');
+ 		if (isCI) {
+ 			logService.info('workbench#open()'); // marking workbench open helps to diagnose flaky integration/smoke tests
+ 		}
+@@ -276,6 +297,7 @@ export class DesktopMain extends Disposable {
+ 		serviceCollection.set(IUserDataProfilesService, userDataProfilesService);
+ 		const userDataProfileService = new UserDataProfileService(reviveProfile(this.configuration.profiles.profile, userDataProfilesService.profilesHome.scheme));
+ 		serviceCollection.set(IUserDataProfileService, userDataProfileService);
++		console.info('[vsc-light:desktop] file and profile services registered');
+ 
+ 		// Use FileUserDataProvider for user data to
+ 		// enable atomic read / write operations.
+@@ -303,7 +325,7 @@ export class DesktopMain extends Disposable {
+ 		// Create services that require resolving in parallel
+ 		const workspace = this.resolveWorkspaceIdentifier(environmentService);
+ 		const [configurationService, storageService] = await Promise.all([
+-			this.createWorkspaceService(workspace, environmentService, userDataProfileService, userDataProfilesService, fileService, remoteAgentService, uriIdentityService, logService, policyService).then(service => {
++			traceStartup('workspace configuration', () => this.createWorkspaceService(workspace, environmentService, userDataProfileService, userDataProfilesService, fileService, remoteAgentService, uriIdentityService, logService, policyService)).then(service => {
+ 
+ 				// Workspace
+ 				serviceCollection.set(IWorkspaceContextService, service);
+@@ -314,7 +336,7 @@ export class DesktopMain extends Disposable {
+ 				return service;
+ 			}),
+ 
+-			this.createStorageService(workspace, environmentService, userDataProfileService, userDataProfilesService, mainProcessService).then(service => {
++			traceStartup('storage', () => this.createStorageService(workspace, environmentService, userDataProfileService, userDataProfilesService, mainProcessService)).then(service => {
+ 
+ 				// Storage
+ 				serviceCollection.set(IStorageService, service);
+@@ -322,7 +344,7 @@ export class DesktopMain extends Disposable {
+ 				return service;
+ 			}),
+ 
+-			this.createKeyboardLayoutService(mainProcessService).then(service => {
++			traceStartup('keyboard layout', () => this.createKeyboardLayoutService(mainProcessService)).then(service => {
+ 
+ 				// KeyboardLayout
+ 				serviceCollection.set(INativeKeyboardLayoutService, service);

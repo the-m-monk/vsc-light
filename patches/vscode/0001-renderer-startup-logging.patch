@@ -1,0 +1,74 @@
+diff --git a/src/vs/base/parts/sandbox/electron-browser/preload.ts b/src/vs/base/parts/sandbox/electron-browser/preload.ts
+index 589949f0592..527575b65b1 100644
+--- a/src/vs/base/parts/sandbox/electron-browser/preload.ts
++++ b/src/vs/base/parts/sandbox/electron-browser/preload.ts
+@@ -7,6 +7,7 @@
+ 
+ (function () {
+ 
++	console.info('[vsc-light:preload] entered');
+ 	const { ipcRenderer, webFrame, contextBridge, webUtils } = require('electron');
+ 
+ 	type ISandboxConfiguration = import('../common/sandboxTypes.js').ISandboxConfiguration;
+@@ -47,7 +48,9 @@
+ 			validateIPC(windowConfigIpcChannel);
+ 
+ 			// Resolve configuration from electron-main
++			console.info('[vsc-light:preload] requesting window configuration', windowConfigIpcChannel);
+ 			const resolvedConfiguration: ISandboxConfiguration = configuration = await ipcRenderer.invoke(windowConfigIpcChannel);
++			console.info('[vsc-light:preload] window configuration received', JSON.stringify({ windowId: resolvedConfiguration.windowId }));
+ 
+ 			// Apply `userEnv` directly
+ 			Object.assign(process.env, resolvedConfiguration.userEnv);
+@@ -250,6 +253,7 @@
+ 	try {
+ 		// Use `contextBridge` APIs to expose globals to VSCode
+ 		contextBridge.exposeInMainWorld('vscode', globals);
++		console.info('[vsc-light:preload] window.vscode exposed');
+ 	} catch (error) {
+ 		console.error(error);
+ 	}
+diff --git a/src/vs/code/electron-browser/workbench/workbench.ts b/src/vs/code/electron-browser/workbench/workbench.ts
+index 5b8c2499f3b..ef98a932b94 100644
+--- a/src/vs/code/electron-browser/workbench/workbench.ts
++++ b/src/vs/code/electron-browser/workbench/workbench.ts
+@@ -21,6 +21,7 @@ import { getPartsSplashColors, getPartsSplashLayoutMetrics } from './partsSplash
+ 	type IPartsSplashPartBounds = import('../../../platform/theme/common/themeService.js').IPartsSplashPartBounds;
+ 
+ 	const preloadGlobals = (window as unknown as { vscode: IMainWindowSandboxGlobals }).vscode; // defined by preload.ts
++	console.info('[vsc-light:renderer] entered', JSON.stringify({ hasPreloadGlobals: !!preloadGlobals }));
+ 	const safeProcess = preloadGlobals.process;
+ 
+ 	//#region Splash Screen Helpers
+@@ -484,7 +485,9 @@ import { getPartsSplashColors, getPartsSplashLayoutMetrics } from './partsSplash
+ 	async function load<M, T extends ISandboxConfiguration>(options: ILoadOptions<T>): Promise<ILoadResult<M, T>> {
+ 
+ 		// Window Configuration from Preload Script
++		console.info('[vsc-light:renderer] waiting for window configuration');
+ 		const configuration = await resolveWindowConfiguration<T>();
++		console.info('[vsc-light:renderer] window configuration ready');
+ 
+ 		// Signal before import()
+ 		options?.beforeImport?.(configuration);
+@@ -514,7 +517,9 @@ import { getPartsSplashColors, getPartsSplashLayoutMetrics } from './partsSplash
+ 				workbenchUrl = new URL(`vs/workbench/workbench.desktop.main.js`, baseUrl).href;
+ 			}
+ 
++			console.info('[vsc-light:renderer] importing desktop workbench', workbenchUrl);
+ 			const result = await import(workbenchUrl);
++			console.info('[vsc-light:renderer] desktop workbench imported');
+ 			if (developerDeveloperKeybindingsDisposable && removeDeveloperKeybindingsAfterLoad) {
+ 				developerDeveloperKeybindingsDisposable();
+ 			}
+@@ -750,5 +755,10 @@ import { getPartsSplashColors, getPartsSplashLayoutMetrics } from './partsSplash
+ 	performance.mark('code/didLoadWorkbenchMain');
+ 
+ 	// Load workbench
+-	result.main(configuration);
++	console.info('[vsc-light:renderer] calling desktop main');
++	result.main(configuration).then(() => {
++		console.info('[vsc-light:renderer] desktop main completed');
++	}, error => {
++		console.error('[vsc-light:renderer] desktop main failed', error, error instanceof Error ? error.stack : '');
++	});
+ }());
