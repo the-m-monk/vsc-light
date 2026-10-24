@@ -16,6 +16,7 @@ import { IFileChange, IWatchOptions } from '../../../../platform/files/common/fi
 import { Host, HostFileSystemProvider } from '../../../../platform/files/vsc-light/hostFileSystemProvider.js';
 import { NullLogService } from '../../../../platform/log/common/log.js';
 import { registerManagedSettings } from './managedSettings.js';
+import { registerWindowServices } from './windows.js';
 
 /** Supplies local URIs and watcher policy to the unchanged upstream disk channel. */
 class HostDiskFileSystemProviderChannel extends AbstractDiskFileSystemProviderChannel<unknown> {
@@ -30,7 +31,7 @@ class HostDiskFileSystemProviderChannel extends AbstractDiskFileSystemProviderCh
 	}
 }
 
-/** Constructs only the host services needed by the upstream local filesystem channel. */
+/** Registers host-backed filesystem, settings, and basic window services. */
 export function registerVscLightServices(server: IChannelServer<unknown>): IDisposable {
 	const host = (globalThis as typeof globalThis & { __vscLightHost?: Host }).__vscLightHost;
 	if (!host) { throw new Error('VSC-Light host RPC was not installed by preload'); }
@@ -43,5 +44,6 @@ export function registerVscLightServices(server: IChannelServer<unknown>): IDisp
 	server.registerChannel(LOCAL_FILE_SYSTEM_CHANNEL_NAME, channel);
 	console.info('[vsc-light:ipc] registered channel localFilesystem');
 	disposables.add(registerManagedSettings(server, fileService, logService));
+	disposables.add(registerWindowServices(server, host));
 	return disposables;
 }

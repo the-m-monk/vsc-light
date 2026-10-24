@@ -2,6 +2,7 @@
 
 mod bridge;
 mod diagnostics;
+mod window;
 
 use std::path::PathBuf;
 

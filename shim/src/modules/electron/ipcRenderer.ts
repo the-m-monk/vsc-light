@@ -30,6 +30,29 @@ export function decodeIpcTransportValue(value: unknown): unknown {
 
 const listeners = new Map<string, Set<Listener>>();
 const onceListeners = new Map<Listener, Map<string, Listener>>();
+const lifecycleReplies = new Map<string, () => void>();
+let nextLifecycleId = 1;
+
+/** Use the desktop lifecycle's veto and shutdown participants before a folder load. */
+export function workbenchUnload(phase: "before" | "will"): Promise<boolean> {
+  const channel = phase === "before" ? "vscode:onBeforeUnload" : "vscode:onWillUnload";
+  if (!listeners.get(channel)?.size) {
+    return Promise.reject(new Error("Workbench lifecycle is not ready for folder opening"));
+  }
+  return new Promise(resolve => {
+    const id = nextLifecycleId++;
+    const okChannel = `vscode:vscLightUnloadOk${id}`;
+    const cancelChannel = `vscode:vscLightUnloadCancel${id}`;
+    const finish = (allowed: boolean) => {
+      lifecycleReplies.delete(okChannel);
+      lifecycleReplies.delete(cancelChannel);
+      resolve(allowed);
+    };
+    lifecycleReplies.set(okChannel, () => finish(true));
+    lifecycleReplies.set(cancelChannel, () => finish(false));
+    dispatch(channel, { okChannel, cancelChannel, replyChannel: okChannel, reason: 4 });
+  });
+}
 const nativeWindow = window as Window & { webkit?: WebKitBridge };
 
 const BINARY_TAG = "__vscLightBinary";
@@ -162,6 +185,11 @@ function dispatch(channel: string, ...args: unknown[]): void {
 
 const ipcRenderer: IpcRendererShim = {
   send(channel: string, ...args: unknown[]): void {
+    const lifecycleReply = lifecycleReplies.get(channel);
+    if (lifecycleReply) {
+      lifecycleReply();
+      return;
+    }
     if (channel === "vscode:hello") {
       console.info("renderer -> host vscode:hello");
     } else if (channel === "vscode:message") {
@@ -195,7 +223,8 @@ const ipcRenderer: IpcRendererShim = {
           }
           return response.json() as Promise<Record<string, unknown>>;
         }),
-      ]).then(([messages, product]) => ({
+        ipcRenderer.invoke("vscLight:host", { id: 0, method: "window.getState", args: {} }) as Promise<{ folder: string | null; folderId: string | null; homeDir: string }>,
+      ]).then(([messages, product, state]) => ({
           profiles: (() => {
             const uri = (path: string) => ({
               scheme: "file",
@@ -229,10 +258,14 @@ const ipcRenderer: IpcRendererShim = {
             };
           })(),
           windowId: 1,
+          workspace: state.folder ? {
+            id: `vsc-light-folder-${state.folderId}`,
+            uri: { scheme: "file", authority: "", path: state.folder, query: "", fragment: "" },
+          } : undefined,
           appRoot: "/",
           userEnv: {},
           product,
-          homeDir: "/tmp",
+          homeDir: state.homeDir,
           tmpDir: "/tmp",
           userDataDir: "/tmp/vsc-light-user-data",
           backupPath: "/tmp/vsc-light-user-data/Backups",
@@ -263,7 +296,7 @@ const ipcRenderer: IpcRendererShim = {
       return Promise.resolve(bridge.postMessage({ id: request.id, method: request.method, args: encodeIpcValue(request.args) }))
         .then((raw) => {
           const response = decodeIpcValue(raw) as { id?: number; ok?: boolean; value?: unknown; error?: { message?: string; code?: string; osCode?: number } };
-          if (response?.id !== request.id) throw new Error(`Host RPC reply ID mismatch for ${request.method}`);
+          if (response?.id !== request.id) throw new Error(`Host RPC reply ID mismatch for ${request.method}: expected ${request.id}, received ${response?.id}`);
           if (!response.ok) throw Object.assign(new Error(response.error?.message ?? "Host RPC failed"), response.error);
           return response.value;
         });

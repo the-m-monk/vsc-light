@@ -10,13 +10,15 @@ pub(super) fn connect(manager: &UserContentManager, webview: &WebView) {
     manager.register_script_message_handler_with_reply("vscLightInvoke", None);
 
     let webview = webview.clone();
+    let invoke_webview = webview.clone();
+    let window_state = super::window::WindowState::default();
     manager.connect_script_message_received(Some("vscLightSend"), move |_, message| {
         relay(&webview, message);
     });
     manager.connect_script_message_with_reply_received(
         Some("vscLightInvoke"),
-        |_, message, reply| {
-            invoke(message, reply);
+        move |_, message, reply| {
+            invoke(message, reply, &invoke_webview, &window_state);
             true
         },
     );
@@ -38,11 +40,19 @@ fn relay(webview: &WebView, message: &Value) {
     webview.evaluate_javascript(&script, None, None, None::<&gio::Cancellable>, |_| {});
 }
 
-fn invoke(message: &Value, reply: &ScriptMessageReply) {
+fn invoke(
+    message: &Value,
+    reply: &ScriptMessageReply,
+    webview: &WebView,
+    window_state: &super::window::WindowState,
+) {
     let request = message
         .to_json(0)
         .and_then(|json| serde_json::from_str(&json).ok())
         .unwrap_or_default();
+    if window_state.handle(&request, message, reply, webview) {
+        return;
+    }
     let response = host::handle_request(&request);
 
     let Some(context) = message.context() else {
