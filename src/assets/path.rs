@@ -35,6 +35,10 @@ pub(super) fn resolve(project_dir: &Path, request_path: &str, scheme: Scheme) ->
                 .join(path),
             _ => bundle_root.join("__not_found__"),
         },
+        // Electron's unpacked ASAR paths refer to ordinary node_modules in this build.
+        Scheme::File | Scheme::App if path.starts_with("node_modules.asar.unpacked") => project_dir
+            .join("build/vscode/node_modules")
+            .join(path.strip_prefix("node_modules.asar.unpacked").unwrap()),
         // xterm and its addons are loaded as browser scripts outside the compiled out/ tree.
         Scheme::File | Scheme::App if path.starts_with("node_modules") => {
             project_dir.join("build/vscode").join(path)
@@ -48,5 +52,26 @@ pub(super) fn resolve(project_dir: &Path, request_path: &str, scheme: Scheme) ->
         }
         Scheme::App if path.starts_with("shim") => project_dir.join(path),
         Scheme::App => bundle_root.join(path),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn unpacked_asar_resources_resolve_to_node_modules() {
+        let root = Path::new("/project");
+        let expected = root.join("build/vscode/node_modules/vscode-oniguruma/release/onig.wasm");
+        for scheme in [Scheme::File, Scheme::App] {
+            assert_eq!(
+                resolve(
+                    root,
+                    "/node_modules.asar.unpacked/vscode-oniguruma/release/onig.wasm",
+                    scheme
+                ),
+                expected
+            );
+        }
     }
 }
