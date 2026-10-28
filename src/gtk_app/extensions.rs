@@ -33,6 +33,7 @@ pub(super) fn paths() -> serde_json::Value {
     }
     json!({ "root": root, "profile": profile, "cache": cache,
         "targetPlatform": if std::env::consts::ARCH == "aarch64" { "linux-arm64" } else { "linux-x64" },
+        "appRoot": PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("build/vscode"),
         "builtin": PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("build/vscode/extensions") })
 }
 

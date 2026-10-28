@@ -1,0 +1,51 @@
+diff --git a/src/vs/workbench/services/extensions/electron-browser/localProcessExtensionHost.ts b/src/vs/workbench/services/extensions/electron-browser/localProcessExtensionHost.ts
+index 4f9b5871a89..15043e00389 100644
+--- a/src/vs/workbench/services/extensions/electron-browser/localProcessExtensionHost.ts
++++ b/src/vs/workbench/services/extensions/electron-browser/localProcessExtensionHost.ts
+@@ -19,6 +19,7 @@ import { BufferedEmitter } from '../../../../base/parts/ipc/common/ipc.net.js';
+ import { acquirePort } from '../../../../base/parts/ipc/electron-browser/ipc.mp.js';
+ import * as nls from '../../../../nls.js';
+ import { IExtensionHostDebugService } from '../../../../platform/debug/common/extensionHostDebug.js';
++import { startNativeExtensionHost } from '../../../../platform/extensions/vsc-light/extensionHost.js';
+ import { extensionHostGraceTimeMs, IExtensionHostProcessOptions, IExtensionHostStarter } from '../../../../platform/extensions/common/extensionHostStarter.js';
+ import { ILabelService } from '../../../../platform/label/common/label.js';
+ import { ILogService, ILoggerService } from '../../../../platform/log/common/log.js';
+@@ -52,6 +53,8 @@ export class ExtensionHostProcess {
+ 
+ 	private readonly _id: string;
+ 
++	public get id(): string { return this._id; }
++
+ 	public get onStdout(): Event<string> {
+ 		return this._extensionHostStarter.onDynamicStdout(this._id);
+ 	}
+@@ -411,6 +414,14 @@ export class NativeLocalProcessExtensionHost extends Disposable implements IExte
+ 
+ 	private _establishProtocol(extensionHostProcess: ExtensionHostProcess, opts: IExtensionHostProcessOptions): Promise<IMessagePassingProtocol> {
+ 
++		if ((globalThis as typeof globalThis & { __vscLightHost?: object }).__vscLightHost) {
++			return startNativeExtensionHost(extensionHostProcess.id, opts).then(({ pid, protocol }) => {
++				this.pid = pid;
++				this._logService.info(`Started native Node extension host with pid ${pid}.`);
++				return protocol;
++			});
++		}
++
+ 		writeExtHostConnection(new MessagePortExtHostConnection(), opts.env);
+ 
+ 		// Get ready to acquire the message port from the shared process worker
+diff --git a/src/vs/workbench/electron-browser/window.ts b/src/vs/workbench/electron-browser/window.ts
+--- a/src/vs/workbench/electron-browser/window.ts
++++ b/src/vs/workbench/electron-browser/window.ts
+@@ -745,8 +745,10 @@
+ 				installLocationUri = dirname(dirname(URI.file(this.nativeEnvironmentService.appRoot)));
+ 			}
+ 
++			// VSC-Light's appRoot is a source checkout without an installation updater.
++			const isVscLight = !!(globalThis as typeof globalThis & { __vscLightHost?: object }).__vscLightHost;
+ 			for (const folder of this.contextService.getWorkspace().folders) {
+-				if (this.uriIdentityService.extUri.isEqualOrParent(folder.uri, installLocationUri)) {
++				if (!isVscLight && this.uriIdentityService.extUri.isEqualOrParent(folder.uri, installLocationUri)) {
+ 					this.bannerService.show({
+ 						id: 'appRootWarning.banner',
+ 						message: localize('appRootWarning.banner', "Files you store within the installation folder ('{0}') may be OVERWRITTEN or DELETED IRREVERSIBLY without warning at update time.", this.labelService.getUriLabel(installLocationUri)),

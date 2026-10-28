@@ -21,7 +21,18 @@ pub(super) fn resolve(project_dir: &Path, request_path: &str, scheme: Scheme) ->
             }
         }
     }
-    let path = Path::new(request_path)
+    // FileAccess uses the real appRoot in browser URLs as well as in Node init data.
+    // Map its absolute bundle paths onto the same virtual layout as /out/ URLs.
+    let request_path = Path::new(request_path);
+    let bundle_dir = project_dir.join("build/vscode");
+    let relative_path = if matches!(scheme, Scheme::File) {
+        request_path
+            .strip_prefix(&bundle_dir)
+            .unwrap_or(request_path)
+    } else {
+        request_path
+    };
+    let path = relative_path
         .components()
         .filter(|part| matches!(part, Component::Normal(_)))
         .collect::<PathBuf>();
@@ -29,7 +40,7 @@ pub(super) fn resolve(project_dir: &Path, request_path: &str, scheme: Scheme) ->
 
     match scheme {
         // Keep each hashed webview origin isolated and expose only its bootstrap files.
-        Scheme::Webview => match request_path {
+        Scheme::Webview => match request_path.to_str().unwrap_or_default() {
             "/index.html" | "/fake.html" | "/service-worker.js" => bundle_root
                 .join("vs/workbench/contrib/webview/browser/pre")
                 .join(path),
@@ -73,5 +84,27 @@ mod tests {
                 expected
             );
         }
+    }
+
+    #[test]
+    fn absolute_app_root_resources_use_the_virtual_bundle_layout() {
+        let root = Path::new("/project");
+        assert_eq!(
+            resolve(
+                root,
+                "/project/build/vscode/out/vs/workbench/workbench.desktop.main.js",
+                Scheme::File
+            ),
+            root.join("build/vscode/out-vscode/vs/workbench/workbench.desktop.main.js")
+        );
+        assert_eq!(
+            resolve(
+                root,
+                "/project/build/vscode/node_modules.asar.unpacked/vscode-oniguruma/release/onig.wasm",
+                Scheme::File
+            ),
+            root.join("build/vscode/node_modules/vscode-oniguruma/release/onig.wasm")
+        );
+        assert!(resolve(root, "/outside/secrets.json", Scheme::File).ends_with("__not_found__"));
     }
 }

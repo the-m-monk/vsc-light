@@ -22,6 +22,7 @@ const MARKETPLACE_VERIFICATION_URI: &str = "vsc-light://app/shim/index.html?vsc-
 pub fn run() {
     let app = Application::builder()
         .application_id(APPLICATION_ID)
+        .flags(gtk4::gio::ApplicationFlags::NON_UNIQUE)
         .build();
     app.connect_activate(activate);
     app.run();

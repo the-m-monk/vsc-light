@@ -22,3 +22,11 @@ pub fn drain_terminal_events() -> Vec<Value> {
 pub fn shutdown_terminals() {
     services::terminal::shutdown_all();
 }
+
+pub fn drain_extension_host_events() -> Vec<Value> {
+    services::extension_host::drain_events()
+}
+
+pub fn shutdown_extension_hosts() {
+    services::extension_host::shutdown_all();
+}

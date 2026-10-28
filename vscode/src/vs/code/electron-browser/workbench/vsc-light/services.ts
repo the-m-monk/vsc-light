@@ -20,6 +20,8 @@ import { registerWindowServices } from './windows.js';
 import { registerStorageServices } from './storage.js';
 import { registerTerminalServices } from './terminal.js';
 import { registerExtensionServices } from './extensions.js';
+import { registerExtensionHostServices } from '../../../../platform/extensions/vsc-light/extensionHost.js';
+import { registerLoggingServices } from './logging.js';
 
 /** Supplies local URIs and watcher policy to the unchanged upstream disk channel. */
 class HostDiskFileSystemProviderChannel extends AbstractDiskFileSystemProviderChannel<unknown> {
@@ -43,6 +45,7 @@ export function registerVscLightServices(server: IChannelServer<unknown>): IDisp
 	const fileService = disposables.add(new FileService(logService));
 	const provider = disposables.add(new HostFileSystemProvider(host));
 	disposables.add(fileService.registerProvider(Schemas.file, provider));
+	disposables.add(registerLoggingServices(server, fileService));
 	const channel = disposables.add(new HostDiskFileSystemProviderChannel(provider, logService));
 	server.registerChannel(LOCAL_FILE_SYSTEM_CHANNEL_NAME, channel);
 	console.info('[vsc-light:ipc] registered channel localFilesystem');
@@ -51,5 +54,6 @@ export function registerVscLightServices(server: IChannelServer<unknown>): IDisp
 	disposables.add(registerStorageServices(server, host));
 	disposables.add(registerTerminalServices(server, host));
 	disposables.add(registerExtensionServices(server, host));
+	disposables.add(registerExtensionHostServices(server, host));
 	return disposables;
 }

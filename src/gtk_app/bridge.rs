@@ -13,6 +13,7 @@ pub(super) fn connect(manager: &UserContentManager, webview: &WebView) {
     let weak_webview = webview.downgrade();
     gtk4::glib::timeout_add_local(std::time::Duration::from_millis(20), move || {
         let Some(webview) = weak_webview.upgrade() else {
+            host::shutdown_extension_hosts();
             return gtk4::glib::ControlFlow::Break;
         };
         let events = host::drain_terminal_events();
@@ -23,11 +24,20 @@ pub(super) fn connect(manager: &UserContentManager, webview: &WebView) {
             );
             webview.evaluate_javascript(&script, None, None, None::<&gio::Cancellable>, |_| {});
         }
+        let events = host::drain_extension_host_events();
+        if !events.is_empty() {
+            let script = format!(
+                "globalThis.__vscLightExtensionHostEvents?.({});",
+                serde_json::json!(events)
+            );
+            webview.evaluate_javascript(&script, None, None, None::<&gio::Cancellable>, |_| {});
+        }
         gtk4::glib::ControlFlow::Continue
     });
     webview.connect_load_changed(|_, event| {
         if event == webkit6::LoadEvent::Started {
             host::shutdown_terminals();
+            host::shutdown_extension_hosts();
         }
     });
 

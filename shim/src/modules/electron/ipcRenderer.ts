@@ -228,7 +228,7 @@ const ipcRenderer: IpcRendererShim = {
           }
           return response.json() as Promise<Record<string, unknown>>;
         }),
-        ipcRenderer.invoke("vscLight:host", { id: 0, method: "window.getState", args: {} }) as Promise<{ folder: string | null; folderId: string | null; homeDir: string; extensionPaths?: { root: string; builtin: string; profile: string; cache: string } }>,
+        ipcRenderer.invoke("vscLight:host", { id: 0, method: "window.getState", args: {} }) as Promise<{ folder: string | null; folderId: string | null; homeDir: string; userDataDir?: string; extensionPaths?: { root: string; builtin: string; profile: string; cache: string; appRoot?: string } }>,
       ]).then(([messages, product, state]) => ({
           profiles: (() => {
             const uri = (path: string) => ({
@@ -238,7 +238,7 @@ const ipcRenderer: IpcRendererShim = {
               query: "",
               fragment: "",
             });
-            const location = "/tmp/vsc-light-user-data/User/profiles/default";
+            const location = `${state.userDataDir ?? "/tmp/vsc-light-user-data"}/User/profiles/default`;
             const profile = {
               id: "default",
               name: "Default",
@@ -259,7 +259,7 @@ const ipcRenderer: IpcRendererShim = {
             return {
               all: [profile],
               profile,
-              home: uri("/tmp/vsc-light-user-data/User/profiles"),
+              home: uri(`${state.userDataDir ?? "/tmp/vsc-light-user-data"}/User/profiles`),
             };
           })(),
           windowId: 1,
@@ -267,14 +267,14 @@ const ipcRenderer: IpcRendererShim = {
             id: `vsc-light-folder-${state.folderId}`,
             uri: { scheme: "file", authority: "", path: state.folder, query: "", fragment: "" },
           } : undefined,
-          appRoot: "/",
+          appRoot: state.extensionPaths?.appRoot ?? "/",
           userEnv: {},
           product,
           homeDir: state.homeDir,
           tmpDir: "/tmp",
-          userDataDir: "/tmp/vsc-light-user-data",
-          backupPath: "/tmp/vsc-light-user-data/Backups",
-          logsPath: "/tmp/vsc-light-user-data/logs",
+          userDataDir: state.userDataDir ?? "/tmp/vsc-light-user-data",
+          backupPath: `${state.userDataDir ?? "/tmp/vsc-light-user-data"}/Backups`,
+          logsPath: `${state.userDataDir ?? "/tmp/vsc-light-user-data"}/logs`,
           execPath: "vsc-light",
           "extensions-dir": state.extensionPaths?.root,
           "builtin-extensions-dir": state.extensionPaths?.builtin,

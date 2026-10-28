@@ -120,6 +120,7 @@ impl WindowState {
                     json!({ "id": request["id"], "ok": true,
                     "value": { "folder": *self.folder.borrow(), "folderId": folder_id,
                     "homeDir": std::env::var("HOME").unwrap_or_else(|_| "/tmp".into()),
+                    "userDataDir": std::env::var("VSC_LIGHT_USER_DATA_DIR").unwrap_or_else(|_| "/tmp/vsc-light-user-data".into()),
                     "extensionPaths": super::extensions::paths() } }),
                 );
             }
